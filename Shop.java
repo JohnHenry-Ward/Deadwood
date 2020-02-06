@@ -1,7 +1,7 @@
 public class Shop {
 
 
-    public static void actingSuccess(Player player, string rollType){
+    public static void actingSuccess(Player player, String rollType){
 
     }
 
