@@ -6,5 +6,6 @@ public class Player {
     Role currentRole;
     Room currentRoom;
     int practiceChips;
+    String roleType;
 }
 
