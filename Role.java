@@ -31,6 +31,3 @@ public class Role {
     }
 }
 
-    © 2020 GitHub, Inc.
-    Terms
-
