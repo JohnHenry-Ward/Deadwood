@@ -8,6 +8,9 @@ public class Player{
     int practiceChips;
     String roleType;
 
+    public void Player(String name){
+        this.name = name;
+    }
 
     public String getName(Player player){
         return "a";

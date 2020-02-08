@@ -1,9 +1,12 @@
+import java.util.*;
+
 public class Deadwood{
-    Player currentPlayer;
-    int currentDay;
-    int maxDays;
-    Player[] playerOrder;
-    int scenesRemaining;
+    static Player currentPlayer;
+    static int currentDay;
+    static int maxDays;
+    static Player[] playerOrder;
+    static int scenesRemaining;
+    static int playerAmount;
 
     /* The first thing that happens at the beginning of each day (and the beginning of the game)
      * Sets the Players in the Trailer
@@ -67,14 +70,65 @@ public class Deadwood{
      * 6 Players:   Players start with 4 credits
      * 7-8 Players: Players start at rank 2
      */
-    public static void specialRules(int playerCount){
-
+    public static void specialRules(){
+        if(playerAmount <= 3){
+            maxDays = 3;
+        }
+        else if(playerAmount == 4){
+            maxDays = 4;
+        }
+        else if(playerAmount == 5){
+            //players start with 2 credits
+            maxDays = 4;
+        }
+        else if(playerAmount == 6){
+            //players start with 4 credits
+            maxDays = 4;
+        }
+        else{
+            //players start with rank 2
+            maxDays = 4;
+        }
     }
     
     public static void main(String args[]){
-        //setup board
-        //play game
-        //end game
+
+        System.out.println("Welcome to Deadwood!");
+
+        while(playerAmount < 2 || playerAmount > 8){
+            System.out.print("How many players are playing? ");
+            Scanner in = new Scanner(System.in);
+            playerAmount = in.nextInt();
+
+            if(playerAmount < 2 || playerAmount > 8){
+                System.out.println("Whoops! Please input a number of players between 2 and 8!");
+            }
+        }
+
+        // int i = 1;
+        // String[] players;
+        // players = new String[playerAmount];
+        // for(int x = 0; x < playerAmount; x++){
+        //     players[x] = "P" + i;
+        //     i++;
+        // }
+
+        int e = 0;
+        // Player players[0];
+        playerOrder = new Player[playerAmount];
+        while(e < playerAmount){
+            //create each player
+            System.out.print("Player " + e + ", what is your name?");
+            Scanner in = new Scanner(System.in);
+            String name = in.nextLine();
+            //playerOrder[e] = new Player(name);
+        }
+
+        //put players in an array (linked list?) to keep track of who is next
+
+
+        specialRules();
+
     
     }
 
