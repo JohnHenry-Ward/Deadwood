@@ -1,4 +1,4 @@
-public class Player {
+public class Player{
     String name;
     int dollars;
     int credits;
