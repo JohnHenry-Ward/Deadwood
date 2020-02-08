@@ -1,8 +1,8 @@
 public class Controller{
-    String currentPlayer;
+    Player currentPlayer;
     int currentDay;
     int maxDays;
-    String[] playerOrder;
+    Player[] playerOrder;
     int scenesRemaining;
 
     /* The first thing that happens at the beginning of each day (and the beginning of the game)
