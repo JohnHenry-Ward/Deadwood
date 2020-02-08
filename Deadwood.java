@@ -1,4 +1,4 @@
-public class Controller{
+public class Deadwood{
     Player currentPlayer;
     int currentDay;
     int maxDays;
