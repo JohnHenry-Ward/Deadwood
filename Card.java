@@ -37,4 +37,5 @@ public class Card {
     public void setRoles(Role a){
         //Overloaded method of upper ones, lets you set just 1 role, used in initialization
     }
+    
 }
