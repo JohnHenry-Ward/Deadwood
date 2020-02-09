@@ -95,6 +95,7 @@ public class Deadwood{
 
         System.out.println("Welcome to Deadwood!");
 
+        /* Player amount is set by user */
         while(playerAmount < 2 || playerAmount > 8){
             System.out.print("How many players are playing? ");
             Scanner in = new Scanner(System.in);
@@ -105,27 +106,24 @@ public class Deadwood{
             }
         }
 
-        // int i = 1;
-        // String[] players;
-        // players = new String[playerAmount];
-        // for(int x = 0; x < playerAmount; x++){
-        //     players[x] = "P" + i;
-        //     i++;
-        // }
-
+        /* Player objects are created, and playerOrder[] is created to keep track of who is next */
         int e = 0;
-        // Player players[0];
         playerOrder = new Player[playerAmount];
         while(e < playerAmount){
             //create each player
-            System.out.print("Player " + e + ", what is your name?");
+            System.out.print("Player " + e + ", what is your name? ");
             Scanner in = new Scanner(System.in);
             String name = in.nextLine();
-            //playerOrder[e] = new Player(name);
+            playerOrder[e] = new Player(name);
+            e++;
         }
 
-        //put players in an array (linked list?) to keep track of who is next
+        currentPlayer = playerOrder[0];
 
+        //just for testing
+        for(int x = 0; x < playerOrder.length; x++){
+            System.out.println(Player.getName(playerOrder[x]));
+        }
 
         specialRules();
 
