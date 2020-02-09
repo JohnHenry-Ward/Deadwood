@@ -8,12 +8,12 @@ public class Player{
     int practiceChips;
     String roleType;
 
-    public void Player(String name){
+    public Player(String name){
         this.name = name;
     }
 
-    public String getName(Player player){
-        return "a";
+    public static String getName(Player player){
+        return player.name;
         //return player.name;
     }
 
