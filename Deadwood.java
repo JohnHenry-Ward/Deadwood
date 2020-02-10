@@ -79,14 +79,23 @@ public class Deadwood{
         }
         else if(playerAmount == 5){
             //players start with 2 credits
+            for(int i = 0; i < playerAmount; i++){
+                Player.addCredits(playerOrder[i], 2);
+            }
             maxDays = 4;
         }
         else if(playerAmount == 6){
             //players start with 4 credits
+            for(int i = 0; i < playerAmount; i++){
+                Player.addCredits(playerOrder[i], 4);
+            }
             maxDays = 4;
         }
         else{
             //players start with rank 2
+            for(int i = 0; i < playerAmount; i++){
+                Player.setRank(playerOrder[i], 2);
+            }
             maxDays = 4;
         }
     }
@@ -115,17 +124,35 @@ public class Deadwood{
             Scanner in = new Scanner(System.in);
             String name = in.nextLine();
             playerOrder[e] = new Player(name);
+            //set Players rooms to be trailer
+            //Player.setCurrentRoom(playerOrder[x] = ???)
+            //maybe Room class and card class should have a player array
             e++;
         }
 
         currentPlayer = playerOrder[0];
 
+        specialRules();
+
+        //the game begins
+        //while(currentDay <= maxDays){
+            //if(shotCountersRemaining == 0){
+                //end day
+                //players go back to trailer
+                //currentDay++;
+            //}
+            //playerX goes
+        //}
+
         //just for testing
         for(int x = 0; x < playerOrder.length; x++){
-            System.out.println(Player.getName(playerOrder[x]));
+            System.out.println("=======");
+            System.out.println("Name: " + Player.getName(playerOrder[x]));
+            System.out.println("Rank: " + Player.getRank(playerOrder[x]));
+            System.out.println("Dollars: " + Player.getDollars(playerOrder[x]));
+            System.out.println("Credits: " + Player.getCredits(playerOrder[x]));
+            System.out.println("Score: " + Player.getScore(playerOrder[x]));
         }
-
-        specialRules();
 
     
     }
