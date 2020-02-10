@@ -17,61 +17,71 @@ public class Player{
         //return player.name;
     }
 
-    public int getDollars(Player player){
-        return -1;
+    public static int getDollars(Player player){
+        return player.dollars;
         //return player.dollars;
     }
 
-    public int getCredits(Player player){
-        return -1;
+    public static int getCredits(Player player){
+        return player.credits;
         //return player.credits;
     }
 
-    public int getRank(Player player){
-        return -1;
+    public static int getRank(Player player){
+        return player.rank;
         //return player.rank;
     }
 
-    public void getCurrentRole(Player player){
+    public static void getCurrentRole(Player player){
         //will return type Role
         //return player.currentRole;
     }
 
-    public void getCurrentRoom(Player player){
+    public static void getCurrentRoom(Player player){
         //will return type Room
         //return player.currentRole;
     }
 
-    public String getRoleType(Player player){
+    public static String getRoleType(Player player){
         return "a";
         //return player.roleType;
     }
 
-    public void setName(Player player, String name){
+    //this might not be necessary
+    public static int getScore(Player player){
+        return player.dollars + player.credits + (player.rank * 5);
+    }
+
+    public static void setName(Player player, String name){
         //set player.name = name;
+        player.name = name;
     }
 
-    public void addDollars(Player player, int dollars){
+    public static void addDollars(Player player, int dollars){
         //set player.dollars += dollars;
+        player.dollars += dollars;
     }
 
-    public void addCredits(Player player, int credits){
+    public static void addCredits(Player player, int credits){
         //set player.credits += player.credits;
+        player.credits += credits;
+
     }
 
-    public void setRank(Player player, int rank){
+    public static void setRank(Player player, int rank){
         //set player.rank = rank;
+        player.rank = rank;
     }
 
-    public void setCurrentRole(Player player, Role role){
+    public static void setCurrentRole(Player player, Role role){
         //set player.currentRole = role;
     }
 
-    public void setCurrentRoom(Player player, Room room){
+    public static void setCurrentRoom(Player player, Room room){
         //set player.currentRoom = room;
     }
 
-    public void setRoleType(Player player, String rollType){
+    public static void setRoleType(Player player, String rollType){
         //set player.roleType = rollType;
     }
 }
