@@ -4,6 +4,13 @@ public class Room {
     Role[] roles;
     String name;
 
+    public static Rooms(String name, int shotCounter, Role[] roles, Card card){
+        this.name = name;
+        this.shotCounter = shotCounter;
+        this.roles = roles;
+        this.card = card;
+    }
+
     public Card getCard(){
         //Returns the current card on the Room
         return card;
