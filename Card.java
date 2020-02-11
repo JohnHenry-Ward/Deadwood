@@ -3,6 +3,12 @@ public class Card {
     int budget;
     Role[] roles;
 
+    public static void Card(String name, int budget, Role[] roles){
+        this.name = name;
+        this.budget = budget;
+        this.roles = roles;
+    }
+
     public String getName(){
         //Gets name of card
         return name;
