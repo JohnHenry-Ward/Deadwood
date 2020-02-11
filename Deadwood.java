@@ -1,4 +1,5 @@
 import java.util.*;
+import java.lang.Math;
 
 public class Deadwood{
     static Player currentPlayer;
@@ -31,6 +32,11 @@ public class Deadwood{
      * Returns false otherwise
      */
     public static boolean takeARole(Role role){
+        //check for this.role to roles in player.currentRoom
+        //if role is in room and available
+            //player.role = role
+        //else
+            //illegal
         return false;
     }
 
@@ -50,17 +56,26 @@ public class Deadwood{
      * Returns true if succesfully moved
      * Returns false otherwise
      */
-    public static void movePlayer(Room room){
-
+    public static void movePlayer(Room newRoom){
+        //if room is adjacent to player.currentRoom
+            //player.room = newRoom
+        //else
+            //illegal move
     }
 
     /* Die is rolled when a player attempts to act (dieAmount = 1) OR
      * Die is rolled when a scene wraps (dieAmount = scene budget)
      * Returns an array of ints with each index representing a die roll
      */
-    public static int[] rollDie(int dieAmount){
-        int[] a = {-1};
-        return a;
+    public static int[] rollDie(int dieCount){
+        int[] dieArray = new int[dieCount];
+        for(int d = 0; d < dieCount; d++){
+            Random rr = new Random();
+            int roll = rr.nextInt(6) + 1;
+            dieArray[d] = roll;
+            System.out.println("Roll " + d + ": " + dieArray[d]);
+        }
+        return dieArray;
     }
 
     /* Method called before the game begins, and adds special rules depending on playerCount
@@ -105,43 +120,71 @@ public class Deadwood{
         System.out.println("Welcome to Deadwood!");
 
         /* Player amount is set by user */
+        Scanner p = new Scanner(System.in);
         while(playerAmount < 2 || playerAmount > 8){
             System.out.print("How many players are playing? ");
-            Scanner in = new Scanner(System.in);
-            playerAmount = in.nextInt();
+            playerAmount = p.nextInt();
 
             if(playerAmount < 2 || playerAmount > 8){
                 System.out.println("Whoops! Please input a number of players between 2 and 8!");
             }
-        }
+        }        
 
         /* Player objects are created, and playerOrder[] is created to keep track of who is next */
+
+        //MIGHT BE BETTER TO PUT THIS IN A LINKED LIST SO WE CAN LOOP BACK TO THE FRONT OF IT EASIER
         int e = 0;
         playerOrder = new Player[playerAmount];
+        Scanner n = new Scanner(System.in);
         while(e < playerAmount){
             //create each player
             System.out.print("Player " + e + ", what is your name? ");
-            Scanner in = new Scanner(System.in);
-            String name = in.nextLine();
-            playerOrder[e] = new Player(name);
+            String name = n.nextLine();
+            if(!(name.isEmpty())){
+                playerOrder[e] = new Player(name);
+                e++;
+            }
+            else{
+                System.out.println("Whoops! A name is required to play Deadwood!");
+            }
             //set Players rooms to be trailer
             //Player.setCurrentRoom(playerOrder[x] = ???)
             //maybe Room class and card class should have a player array
-            e++;
         }
+
+
 
         currentPlayer = playerOrder[0];
 
         specialRules();
 
+        //    !!!!!!!!!!!!!!!!!!!!!!!!! I THINK WE NEED A ROLES CLASS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         //the game begins
-        //while(currentDay <= maxDays){
+        //while(currentDay < maxDays){
             //if(shotCountersRemaining == 0){
                 //end day
                 //players go back to trailer
                 //currentDay++;
             //}
             //playerX goes
+            
+            //user can request certain info like...(maybe just one command that prints all currentPlayer info???)
+                //"who": print currentPlayer, dollars, credits, rank
+                //"where": print currentPlayer is in this room (acting in this role)
+                //"role": print currentPlayer is in this room (acting in this role). The budget is $x, there are X players in this room.
+
+            //playerX can either
+                //move then take a role OR (keyword: move [roomName])
+                //act OR (keyword: act, must have a role in an unwrapped room)
+                //rehearse OR (keyword: rehearse, must have a role in an unwrapped room)
+                //move then upgrade OR (keyword: upgrade, must be in casting office with sufficient funds)
+                //move then do nothing 
+            
+            //if on a role, must act OR rehearse, can't move
+            
+            //user inputs "end"
+            //playerX's turn is over, loop back to top and currentPlayer = playerOrder[X+1];
         //}
 
         //just for testing

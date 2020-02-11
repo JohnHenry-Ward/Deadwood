@@ -14,22 +14,18 @@ public class Player{
 
     public static String getName(Player player){
         return player.name;
-        //return player.name;
     }
 
     public static int getDollars(Player player){
         return player.dollars;
-        //return player.dollars;
     }
 
     public static int getCredits(Player player){
         return player.credits;
-        //return player.credits;
     }
 
     public static int getRank(Player player){
         return player.rank;
-        //return player.rank;
     }
 
     public static void getCurrentRole(Player player){
@@ -42,6 +38,7 @@ public class Player{
         //return player.currentRole;
     }
 
+    //might move this to a new Roles's Class
     public static String getRoleType(Player player){
         return "a";
         //return player.roleType;
@@ -53,23 +50,19 @@ public class Player{
     }
 
     public static void setName(Player player, String name){
-        //set player.name = name;
         player.name = name;
     }
 
     public static void addDollars(Player player, int dollars){
-        //set player.dollars += dollars;
         player.dollars += dollars;
     }
 
     public static void addCredits(Player player, int credits){
-        //set player.credits += player.credits;
         player.credits += credits;
 
     }
 
     public static void setRank(Player player, int rank){
-        //set player.rank = rank;
         player.rank = rank;
     }
 
@@ -81,6 +74,7 @@ public class Player{
         //set player.currentRoom = room;
     }
 
+    //might move this to a new Role's Class
     public static void setRoleType(Player player, String rollType){
         //set player.roleType = rollType;
     }
