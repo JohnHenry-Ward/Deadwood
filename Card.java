@@ -3,7 +3,7 @@ public class Card {
     int budget;
     Role[] roles;
 
-    public static void Card(String name, int budget, Role[] roles){
+    public void Card(String name, int budget, Role[] roles){
         this.name = name;
         this.budget = budget;
         this.roles = roles;

@@ -4,7 +4,7 @@ public class Room {
     Role[] roles;
     String name;
 
-    public static Rooms(String name, int shotCounter, Role[] roles, Card card){
+    public void Rooms(String name, int shotCounter, Role[] roles, Card card){
         this.name = name;
         this.shotCounter = shotCounter;
         this.roles = roles;
