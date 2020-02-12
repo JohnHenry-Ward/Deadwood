@@ -28,12 +28,14 @@ public class Player{
         return player.rank;
     }
 
-    public static void getCurrentRole(Player player){
+    public static Role getCurrentRole(Player player){
+        return player.currentRole;
         //will return type Role
         //return player.currentRole;
     }
 
-    public static void getCurrentRoom(Player player){
+    public static Room getCurrentRoom(Player player){
+        return player.currentRoom;
         //will return type Room
         //return player.currentRole;
     }

@@ -8,23 +8,67 @@ public class Deadwood{
     static Player[] playerOrder;
     static int scenesRemaining;
     static int playerAmount;
+    static Room[] rooms;
+    static Card[] cards;
+    static String[] colors = new String[]{"blue", "green", "red", "yellow", "cyan", "orange", "pink", "violet"}; //used for identifying players
+
+    /* Before the game begins, roles, cards, and room objects must be created
+     */
+    public static void firstDay(){
+        //room[0] = trailer
+        //room[1] = casting office
+        createRoles();
+        createCards();
+        createRooms();
+    }
 
     /* The first thing that happens at the beginning of each day (and the beginning of the game)
      * Sets the Players in the Trailer
      * Assigns 1 Card to each Room
-     * Resets sho counter for each Room
+     * Resets shot counter for each Room
      */
     public static void newDay(){
-        //set players to trailer
+        //set each players room to the trailers
+        // for(int x = 0; x < playerAmount; x++){
+        //     Player.setCurrentRoom(playerOrder[x], room[0]);
+        // }
+
         //assign cards to rooms
+        // for(int x = 0; x < 10; x++){
+            // Room.setCard(rooms[x], cards[x]);
+        // }
         //reset shot counters
+    }
+
+    public static void createRoles(){
+        //create all role objects? 137
+    }
+
+    public static void createCards(){
+        //create all card objects? 40
+    }
+
+    public static void createRooms(){
+         //create all room objects, 10 rooms + trailer + casting office
+        //maybe read in from a file?
+        // rooms = new Room[10];
+        // rooms[0] = new Room("MainStreet", 3, [role[x], role[y], role[z]], card);
+        // rooms[1] = new Room();
+        // rooms[2] = new Room();
+        // rooms[3] = new Room();
+        // rooms[4] = new Room();
+        // rooms[5] = new Room();
+        // rooms[6] = new Room();
+        // rooms[7] = new Room();
+        // rooms[8] = new Room();
+        // rooms[9] = new Room();
     }
 
     /* The final method that is called at the end of the game
      * Score is calculated by (dollars + credits + (rank*5))
      */
-    public static int calculateScore(){
-        return -1;
+    public static int calculateScore(Player player){
+        return Player.getDollars(player) + Player.getCredits(player) + (Player.getRank(player) * 5);
     }
 
     /* Assigns a Role to a Player
@@ -117,46 +161,22 @@ public class Deadwood{
     
     public static void main(String args[]){
 
-        System.out.println("Welcome to Deadwood!");
-
-        /* Player amount is set by user */
-        Scanner p = new Scanner(System.in);
-        while(playerAmount < 2 || playerAmount > 8){
-            System.out.print("How many players are playing? ");
-            playerAmount = p.nextInt();
-
-            if(playerAmount < 2 || playerAmount > 8){
-                System.out.println("Whoops! Please input a number of players between 2 and 8!");
-            }
-        }        
-
-        /* Player objects are created, and playerOrder[] is created to keep track of who is next */
-
-        //MIGHT BE BETTER TO PUT THIS IN A LINKED LIST SO WE CAN LOOP BACK TO THE FRONT OF IT EASIER
-        int e = 0;
+        playerAmount = Integer.parseInt(args[0]);
+        System.out.println("Welcome to Deadwood! You've selected a " + playerAmount + " player game!");
         playerOrder = new Player[playerAmount];
-        Scanner n = new Scanner(System.in);
+        int e = 0;
         while(e < playerAmount){
-            //create each player
-            System.out.print("Player " + e + ", what is your name? ");
-            String name = n.nextLine();
-            if(!(name.isEmpty())){
-                playerOrder[e] = new Player(name);
-                e++;
-            }
-            else{
-                System.out.println("Whoops! A name is required to play Deadwood!");
-            }
-            //set Players rooms to be trailer
-            //Player.setCurrentRoom(playerOrder[x] = ???)
-            //maybe Room class and card class should have a player array
+            playerOrder[e] = new Player(colors[e]);
+            e++;
         }
-
-
 
         currentPlayer = playerOrder[0];
 
         specialRules();
+
+        firstDay();
+
+        newDay();
 
         //    !!!!!!!!!!!!!!!!!!!!!!!!! I THINK WE NEED A ROLES CLASS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -166,8 +186,47 @@ public class Deadwood{
                 //end day
                 //players go back to trailer
                 //currentDay++;
+                //newDay()
             //}
             //playerX goes
+            System.out.println("Player: " + Player.getName(playerOrder[0]) + ", you're up! ");
+            Scanner in = new Scanner(System.in);
+            String playerInput = in.nextLine();
+            while(!(playerInput.equals("end"))){
+
+                if(playerInput.equals("who")){
+                    System.out.println("Who: " + Player.getName(playerOrder[0]));
+                }
+                else if(playerInput.equals("where")){
+                    System.out.println("Where: " + Player.getCurrentRoom(playerOrder[0]));
+                }
+                else if(playerInput.equals("role")){
+                    System.out.println("Role: " + Player.getCurrentRole(playerOrder[0]));
+                }
+                else if(playerInput.equals("act")){
+                    //act
+                    //end move
+                }
+                else if(playerInput.equals("rehearse")){
+                    //+1 practice chip
+                    //end move
+                }
+                else if(playerInput.contains("move")){
+                    String[] moveLocation = playerInput.split(" ");
+                    String location = moveLocation[1];
+                    //if legal move
+                        //move player
+                    //if illegal move
+                        //notify player move is illegal
+                }
+                else if(playerInput.equals("upgrade")){
+                    System.out.println(Player.getName(playerOrder[0]) + " is rank " + Player.getRank(playerOrder[0]));
+                }
+
+                playerInput = in.nextLine();
+
+            }
+
             
             //user can request certain info like...(maybe just one command that prints all currentPlayer info???)
                 //"who": print currentPlayer, dollars, credits, rank
@@ -179,7 +238,8 @@ public class Deadwood{
                 //act OR (keyword: act, must have a role in an unwrapped room)
                 //rehearse OR (keyword: rehearse, must have a role in an unwrapped room)
                 //move then upgrade OR (keyword: upgrade, must be in casting office with sufficient funds)
-                //move then do nothing 
+                //move then do nothing
+                //if first player in a room, reveal card
             
             //if on a role, must act OR rehearse, can't move
             
