@@ -18,7 +18,7 @@ public class Deadwood{
     public static void initalizeBoard(){
         //createRoles();
         //createCards();
-        createRooms();
+        //createRooms();
     }
 
     /* The first thing that happens at the beginning of each day (and the beginning of the game)
@@ -50,7 +50,7 @@ public class Deadwood{
         //create all card objects? 40
         //Card cards[x] = new Card() //creates 1 card
     }
-
+    /*
     public static void createRooms(){
          //create all room objects, 10 rooms + trailer + casting office
         //maybe read in from a file?
@@ -114,6 +114,7 @@ public class Deadwood{
         System.out.println(Room.getName(rooms[1]));
 
     }
+    */
 
     /* The final method that is called at the end of the game
      * Score is calculated by (dollars + credits + (rank*5))
@@ -222,16 +223,19 @@ public class Deadwood{
         int e = 0;
         while(e < playerAmount){
             playerOrder[e] = new Player(colors[e]);
+            System.out.println(Player.getName(playerOrder[e]));
             e++;
         }
+        System.out.println(Player.getName(playerOrder[0]));
+        System.out.println(Player.getName(playerOrder[1]));
 
-        currentPlayer = playerOrder[0];
+        //currentPlayer = playerOrder[0];
 
-        specialRules();
+        //specialRules();
 
-        initalizeBoard();
+        //initalizeBoard();
 
-        newDay();
+        //newDay();
 
         //the game begins
         //while(currentDay < maxDays){
@@ -242,6 +246,8 @@ public class Deadwood{
                 //newDay()
             //}
             //playerX goes
+            
+            /*
             System.out.println("Player: " + Player.getName(playerOrder[0]) + ", you're up! ");
             Scanner in = new Scanner(System.in);
             String playerInput = in.nextLine();
@@ -276,14 +282,14 @@ public class Deadwood{
                 /*else if(playerInput.equals("upgrade")){
                     System.out.println(Player.getName(playerOrder[0]) + " is rank " + Player.getRank(playerOrder[0]));
                 }*/
-
+                /*
                     System.out.println("Here are the ranks and their prices");
                     System.out.println("Rank | Dollars | Credits");
                     System.out.println("  2  |    4    |    5   ");
                 }
+                */
 
-
-                playerInput = in.nextLine();
+                //playerInput = in.nextLine();
 
             
 
