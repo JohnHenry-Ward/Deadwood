@@ -1,12 +1,12 @@
 public class Player{
-    String name;
-    int dollars;
-    int credits;
-    int rank;
-    Role currentRole;
-    Room currentRoom;
-    int practiceChips;
-    String roleType;
+    static String name;
+    static int dollars;
+    static int credits;
+    static int rank;
+    static Role currentRole;
+    static Room currentRoom;
+    static int practiceChips;
+    static String roleType;
 
     public Player(String name){
         this.name = name;
@@ -76,7 +76,7 @@ public class Player{
     }
 
     public static void setCurrentRoom(Player player, Room room){
-        set player.currentRoom = room;
+        player.currentRoom = room;
     }
 
     //might move this to a new Role's Class

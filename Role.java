@@ -1,15 +1,15 @@
 public class Role {
-    String name;
-    int rank;
-    Player currentPlayer = null;
+    static String name;
+    static int rank;
+    static Player currentPlayer = null;
 
     public String getName(Role role){
         return role.name;
     }
 
     Role(String name, int rank){
-        this.name = name;
-        this.rank = rank;
+        name = name;
+        rank = rank;
     }
 
     public int getRank(Role role){
@@ -18,11 +18,14 @@ public class Role {
     }
 
 
-    public Player getPlayer(){
+    public void getPlayer(){
+        
+    
+    }
 
     public void setRank(Role role, int rank){
         //Sets the rank(int rank) for the role, used in initialization
-        this.role.rank = rank;
+        role.rank = rank;
     }
 
     public Player getPlayer(Role role){
@@ -33,9 +36,9 @@ public class Role {
 
     public void setPlayer(Player player, Role role){
         //Links a player(Player p) to this current role
-        if(currentPlayer == null)
-        currentPlayer = p;
-        this.role.currentPlayer = player;
+        // if(currentPlayer == null)
+        // currentPlayer = p;
+        role.currentPlayer = player;
 
     }
 }

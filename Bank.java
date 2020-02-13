@@ -19,6 +19,7 @@ public class Bank{
      * If there are 0 shot counters remaining after an actor has acted, then the scene must wrap
      */
     public static void actingSuccess(Player player, String rollType){
+        /*
         Room currentRoom = Player.getCurrentRoom(player);
         
         if(rollType == "onCard"){
@@ -33,12 +34,12 @@ public class Bank{
 
         if(Room.getShots(currentRoom) == 0){
             Card currentCard = Room.getCard(currentRoom);
-            Players[] players = Card.getPlayers(currentCard);
+            Player[] players = Card.getPlayers(currentCard);
 
             if(players.length != 0){
                 sceneWrapBonus(players, currentRoom);
             }
-        }
+        }*/
     }
 
     /* Method only called when an off card actor fails to act
@@ -55,7 +56,8 @@ public class Bank{
      * The top role gets the highest die amount, the second role gets the second die amount, and so on
      * Off Card roles receive a dollar bonus based on the rank of the role they are working on
      */
-    public static void sceneWrapBonus(Players[] players, Room room, Card card){
+    public static void sceneWrapBonus(Player[] players, Room room, Card card){
+        /*
         int budget = Card.getBudget(card);
         int[] dieRolls = Deadwood.rollDie(budget);
 
@@ -70,11 +72,11 @@ public class Bank{
         Player offCardPlayers[] = Room.getPlayers(room);
 
         for(int x = 0; x < offCardPlayers.length; x++){
-            int playerRole = Player.getRole(offCardPlayers[x]);
+            Role playerRole = Player.getRole(offCardPlayers[x]);
             int bonus = Role.getRank(playerRole);
             Player.addDollars(offCardPlayers[x], bonus);
         }
-
+    */
     }
 
     /* Method called when a Player rehearses, rather than acts

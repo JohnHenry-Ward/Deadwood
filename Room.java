@@ -1,9 +1,9 @@
 public class Room {
-    Card card;
-    int shotCounter;
-    Role[] roles;
-    String name;
-    Players[] players; //this will be players in the room only, not the card
+    static Card card;
+    static int shotCounter;
+    static Role[] roles;
+    static String name;
+    static Player[] players; //this will be players in the room only, not the card
 
     Room(String name, int shotCounter, Card card){
         this.name = name;
@@ -11,22 +11,23 @@ public class Room {
         this.card = card;
     }
 
-    public Card getCard(){
+    public Card getCard(Room room){
         //Returns the current card on the Room
-        return card;
+        return room.card;
     }
 
     public void setCard(Card c){
         //Sets the card(card c) on the current room, used in resetting the board and initialization
     }
 
-    public int getShots(){
+    public int getShots(Room room){
         //Returns how many shots are currently in the shot counter
-        return shotCounter;
+        return room.shotCounter;
     }
 
-    public void removeShot(){
+    public void removeShot(Room room){
         //Reduces shot counter by 1, used after succesful act occurs
+        room.shotCounter =- 1;
     }
 
     public Role[] getRoles(){
@@ -54,9 +55,9 @@ public class Room {
         roles = new Role[] {a};
     }
     
-    public String getName(){
+    public static String getName(Room room){
         //Returns name of the current room
-        return name;
+        return room.name;
     }
 
     public void setName(String s){

@@ -42,13 +42,13 @@ public class Deadwood{
     public static void createRoles(){
         //create all role objects? 137
         //created just roles on board, not cards?
-        Role roles[x] = new Role(); //creates 1 role
+        //Role roles[x] = new Role(); //creates 1 role
 
     }
 
     public static void createCards(){
         //create all card objects? 40
-        Card cards[x] = new Card() //creates 1 card
+        //Card cards[x] = new Card() //creates 1 card
     }
 
     public static void createRooms(){
@@ -88,6 +88,8 @@ public class Deadwood{
          rooms[11] = new Room("Train Station", 3, new Card());
          rooms[11].setRoles(new Role("Crusty Prospector", 1), new Role("Dragged by Train", 1), new Role("Preacher with Bag", 2), new Role("Cyrus the Gunfighter", 4));
 
+        System.out.println(Room.getName(rooms[1]));
+
         board.addPath(rooms[0], rooms[2]);//trailer <-> main street
         board.addPath(rooms[0], rooms[3]);//trailer <-> saloon
         board.addPath(rooms[0], rooms[6]);//trailer <-> Hotel
@@ -108,6 +110,8 @@ public class Deadwood{
         board.addPath(rooms[9], rooms[10]);//general store <-> jail
         board.addPath(rooms[10], rooms[11]);//jail <-> train station
         board.addPath(rooms[11], rooms[1]);//train station <-> casting office
+
+        System.out.println(Room.getName(rooms[1]));
 
     }
 
@@ -168,7 +172,7 @@ public class Deadwood{
         }
 
         //sorted from highest (index 0), to lowest (index dieCount - 1)
-        Arrays.sort(dieArray, Collections.reverseOrder());
+        Arrays.sort(dieArray);
 
         return dieArray;
     }
@@ -225,7 +229,7 @@ public class Deadwood{
 
         specialRules();
 
-        firstDay();
+        initalizeBoard();
 
         newDay();
 
@@ -281,7 +285,7 @@ public class Deadwood{
 
                 playerInput = in.nextLine();
 
-            }
+            
 
             
             //user can request certain info like...(maybe just one command that prints all currentPlayer info???)

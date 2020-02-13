@@ -1,9 +1,9 @@
 public class Card {
-    String name;
-    int budget;
-    Role[] roles;
-    Boolean flipped;
-    Players[] players; //this will players on the card
+    static String name;
+    static int budget;
+    static Role[] roles;
+    static Boolean flipped;
+    static Player[] players; //this will players on the card
 
     public void initialize(String name, int budget, Role[] roles){
         this.name = name;
@@ -19,11 +19,7 @@ public class Card {
 
     public void setName(Card card, String s){
         //Sets name of card, used in initialization
-<<<<<<< HEAD
-        this.card.name = s;
-=======
-        name = s;
->>>>>>> b6dec963021c61b62d150af2a71ce17bb072d944
+        card.name = s;
     }
 
     public int getBudget(Card card){
@@ -33,27 +29,16 @@ public class Card {
 
     public void setBudget(Card card, int budget){
         //Sets the budget of card, used in initialization
-<<<<<<< HEAD
-        this.card.budget = budget;
-=======
-        budget = n;
->>>>>>> b6dec963021c61b62d150af2a71ce17bb072d944
+        card.budget = budget;
     }
 
-    public Players[] getPlayers(Card card){
-        return this.card.players;
+    public Player[] getPlayers(Card card){
+        return card.players;
     }
 
     public Role[] getRoles(Card card){
         //Returns an array, containing the roles on the card
-<<<<<<< HEAD
         return card.roles;
-=======
-        if(roles.length <= 0)
-        return null;
-        else
-        return roles;
->>>>>>> b6dec963021c61b62d150af2a71ce17bb072d944
     }
 
     public void setRoles(Role a, Role b, Role c){
