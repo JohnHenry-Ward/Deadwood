@@ -1,15 +1,15 @@
 public class Player{
-    static String name;
-    static int dollars;
-    static int credits;
-    static int rank;
-    static Role currentRole;
-    static Room currentRoom;
-    static int practiceChips;
-    static String roleType;
+    private String name;
+    private int dollars;
+    private int credits;
+    private int rank;
+    private Role currentRole;
+    private Room currentRoom;
+    private int practiceChips;
+    private String roleType;
 
-    public Player(String name){
-        this.name = name;
+    public Player(String n){
+        name = n;
     }
 
     public static String getName(Player player){
@@ -51,9 +51,9 @@ public class Player{
         return player.dollars + player.credits + (player.rank * 5);
     }
 
-    public static void setName(Player player, String name){
-        player.name = name;
-    }
+    // public static void setName(String n){
+    //     name = n;
+    // }
 
     public static void addDollars(Player player, int dollars){
         player.dollars += dollars;

@@ -50,7 +50,7 @@ public class Deadwood{
         //create all card objects? 40
         //Card cards[x] = new Card() //creates 1 card
     }
-    /*
+    
     public static void createRooms(){
          //create all room objects, 10 rooms + trailer + casting office
         //maybe read in from a file?
@@ -88,8 +88,6 @@ public class Deadwood{
          rooms[11] = new Room("Train Station", 3, new Card());
          rooms[11].setRoles(new Role("Crusty Prospector", 1), new Role("Dragged by Train", 1), new Role("Preacher with Bag", 2), new Role("Cyrus the Gunfighter", 4));
 
-        System.out.println(Room.getName(rooms[1]));
-
         board.addPath(rooms[0], rooms[2]);//trailer <-> main street
         board.addPath(rooms[0], rooms[3]);//trailer <-> saloon
         board.addPath(rooms[0], rooms[6]);//trailer <-> Hotel
@@ -111,10 +109,9 @@ public class Deadwood{
         board.addPath(rooms[10], rooms[11]);//jail <-> train station
         board.addPath(rooms[11], rooms[1]);//train station <-> casting office
 
-        System.out.println(Room.getName(rooms[1]));
 
     }
-    */
+    
 
     /* The final method that is called at the end of the game
      * Score is calculated by (dollars + credits + (rank*5))
@@ -223,11 +220,10 @@ public class Deadwood{
         int e = 0;
         while(e < playerAmount){
             playerOrder[e] = new Player(colors[e]);
-            System.out.println(Player.getName(playerOrder[e]));
             e++;
         }
-        System.out.println(Player.getName(playerOrder[0]));
-        System.out.println(Player.getName(playerOrder[1]));
+
+        createRooms();
 
         //currentPlayer = playerOrder[0];
 

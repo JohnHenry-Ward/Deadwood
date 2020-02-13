@@ -1,9 +1,9 @@
 public class Card {
-    static String name;
-    static int budget;
-    static Role[] roles;
-    static Boolean flipped;
-    static Player[] players; //this will players on the card
+    private String name;
+    private int budget;
+    private Role[] roles;
+    private Boolean flipped;
+    private Player[] players; //this will players on the card
 
     public void initialize(String name, int budget, Role[] roles){
         this.name = name;

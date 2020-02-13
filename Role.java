@@ -1,7 +1,7 @@
 public class Role {
-    static String name;
-    static int rank;
-    static Player currentPlayer = null;
+    private String name;
+    private int rank;
+    private Player currentPlayer = null;
 
     public String getName(Role role){
         return role.name;

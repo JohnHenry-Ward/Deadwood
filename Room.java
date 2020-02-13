@@ -1,9 +1,9 @@
 public class Room {
-    static Card card;
-    static int shotCounter;
-    static Role[] roles;
-    static String name;
-    static Player[] players; //this will be players in the room only, not the card
+    private Card card;
+    private int shotCounter;
+    private Role[] roles;
+    private String name;
+    private Player[] players; //this will be players in the room only, not the card
 
     Room(String name, int shotCounter, Card card){
         this.name = name;

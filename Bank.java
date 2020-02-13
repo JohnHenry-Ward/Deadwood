@@ -1,16 +1,16 @@
 public class Bank{
 
     //there is probably a better way to do this
-    int rankTwoCostDollars = 4;
-    int rankTwoCostCredits = 5;
-    int rankThreeCostDollars = 10;
-    int rankThreeCostCredits = 10;
-    int rankFourCostDollars = 18;
-    int rankFourCostCredits = 15;
-    int rankFiveCostDollars = 28;
-    int rankFiveCostCredits = 20;
-    int rankSixCostDollars = 40;
-    int rankSixCostCredits = 25;
+    private int rankTwoCostDollars = 4;
+    private int rankTwoCostCredits = 5;
+    private int rankThreeCostDollars = 10;
+    private int rankThreeCostCredits = 10;
+    private int rankFourCostDollars = 18;
+    private int rankFourCostCredits = 15;
+    private int rankFiveCostDollars = 28;
+    private int rankFiveCostCredits = 20;
+    private int rankSixCostDollars = 40;
+    private int rankSixCostCredits = 25;
 
     /* Method rewards player on their success in acting based on if they are in a
      * starring role or acting as an extra
