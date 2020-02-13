@@ -3,31 +3,32 @@ public class Role {
     int rank;
     Player currentPlayer;
 
-    public String getName(){
-        //return name of role
-        return name;
+    public String getName(Role role){
+        return role.name;
     }
 
     public void setName(String s){
         //Sets the name(String s) for this current role, used in initialization
     }
 
-    public int getRank(){
+    public int getRank(Role role){
         //Returns the rank required to acquire this role
-        return rank;
+        return role.rank;
     }
 
-    public void setRank(int n){
-        //Sets the rank(int n) for the role, used in initialization
+    public void setRank(Role role, int rank){
+        //Sets the rank(int rank) for the role, used in initialization
+        this.role.rank = rank;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer(Role role){
         //Returns the current player that has this role acquired
-        return currentPlayer;
+        return role.currentPlayer;
     }
 
-    public void setPlayer(Player p){
+    public void setPlayer(Player player, Role role){
         //Links a player(Player p) to this current role
+        this.role.currentPlayer = player;
     }
 }
 
