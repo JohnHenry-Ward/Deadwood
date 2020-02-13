@@ -3,9 +3,8 @@ public class Role {
     int rank;
     Player currentPlayer = null;
 
-    public String getName(){
-        //return name of role
-        return name;
+    public String getName(Role role){
+        return role.name;
     }
 
     Role(String name, int rank){
@@ -13,20 +12,31 @@ public class Role {
         this.rank = rank;
     }
 
-    public int getRank(){
+    public int getRank(Role role){
         //Returns the rank required to acquire this role
-        return rank;
+        return role.rank;
     }
+
 
     public Player getPlayer(){
-        //Returns the current player that has this role acquired
-        return currentPlayer;
+
+    public void setRank(Role role, int rank){
+        //Sets the rank(int rank) for the role, used in initialization
+        this.role.rank = rank;
     }
 
-    public void setPlayer(Player p){
+    public Player getPlayer(Role role){
+
+        //Returns the current player that has this role acquired
+        return role.currentPlayer;
+    }
+
+    public void setPlayer(Player player, Role role){
         //Links a player(Player p) to this current role
         if(currentPlayer == null)
         currentPlayer = p;
+        this.role.currentPlayer = player;
+
     }
 }
 

@@ -3,6 +3,7 @@ public class Room {
     int shotCounter;
     Role[] roles;
     String name;
+    Players[] players; //this will be players in the room only, not the card
 
     Room(String name, int shotCounter, Card card){
         this.name = name;

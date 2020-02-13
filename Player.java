@@ -24,20 +24,20 @@ public class Player{
         return player.credits;
     }
 
+    public static int getPracticeChips(Player player){
+        return player.practiceChips;
+    }
+
     public static int getRank(Player player){
         return player.rank;
     }
 
     public static Role getCurrentRole(Player player){
         return player.currentRole;
-        //will return type Role
-        //return player.currentRole;
     }
 
     public static Room getCurrentRoom(Player player){
         return player.currentRoom;
-        //will return type Room
-        //return player.currentRole;
     }
 
     //might move this to a new Roles's Class
@@ -61,7 +61,10 @@ public class Player{
 
     public static void addCredits(Player player, int credits){
         player.credits += credits;
+    }
 
+    public static void addPracticeChip(Player player){
+        player.practiceChips += 1;
     }
 
     public static void setRank(Player player, int rank){
@@ -69,11 +72,11 @@ public class Player{
     }
 
     public static void setCurrentRole(Player player, Role role){
-        //set player.currentRole = role;
+        player.currentRole = role;
     }
 
     public static void setCurrentRoom(Player player, Room room){
-        //set player.currentRoom = room;
+        set player.currentRoom = room;
     }
 
     //might move this to a new Role's Class

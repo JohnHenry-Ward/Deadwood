@@ -15,11 +15,9 @@ public class Deadwood{
 
     /* Before the game begins, roles, cards, and room objects must be created
      */
-    public static void firstDay(){
-        //room[0] = trailer
-        //room[1] = casting office
-        createRoles();
-        createCards();
+    public static void initalizeBoard(){
+        //createRoles();
+        //createCards();
         createRooms();
     }
 
@@ -43,15 +41,20 @@ public class Deadwood{
 
     public static void createRoles(){
         //create all role objects? 137
+        //created just roles on board, not cards?
+        Role roles[x] = new Role(); //creates 1 role
+
     }
 
     public static void createCards(){
         //create all card objects? 40
+        Card cards[x] = new Card() //creates 1 card
     }
 
     public static void createRooms(){
          //create all room objects, 10 rooms + trailer + casting office
         //maybe read in from a file?
+
          rooms = new Room[12];
          rooms[0] = new Room("Trailers", 0, null);
          rooms[1] = new Room("Casting Office", 0, null);
@@ -163,6 +166,10 @@ public class Deadwood{
             dieArray[d] = roll;
             System.out.println("Roll " + d + ": " + dieArray[d]);
         }
+
+        //sorted from highest (index 0), to lowest (index dieCount - 1)
+        Arrays.sort(dieArray, Collections.reverseOrder());
+
         return dieArray;
     }
 
@@ -222,8 +229,6 @@ public class Deadwood{
 
         newDay();
 
-        //    !!!!!!!!!!!!!!!!!!!!!!!!! I THINK WE NEED A ROLES CLASS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
         //the game begins
         //while(currentDay < maxDays){
             //if(shotCountersRemaining == 0){
@@ -258,6 +263,7 @@ public class Deadwood{
                 else if(playerInput.contains("move")){
                     String[] moveLocation = playerInput.split(" ");
                     String location = moveLocation[1];
+                    System.out.println(location);
                     //if legal move
                         //move player
                     //if illegal move
@@ -266,6 +272,12 @@ public class Deadwood{
                 /*else if(playerInput.equals("upgrade")){
                     System.out.println(Player.getName(playerOrder[0]) + " is rank " + Player.getRank(playerOrder[0]));
                 }*/
+
+                    System.out.println("Here are the ranks and their prices");
+                    System.out.println("Rank | Dollars | Credits");
+                    System.out.println("  2  |    4    |    5   ");
+                }
+
 
                 playerInput = in.nextLine();
 
