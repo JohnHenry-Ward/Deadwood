@@ -5,7 +5,7 @@ public class Card {
     Boolean flipped;
     Players[] players; //this will players on the card
 
-    public void Card(String name, int budget, Role[] roles){
+    public void initialize(String name, int budget, Role[] roles){
         this.name = name;
         this.budget = budget;
         this.roles = roles;

@@ -1,8 +1,6 @@
 import java.util.*;
 
 public class Board<Room> {
-    Room trailer;
-    Room castingOffice;
     Bank bank;
 
     //The board will be represented by a map
@@ -36,18 +34,8 @@ public class Board<Room> {
             if(map.get(v).contains(node))
                 neighbors.add(v);
         }
-
+    
         return neighbors;
-    }
-
-    public Room getTrailer(){
-        //Returns the Room object for the trailer
-        return trailer;
-    }
-
-    public Room getCastingOffice(){
-        //Returns the Room object for the casting office
-        return castingOffice;
     }
 
     public Bank getBank(){

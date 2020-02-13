@@ -5,10 +5,9 @@ public class Room {
     String name;
     Players[] players; //this will be players in the room only, not the card
 
-    public void Rooms(String name, int shotCounter, Role[] roles, Card card){
+    Room(String name, int shotCounter, Card card){
         this.name = name;
         this.shotCounter = shotCounter;
-        this.roles = roles;
         this.card = card;
     }
 
@@ -37,18 +36,22 @@ public class Room {
 
     public void setRoles(Role a, Role b, Role c, Role d){
         //This method is used for setting up 4 roles on a card, all iterations used in initialization
+        roles = new Role[] {a, b, c, d};
     }
     
     public void setRoles(Role a, Role b, Role c){
         //Overloaded method of upper one, lets you set just 3 roles, used in initialization
+        roles = new Role[] {a, b, c};
     }
     
     public void setRoles(Role a, Role b){
         //Overloaded method of upper ones, lets you set just 2 roles, used in initialization
+        roles = new Role[] {a, b};
     }
 
     public void setRoles(Role a){
         //Overloaded method of upper ones, lets you set just 1 role, used in initialization
+        roles = new Role[] {a};
     }
     
     public String getName(){
