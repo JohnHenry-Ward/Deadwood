@@ -11,6 +11,7 @@ public class Deadwood{
     static Room[] rooms;
     static Card[] cards;
     static String[] colors = new String[]{"blue", "green", "red", "yellow", "cyan", "orange", "pink", "violet"}; //used for identifying players
+    static Board board = new Board();
 
     /* Before the game begins, roles, cards, and room objects must be created
      */
@@ -51,17 +52,60 @@ public class Deadwood{
     public static void createRooms(){
          //create all room objects, 10 rooms + trailer + casting office
         //maybe read in from a file?
-        // rooms = new Room[10];
-        // rooms[0] = new Room("MainStreet", 3, [role[x], role[y], role[z]], card);
-        // rooms[1] = new Room();
-        // rooms[2] = new Room();
-        // rooms[3] = new Room();
-        // rooms[4] = new Room();
-        // rooms[5] = new Room();
-        // rooms[6] = new Room();
-        // rooms[7] = new Room();
-        // rooms[8] = new Room();
-        // rooms[9] = new Room();
+         rooms = new Room[12];
+         rooms[0] = new Room("Trailers", 0, null);
+         rooms[1] = new Room("Casting Office", 0, null);
+         rooms[2] = new Room("Main Street", 3, new Card());
+         rooms[2].setRoles(new Role("Railroad worker", 1), new Role("Falls off Roof", 2), new Role("Woman in black Dress", 2), new Role("Mayor McGinty", 4));
+
+         rooms[3] = new Room("Saloon", 2, new Card());
+         rooms[3].setRoles(new Role("Reluctant Farmer", 1), new Role("Woman in Red Dress", 2));
+
+         rooms[4] = new Room("Bank", 1, new Card());
+         rooms[4].setRoles(new Role("Suspicious Gentleman", 2), new Role("Flustered Teller", 3));
+
+         rooms[5] = new Room("Church", 2, new Card());
+         rooms[5].setRoles(new Role("Dead Man", 1), new Role("Crying Woman", 2));
+
+         rooms[6] = new Room("Hotel", 3, new Card());
+         rooms[6].setRoles(new Role("Sleeping Drunkard", 1), new Role("Rare Player", 1), new Role("Falls from Balcony", 2), new Role("Australian Bartender", 3));
+
+         rooms[7] = new Room("Secret Hideout", 3, new Card());
+         rooms[7].setRoles(new Role("Clumsy Pit Fighter", 1), new Role("Thug with Knife", 2), new Role("Dangerous Tom", 3), new Role("Penny, who is Lost", 4));
+         
+         rooms[8] = new Room("Ranch", 2, new Card());
+         rooms[8].setRoles(new Role("Shot in Leg", 1), new Role("Saucy Fred", 2), new Role("Man Under Horse", 3));
+
+         rooms[9] = new Room("General Store", 2, new Card());
+         rooms[9].setRoles(new Role("Man in Overalls", 1), new Role("Mister Keach", 3));
+
+         rooms[10] = new Room("Jail", 1, new Card());
+         rooms[10].setRoles(new Role("Prisoner in Cell", 2), new Role("Feller in Irons", 3));
+
+         rooms[11] = new Room("Train Station", 3, new Card());
+         rooms[11].setRoles(new Role("Crusty Prospector", 1), new Role("Dragged by Train", 1), new Role("Preacher with Bag", 2), new Role("Cyrus the Gunfighter", 4));
+
+        board.addPath(rooms[0], rooms[2]);//trailer <-> main street
+        board.addPath(rooms[0], rooms[3]);//trailer <-> saloon
+        board.addPath(rooms[0], rooms[6]);//trailer <-> Hotel
+        board.addPath(rooms[2], rooms[3]);//main street <-> saloon
+        board.addPath(rooms[2], rooms[10]);//main street <-> jail
+        board.addPath(rooms[3], rooms[9]);//saloon <-> general store
+        board.addPath(rooms[3], rooms[4]);//saloon <-> bank
+        board.addPath(rooms[4], rooms[8]);//bank <-> ranch
+        board.addPath(rooms[4], rooms[5]);//bank <-> church
+        board.addPath(rooms[4], rooms[6]);//bank <-> hotel
+        board.addPath(rooms[5], rooms[6]);//church <-> hotel
+        board.addPath(rooms[5], rooms[7]);//church <-> secret hideout
+        board.addPath(rooms[7], rooms[8]);//secret hideout <-> ranch
+        board.addPath(rooms[7], rooms[1]);//secret hideout <-> casting office
+        board.addPath(rooms[8], rooms[1]);//ranch <-> casting office
+        board.addPath(rooms[8], rooms[9]);//ranch <-> general store
+        board.addPath(rooms[9], rooms[11]);//general store <-> train station
+        board.addPath(rooms[9], rooms[10]);//general store <-> jail
+        board.addPath(rooms[10], rooms[11]);//jail <-> train station
+        board.addPath(rooms[11], rooms[1]);//train station <-> casting office
+
     }
 
     /* The final method that is called at the end of the game
@@ -219,9 +263,9 @@ public class Deadwood{
                     //if illegal move
                         //notify player move is illegal
                 }
-                else if(playerInput.equals("upgrade")){
+                /*else if(playerInput.equals("upgrade")){
                     System.out.println(Player.getName(playerOrder[0]) + " is rank " + Player.getRank(playerOrder[0]));
-                }
+                }*/
 
                 playerInput = in.nextLine();
 
