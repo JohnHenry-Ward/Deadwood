@@ -47,8 +47,6 @@ public class Deadwood{
     }
 
     public static void createCards(){
-        //create all card objects? 40
-        //Card cards[x] = new Card() //creates 1 card
     }
     
     public static void createRooms(){
@@ -169,7 +167,7 @@ public class Deadwood{
             System.out.println("Roll " + d + ": " + dieArray[d]);
         }
 
-        //sorted from highest (index 0), to lowest (index dieCount - 1)
+        //sorted from lowest (index 0), to highest (index dieCount - 1)
         Arrays.sort(dieArray);
 
         return dieArray;
@@ -225,25 +223,25 @@ public class Deadwood{
 
         createRooms();
 
-        //currentPlayer = playerOrder[0];
+        currentPlayer = playerOrder[0];
 
-        //specialRules();
+        specialRules();
 
         //initalizeBoard();
 
         //newDay();
 
         //the game begins
-        //while(currentDay < maxDays){
+        while(currentDay < maxDays){
             //if(shotCountersRemaining == 0){
-                //end day
-                //players go back to trailer
-                //currentDay++;
-                //newDay()
+                // end day
+                // players go back to trailer
+              //  currentDay++;
+                //newDay();
             //}
             //playerX goes
             
-            /*
+            
             System.out.println("Player: " + Player.getName(playerOrder[0]) + ", you're up! ");
             Scanner in = new Scanner(System.in);
             String playerInput = in.nextLine();
@@ -275,17 +273,21 @@ public class Deadwood{
                     //if illegal move
                         //notify player move is illegal
                 }
-                /*else if(playerInput.equals("upgrade")){
+                else if(playerInput.equals("upgrade")){
                     System.out.println(Player.getName(playerOrder[0]) + " is rank " + Player.getRank(playerOrder[0]));
-                }*/
-                /*
+                
+                
                     System.out.println("Here are the ranks and their prices");
                     System.out.println("Rank | Dollars | Credits");
                     System.out.println("  2  |    4    |    5   ");
+                    System.out.println("  3  |    10   |    10  ");
+                    System.out.println("  4  |    18   |    15  ");
+                    System.out.println("  5  |    28   |    20  ");
+                    System.out.println("  6  |    40   |    25  ");
                 }
-                */
+                
 
-                //playerInput = in.nextLine();
+                playerInput = in.nextLine();
 
             
 
@@ -307,19 +309,20 @@ public class Deadwood{
             
             //user inputs "end"
             //playerX's turn is over, loop back to top and currentPlayer = playerOrder[X+1];
-        //}
-
-        //just for testing
-        for(int x = 0; x < playerOrder.length; x++){
-            System.out.println("=======");
-            System.out.println("Name: " + Player.getName(playerOrder[x]));
-            System.out.println("Rank: " + Player.getRank(playerOrder[x]));
-            System.out.println("Dollars: " + Player.getDollars(playerOrder[x]));
-            System.out.println("Credits: " + Player.getCredits(playerOrder[x]));
-            System.out.println("Score: " + Player.getScore(playerOrder[x]));
         }
 
-    
-    }
+        //just for testing
+            for(int x = 0; x < playerOrder.length; x++){
+                System.out.println("=======");
+                System.out.println("Name: " + Player.getName(playerOrder[x]));
+                System.out.println("Rank: " + Player.getRank(playerOrder[x]));
+                System.out.println("Dollars: " + Player.getDollars(playerOrder[x]));
+                System.out.println("Credits: " + Player.getCredits(playerOrder[x]));
+                System.out.println("Score: " + Player.getScore(playerOrder[x]));
+            }
 
+    
+            
+        }
+    }
 }
