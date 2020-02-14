@@ -1,26 +1,26 @@
 public class Role {
     private String name;
     private int rank;
-    private Player currentPlayer = null;
+    private Player currentPlayer;
 
-    public String getName(Role role){
-        return role.name;
+    public String getName(){
+        return name;
     }
 
-    Role(String name, int rank){
-        name = name;
-        rank = rank;
+    public Role(String n, int r){
+        name = n;
+        rank = r;
+        currentPlayer = null;
     }
 
-    public int getRank(Role role){
+    public int getRank(){
         //Returns the rank required to acquire this role
-        return role.rank;
+        return rank;
     }
 
 
-    public void getPlayer(){
-        
-    
+    public Player getPlayer(){
+        return currentPlayer;
     }
 
     public void setRank(Role role, int rank){
@@ -28,17 +28,11 @@ public class Role {
         role.rank = rank;
     }
 
-    public Player getPlayer(Role role){
-
-        //Returns the current player that has this role acquired
-        return role.currentPlayer;
-    }
-
-    public void setPlayer(Player player, Role role){
+    public void setPlayer(Player player){
         //Links a player(Player p) to this current role
         // if(currentPlayer == null)
         // currentPlayer = p;
-        role.currentPlayer = player;
+        currentPlayer = player;
 
     }
 }

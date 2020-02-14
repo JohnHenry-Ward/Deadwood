@@ -11,7 +11,8 @@ public class Deadwood{
     static Room[] rooms;
     static Card[] cards;
     static String[] colors = new String[]{"blue", "green", "red", "yellow", "cyan", "orange", "pink", "violet"}; //used for identifying players
-    static Board board = new Board();
+    static Board<Room> board = new Board<Room>();
+    static int cardsFlipped = -1;
 
     /* Before the game begins, roles, cards, and room objects must be created
      */
@@ -46,12 +47,17 @@ public class Deadwood{
 
     }
 
-    public static void createCards(){
+    //read from text file
+    //this will be called the first time a player enters a room
+    public static void flipCard(Room room){
+        cardsFlipped++;
+        //cards[cardsFlipped].initialize(name, budget, roles);
+        Room.setCard(cards[cardsFlipped]);
     }
     
     public static void createRooms(){
          //create all room objects, 10 rooms + trailer + casting office
-        //maybe read in from a file?
+         //maybe read in from a file?
 
          rooms = new Room[12];
          rooms[0] = new Room("Trailers", 0, null);
@@ -86,6 +92,7 @@ public class Deadwood{
          rooms[11] = new Room("Train Station", 3, new Card());
          rooms[11].setRoles(new Role("Crusty Prospector", 1), new Role("Dragged by Train", 1), new Role("Preacher with Bag", 2), new Role("Cyrus the Gunfighter", 4));
 
+
         board.addPath(rooms[0], rooms[2]);//trailer <-> main street
         board.addPath(rooms[0], rooms[3]);//trailer <-> saloon
         board.addPath(rooms[0], rooms[6]);//trailer <-> Hotel
@@ -107,6 +114,11 @@ public class Deadwood{
         board.addPath(rooms[10], rooms[11]);//jail <-> train station
         board.addPath(rooms[11], rooms[1]);//train station <-> casting office
 
+        ArrayList<Room> rr = board.getNeighbors(rooms[10]);
+        System.out.println(rr.get(0).getName());
+        System.out.println(rr.get(1).getName());
+        System.out.println(rr.get(2).getName());
+
 
     }
     
@@ -115,7 +127,7 @@ public class Deadwood{
      * Score is calculated by (dollars + credits + (rank*5))
      */
     public static int calculateScore(Player player){
-        return Player.getDollars(player) + Player.getCredits(player) + (Player.getRank(player) * 5);
+        return player.getDollars() + player.getCredits() + (player.getRank() * 5);
     }
 
     /* Assigns a Role to a Player
@@ -190,21 +202,21 @@ public class Deadwood{
         else if(playerAmount == 5){
             //players start with 2 credits
             for(int i = 0; i < playerAmount; i++){
-                Player.addCredits(playerOrder[i], 2);
+                playerOrder[i].addCredits(2);
             }
             maxDays = 4;
         }
         else if(playerAmount == 6){
             //players start with 4 credits
             for(int i = 0; i < playerAmount; i++){
-                Player.addCredits(playerOrder[i], 4);
+                playerOrder[i].addCredits(4);
             }
             maxDays = 4;
         }
         else{
             //players start with rank 2
             for(int i = 0; i < playerAmount; i++){
-                Player.setRank(playerOrder[i], 2);
+                playerOrder[i].setRank(2);
             }
             maxDays = 4;
         }
@@ -242,19 +254,19 @@ public class Deadwood{
             //playerX goes
             
             
-            System.out.println("Player: " + Player.getName(playerOrder[0]) + ", you're up! ");
+            System.out.println("Player: " + playerOrder[0].getName() + ", you're up! ");
             Scanner in = new Scanner(System.in);
             String playerInput = in.nextLine();
             while(!(playerInput.equals("end"))){
 
                 if(playerInput.equals("who")){
-                    System.out.println("Who: " + Player.getName(playerOrder[0]));
+                    System.out.println("Who: " + playerOrder[0].getName());
                 }
                 else if(playerInput.equals("where")){
-                    System.out.println("Where: " + Player.getCurrentRoom(playerOrder[0]));
+                    System.out.println("Where: " + playerOrder[0].getCurrentRoom());
                 }
                 else if(playerInput.equals("role")){
-                    System.out.println("Role: " + Player.getCurrentRole(playerOrder[0]));
+                    System.out.println("Role: " + playerOrder[0].getCurrentRole());
                 }
                 else if(playerInput.equals("act")){
                     //act
@@ -274,7 +286,7 @@ public class Deadwood{
                         //notify player move is illegal
                 }
                 else if(playerInput.equals("upgrade")){
-                    System.out.println(Player.getName(playerOrder[0]) + " is rank " + Player.getRank(playerOrder[0]));
+                    System.out.println(playerOrder[0].getName() + " is rank " + playerOrder[0].getRank());
                 
                 
                     System.out.println("Here are the ranks and their prices");
@@ -314,11 +326,17 @@ public class Deadwood{
         //just for testing
             for(int x = 0; x < playerOrder.length; x++){
                 System.out.println("=======");
-                System.out.println("Name: " + Player.getName(playerOrder[x]));
-                System.out.println("Rank: " + Player.getRank(playerOrder[x]));
-                System.out.println("Dollars: " + Player.getDollars(playerOrder[x]));
-                System.out.println("Credits: " + Player.getCredits(playerOrder[x]));
-                System.out.println("Score: " + Player.getScore(playerOrder[x]));
+                System.out.println("Name: " + playerOrder[x].getName());
+                System.out.println("Rank: " + playerOrder[x].getRank());
+                System.out.println("Dollars: " + playerOrder[x].getDollars());
+                System.out.println("Credits: " + playerOrder[x].getCredits());
+                System.out.println("Score: " + playerOrder[x].getScore());
+
+                //so this is the synax for getters
+
+                System.out.println(rooms[3].getName()); //notice there is no parameters
+                Role[] RA = rooms[3].getRoles();
+                System.out.println(RA[0].getName());
             }
 
     
