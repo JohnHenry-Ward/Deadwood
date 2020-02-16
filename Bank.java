@@ -45,8 +45,8 @@ public class Bank{
     /* Method only called when an off card actor fails to act
      * The Player recieves 1 dollar, no shot counters are removed
      */
-    public static void actingFail(Player player){
-        Player.addDollars(player, 1);
+    public void actingFail(Player player){
+        player.addDollars(1);
     }
 
     /* Method called when there are 0 shot counters remaining in a room AND there is at least 1 Player acting on the card in the room
@@ -82,8 +82,8 @@ public class Bank{
     /* Method called when a Player rehearses, rather than acts
      * The Players practice chip attribute increases by 1
      */
-    public static void gainPracticeChip(Player player){
-        Player.addPracticeChip(player);
+    public void gainPracticeChip(Player player){
+        player.addPracticeChip();
     }
 
     /* Method only available when a Player is in the Casting Office Room
