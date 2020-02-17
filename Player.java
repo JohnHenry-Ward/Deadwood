@@ -70,8 +70,8 @@ public class Player{
     }
 
     //might move this to a new Role's Class
-    public static void setRoleType(Player player, String rollType){
-        //set player.roleType = rollType;
+    public void setRoleType(String rt){
+        roleType = rt;
     }
 
     //might move this to a new Roles's Class

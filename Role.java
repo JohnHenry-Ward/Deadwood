@@ -2,6 +2,7 @@ public class Role {
     private String name;
     private int rank;
     private Player currentPlayer;
+    private boolean roleAvailable;
 
     public String getName(){
         return name;
@@ -11,6 +12,7 @@ public class Role {
         name = n;
         rank = r;
         currentPlayer = null;
+        roleAvailable = true;
     }
 
     public int getRank(){
@@ -33,7 +35,10 @@ public class Role {
         // if(currentPlayer == null)
         // currentPlayer = p;
         currentPlayer = player;
+    }
 
+    public boolean isRoleAvailable(){
+        return roleAvailable;
     }
 }
 

@@ -11,6 +11,9 @@ public class Room {
         shotCounter = shots;
         card = c;
         wrapped = false;
+        if(n == "Trailers" || n == "Casting Office"){
+            wrapped = true;
+        }
     }
 
     public Card getCard(){
