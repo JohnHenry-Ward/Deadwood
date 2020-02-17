@@ -2,7 +2,7 @@ public class Card {
     private String name;
     private int budget;
     private Role[] roles;
-    private Boolean flipped;
+    private Boolean flipped = false;
     private Player[] players; //this will players on the card
 
     public void initialize(String name, int budget, Role[] roles){
@@ -39,6 +39,14 @@ public class Card {
     public Role[] getRoles(){
         //Returns an array, containing the roles on the card
         return roles;
+    }
+
+    public boolean getFlipped(){
+        return flipped;
+    }
+
+    public void setFlipped(Boolean status){
+        flipped = status;
     }
 
     public void setRoles(Role a, Role b, Role c){
