@@ -4,11 +4,13 @@ public class Room {
     private Role[] roles;
     private String name;
     private Player[] players; //this will be players in the room only, not the card
+    private boolean wrapped;
 
     public Room(String n, int shots, Card c){
         name = n;
         shotCounter = shots;
         card = c;
+        wrapped = false;
     }
 
     public Card getCard(){
@@ -16,7 +18,7 @@ public class Room {
         return card;
     }
 
-    public static void setCard(Card c){
+    public void setCard(Card c){
         card = c;
         //Sets the card(card c) on the current room, used in resetting the board and initialization
     }
@@ -59,5 +61,13 @@ public class Room {
     public String getName(){
         //Returns name of the current room
         return name;
+    }
+
+    public Player[] getPlayers(){
+        return players;
+    }
+
+    public boolean hasWrapped(){
+        return wrapped;
     }
 }

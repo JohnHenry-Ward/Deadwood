@@ -12,9 +12,9 @@ public class Card {
         flipped = false;
     }
 
-    public String getName(Card card){
+    public String getName(){
         //Gets name of card
-        return card.name;
+        return name;
     }
 
     public void setName(Card card, String s){
@@ -22,9 +22,9 @@ public class Card {
         card.name = s;
     }
 
-    public int getBudget(Card card){
+    public int getBudget(){
         //Gets the budget of card
-        return card.budget;
+        return budget;
     }
 
     public void setBudget(Card card, int budget){
@@ -32,13 +32,13 @@ public class Card {
         card.budget = budget;
     }
 
-    public Player[] getPlayers(Card card){
-        return card.players;
+    public Player[] getPlayers(){
+        return players;
     }
 
-    public Role[] getRoles(Card card){
+    public Role[] getRoles(){
         //Returns an array, containing the roles on the card
-        return card.roles;
+        return roles;
     }
 
     public void setRoles(Role a, Role b, Role c){

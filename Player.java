@@ -75,9 +75,8 @@ public class Player{
     }
 
     //might move this to a new Roles's Class
-    public String getRoleType(Player player){
-        return "a";
-        //return player.roleType;
+    public String getRoleType(){
+        return roleType;
     }
 }
 
