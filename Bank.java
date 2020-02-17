@@ -19,33 +19,38 @@ public class Bank{
      * If there are 0 shot counters remaining after an actor has acted, then the scene must wrap
      */
     public static void actingSuccess(Player player, String rollType){
-        /*
-        Room currentRoom = Player.getCurrentRoom(player);
+        Room currentRoom = player.getCurrentRoom();
         
         if(rollType == "onCard"){
-            Player.addCredits(player, 2);
-            Room.removeShot(currentRoom);
+            player.addCredits(2);
+            currentRoom.removeShot();
+            System.out.println("Congrays player " + player + ", you've received 2 credits!");
+            System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " remaining!");
         }
         else if(rollType == "offCard"){
-            Player.addCredits(player, 1);
-            Player.addDollars(player, 1);
-            Room.removeShot(currentRoom);
+            player.addCredits(1);
+            player.addDollars(1);
+            currentRoom.removeShot();
+            System.out.println("Congrays player " + player + ", you've received 1 dollar and 1 credit!");
+            System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " remaining!");
         }
 
-        if(Room.getShots(currentRoom) == 0){
-            Card currentCard = Room.getCard(currentRoom);
-            Player[] players = Card.getPlayers(currentCard);
+        if(currentRoom.getShots() == 0){
+            Card currentCard = currentRoom.getCard();
+            Player[] players = currentCard.getPlayers();
+
+            System.out.println("Looks like the scene is wrapped!");
 
             if(players.length != 0){
-                sceneWrapBonus(players, currentRoom);
+                sceneWrapBonus(players, currentRoom, currentCard);
             }
-        }*/
+        }
     }
 
     /* Method only called when an off card actor fails to act
      * The Player recieves 1 dollar, no shot counters are removed
      */
-    public void actingFail(Player player){
+    public static void actingFail(Player player){
         player.addDollars(1);
     }
 
@@ -57,26 +62,40 @@ public class Bank{
      * Off Card roles receive a dollar bonus based on the rank of the role they are working on
      */
     public static void sceneWrapBonus(Player[] players, Room room, Card card){
-        /*
-        int budget = Card.getBudget(card);
+        System.out.print("There was at least 1 actor acting on a card in this room! So ");
+        for(int x = 0; x < players.length; x++){
+            System.out.print(players[x] + " ");
+        }
+        System.out.print("all get bonuses!");
+
+        int budget = card.getBudget();
         int[] dieRolls = Deadwood.rollDie(budget);
 
         int loopVar = 0;
         for(int x = 0; x < budget; x++){
-            Player.addDollars(players[loopVar], dieRolls[x]);
+            players[loopVar].addDollars(dieRolls[x]);
+            System.out.println(players[loopVar] + " just received " + dieRolls[x] + " dollars!");
             if(loopVar >= players.length){
                 loopVar = 0;
             }
         }
 
-        Player offCardPlayers[] = Room.getPlayers(room);
+        Player offCardPlayers[] = room.getPlayers();
+
+        if(offCardPlayers.length > 0){
+            System.out.print("Don't worry ");
+            for(int x = 0; x < offCardPlayers.length; x++){
+                System.out.print(offCardPlayers[x] + " ");
+            }
+            System.out.print("you all get a bonus too!");
+        }
 
         for(int x = 0; x < offCardPlayers.length; x++){
-            Role playerRole = Player.getRole(offCardPlayers[x]);
-            int bonus = Role.getRank(playerRole);
-            Player.addDollars(offCardPlayers[x], bonus);
+            Role playerRole = offCardPlayers[x].getCurrentRole();
+            int bonus = playerRole.getRank();
+            offCardPlayers[x].addDollars(bonus);
+            System.out.println(offCardPlayers[x] + "just got " + bonus + " dollars!");
         }
-    */
     }
 
     /* Method called when a Player rehearses, rather than acts
