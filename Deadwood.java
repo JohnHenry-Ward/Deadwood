@@ -13,6 +13,7 @@ public class Deadwood{
     static String[] colors = new String[]{"blue", "green", "red", "yellow", "cyan", "orange", "pink", "violet"};//used for identifying players
     static Board<Room> board;
     static int cardsFlipped = -1;
+    static Scanner sc;
 
     /* Before the game begins, room objects are created and initalized, card objects are created
      */
@@ -62,10 +63,13 @@ public class Deadwood{
 
         //NEED TO SOME HOW MAKE IT REMEMBER WHAT IT LAST READ
         cardsFlipped++; //AKA what line was read last
-        File cardFile = new File("cards.txt");
-        Scanner sc;
+        
         try{
-            sc = new Scanner(cardFile);
+            // Scanner sc;
+            if(cardsFlipped == 0){
+                File cardFile = new File("cards.txt");
+                sc = new Scanner(cardFile);
+            }
             String cardLine = sc.nextLine();
             String[] cardLineArray = cardLine.split(",");
             String name = cardLineArray[0];
