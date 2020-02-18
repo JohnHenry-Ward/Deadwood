@@ -5,11 +5,11 @@ public class Card {
     private Boolean flipped = false;
     private Player[] players; //this will players on the card
 
-    public void initialize(String name, int budget, Role[] roles){
-        this.name = name;
-        this.budget = budget;
-        this.roles = roles;
-        flipped = false;
+    //called when a player has entered a room for the first time
+    public void initalize(String n, int b){
+        name = n;
+        budget = b;
+        flipped = true;
     }
 
     public String getName(){

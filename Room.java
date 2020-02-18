@@ -1,5 +1,5 @@
 public class Room {
-    private static Card card;
+    private Card card;
     private int shotCounter;
     private Role[] roles;
     private String name;
