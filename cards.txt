@@ -1,5 +1,5 @@
 Evil Wears a Hat,4,Scene 7,3,Defrocked Priest,2,Marshal Canfield,3,One-Eyed Man,4
-Law and the Old West,3,3,Rug Merchant,1,Bank,2,Talking Mule,5
+Law and the Old West,3,Scene,3,Rug Merchant,1,Bank,2,Talking Mule,5
 
 
 
