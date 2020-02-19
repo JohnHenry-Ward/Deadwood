@@ -3,7 +3,7 @@ public class Card {
     private int budget;
     private Role[] roles;
     private Boolean flipped = false;
-    private Player[] players; //this will players on the card
+    private Player[] players; //this will be players on the card
 
     //called when a player has entered a room for the first time
     public void initalize(String n, int b){

@@ -2,7 +2,7 @@ public class Player{
     private String name;
     private int dollars;
     private int credits;
-    private int rank;
+    private int rank = 1;
     private Role currentRole;
     private Room currentRoom;
     private int practiceChips;
@@ -45,8 +45,8 @@ public class Player{
         return dollars + credits + (rank * 5);
     }
 
-    public void addDollars(int amoutn){
-        dollars += amoutn;
+    public void addDollars(int amount){
+        dollars += amount;
     }
 
     public void addCredits(int amount){
@@ -78,5 +78,6 @@ public class Player{
     public String getRoleType(){
         return roleType;
     }
+
 }
 

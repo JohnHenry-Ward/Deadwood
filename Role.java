@@ -1,8 +1,8 @@
 public class Role {
     private String name;
     private int rank;
-    private Player currentPlayer;
-    private boolean roleAvailable;
+    private Player currentPlayer = null;
+    private boolean roleAvailable = true;
 
     public String getName(){
         return name;
@@ -31,10 +31,11 @@ public class Role {
     }
 
     public void setPlayer(Player player){
-        //Links a player(Player p) to this current role
-        // if(currentPlayer == null)
-        // currentPlayer = p;
         currentPlayer = player;
+    }
+
+    public void setRoleAvailable(boolean avail){
+        roleAvailable = avail;
     }
 
     public boolean isRoleAvailable(){

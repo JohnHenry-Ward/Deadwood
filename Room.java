@@ -33,7 +33,7 @@ public class Room {
 
     public void removeShot(){
         //Reduces shot counter by 1, used after succesful act occurs
-        shotCounter =- 1;
+        shotCounter = shotCounter - 1;
     }
 
     public Role[] getRoles(){
@@ -70,7 +70,16 @@ public class Room {
         return players;
     }
 
-    public boolean hasWrapped(){
-        return wrapped;
+    public String hasWrapped(){
+        if(wrapped){
+            return "wrapped";
+        }
+        else{
+            return "unwrapped";
+        }
+    }
+
+    public void updateWrapped(boolean update){
+        wrapped = update;
     }
 }
