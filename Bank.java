@@ -24,14 +24,14 @@ public class Bank{
         if(rollType == "onCard"){
             player.addCredits(2);
             currentRoom.removeShot();
-            System.out.println("Congrays player " + player + ", you've received 2 credits!");
+            System.out.println("Congrats player " + player.getName() + ", you've received 2 credits!");
             System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " remaining!");
         }
         else if(rollType == "offCard"){
             player.addCredits(1);
             player.addDollars(1);
             currentRoom.removeShot();
-            System.out.println("Congrays player " + player + ", you've received 1 dollar and 1 credit!");
+            System.out.println("Congrats player " + player.getName() + ", you've received 1 dollar and 1 credit!");
             System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " remaining!");
         }
 
@@ -39,11 +39,16 @@ public class Bank{
             Card currentCard = currentRoom.getCard();
             Player[] players = currentCard.getPlayers();
 
+            currentRoom.updateWrapped(true);
             System.out.println("Looks like the scene is wrapped!");
 
-            if(players.length != 0){
+            if(players != null && players.length != 0){
                 sceneWrapBonus(players, currentRoom, currentCard);
             }
+
+            //players should not be tied to roles
+            Deadwood.clearPlayerRoles(currentRoom);
+
         }
     }
 
