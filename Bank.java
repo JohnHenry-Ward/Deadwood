@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Bank{
 
     //there is probably a better way to do this
@@ -37,12 +39,12 @@ public class Bank{
 
         if(currentRoom.getShots() == 0){
             Card currentCard = currentRoom.getCard();
-            Player[] players = currentCard.getPlayers();
+            ArrayList<Player> players = currentCard.getPlayers();
 
             currentRoom.updateWrapped(true);
             System.out.println("Looks like the scene is wrapped!");
 
-            if(players != null && players.length != 0){
+            if(players.size() != 0){
                 sceneWrapBonus(players, currentRoom, currentCard);
             }
 
@@ -66,10 +68,10 @@ public class Bank{
      * The top role gets the highest die amount, the second role gets the second die amount, and so on
      * Off Card roles receive a dollar bonus based on the rank of the role they are working on
      */
-    public static void sceneWrapBonus(Player[] players, Room room, Card card){
+    public static void sceneWrapBonus(ArrayList<Player> players, Room room, Card card){
         System.out.print("There was at least 1 actor acting on a card in this room! So ");
-        for(int x = 0; x < players.length; x++){
-            System.out.print(players[x] + " ");
+        for(int x = 0; x < players.size(); x++){
+            System.out.print(players.get(x).getName() + " ");
         }
         System.out.print("all get bonuses!");
 
@@ -78,29 +80,31 @@ public class Bank{
 
         int loopVar = 0;
         for(int x = 0; x < budget; x++){
-            players[loopVar].addDollars(dieRolls[x]);
-            System.out.println(players[loopVar] + " just received " + dieRolls[x] + " dollars!");
-            if(loopVar >= players.length){
+            players.get(loopVar).addDollars(dieRolls[x]);
+            System.out.println(players.get(loopVar).getName() + " just received " + dieRolls[x] + " dollars!");
+            if(loopVar >= players.size()){
                 loopVar = 0;
             }
         }
 
-        Player offCardPlayers[] = room.getPlayers();
+        ArrayList<Player> offCardPlayers = room.getPlayers();
 
-        if(offCardPlayers.length > 0){
+        if(offCardPlayers.size() > 0){
             System.out.print("Don't worry ");
-            for(int x = 0; x < offCardPlayers.length; x++){
-                System.out.print(offCardPlayers[x] + " ");
+            for(int x = 0; x < offCardPlayers.size(); x++){
+                System.out.print(offCardPlayers.get(x) + " ");
             }
             System.out.print("you all get a bonus too!");
         }
 
-        for(int x = 0; x < offCardPlayers.length; x++){
-            Role playerRole = offCardPlayers[x].getCurrentRole();
+        for(int x = 0; x < offCardPlayers.size(); x++){
+            Role playerRole = offCardPlayers.get(x).getCurrentRole();
             int bonus = playerRole.getRank();
-            offCardPlayers[x].addDollars(bonus);
-            System.out.println(offCardPlayers[x] + "just got " + bonus + " dollars!");
+            offCardPlayers.get(x).addDollars(bonus);
+            System.out.println(offCardPlayers.get(x).getName() + "just got " + bonus + " dollars!");
         }
+
+
     }
 
     /* Method called when a Player rehearses, rather than acts

@@ -1,9 +1,12 @@
+import java.util.*;
+
 public class Card {
     private String name;
     private int budget;
     private Role[] roles;
     private Boolean flipped = false;
-    private Player[] players; //this will be players on the card
+    private ArrayList<Player> players = new ArrayList<Player>(); 
+    //this will be players on the card
 
     //called when a player has entered a room for the first time
     public void initalize(String n, int b){
@@ -32,7 +35,7 @@ public class Card {
         card.budget = budget;
     }
 
-    public Player[] getPlayers(){
+    public ArrayList<Player> getPlayers(){
         return players;
     }
 
@@ -62,6 +65,18 @@ public class Card {
     public void setRoles(Role a){
         //Overloaded method of upper ones, lets you set just 1 role, used in initialization
         roles = new Role[] {a};
+    }
+
+    public void addPlayer(Player player){
+        players.add(player);
+    }
+
+    public void removePlayer(Player player){
+        for(int x = 0; x < players.size(); x++){
+            if(players.get(x) == player){
+                players.remove(x);
+            }
+        }
     }
     
 }

@@ -1,10 +1,13 @@
+import java.util.*;
+
 public class Room {
     private Card card;
     private int shotCounter;
     private Role[] roles;
     private String name;
-    private Player[] players; //this will be players in the room only, not the card
-    private boolean wrapped;
+    private ArrayList<Player> players = new ArrayList<Player>(); 
+    //this will be players in the room only, not the card
+    private boolean wrapped = false;
 
     public Room(String n, int shots, Card c){
         name = n;
@@ -66,7 +69,7 @@ public class Room {
         return name;
     }
 
-    public Player[] getPlayers(){
+    public ArrayList<Player> getPlayers(){
         return players;
     }
 
@@ -81,5 +84,17 @@ public class Room {
 
     public void updateWrapped(boolean update){
         wrapped = update;
+    }
+
+    public void addPlayer(Player player){
+        players.add(player);
+    }
+
+    public void removePlayer(Player player){
+        for(int x = 0; x < players.size(); x++){
+            if(players.get(x) == player){
+                players.remove(x);
+            }
+        }
     }
 }
