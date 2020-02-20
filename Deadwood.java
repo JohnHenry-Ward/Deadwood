@@ -10,7 +10,7 @@ public class Deadwood{
     static int playerAmount;
     static Room[] rooms;
     static Card[] cards = new Card[40];
-    static String[] colors = new String[]{"blue", "green", "red", "yellow", "cyan", "orange", "pink", "violet"};//used for identifying players
+    static String[] colors = new String[]{"BLUE", "GREEN", "RED", "YELLOW", "CYAN", "ORANGE", "PINK", "VIOLET"};//used for identifying players
     static Board<Room> board;
     static int cardsFlipped = -1;
     static Scanner sc;
