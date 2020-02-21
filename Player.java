@@ -1,12 +1,13 @@
 public class Player{
     private String name;
-    private int dollars;
-    private int credits;
+    private int dollars = 0;
+    private int credits = 0;
     private int rank = 1;
     private Role currentRole;
     private Room currentRoom;
     private int practiceChips;
     private String roleType;
+    private boolean hasMoved = false;
 
     public Player(String n){
         name = n;
@@ -44,8 +45,32 @@ public class Player{
         dollars += amount;
     }
 
+    public boolean subtractDollars(int amount){
+        if(amount <= dollars){
+            System.out.println("previous dolars: " + dollars);
+            dollars -= amount;
+            System.out.println("new dollars: " + dollars);
+            return true;
+        } else{
+            System.out.println("Insufficient Dollars");
+            return false;
+        }
+    }
+
     public void addCredits(int amount){
         credits += amount;
+    }
+
+    public boolean subtractCredits(int amount){
+        if(amount <= credits){
+            System.out.println("previous credits: " + credits);
+            credits -= amount;
+            System.out.println("new credits: " + credits);
+            return true;
+        } else{
+            System.out.println("Insufficient Credits");
+            return false;
+        }
     }
 
     public void addPracticeChip(){
@@ -72,5 +97,11 @@ public class Player{
         return roleType;
     }
 
+    public boolean getMoveFlag(){
+        return hasMoved;
+    }
+    public void setMoveFlag(boolean f){
+        hasMoved = f;
+    }
 }
 

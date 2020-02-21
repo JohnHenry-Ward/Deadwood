@@ -3,16 +3,16 @@ import java.util.*;
 public class Bank{
 
     //there is probably a better way to do this
-    private int rankTwoCostDollars = 4;
-    private int rankTwoCostCredits = 5;
-    private int rankThreeCostDollars = 10;
-    private int rankThreeCostCredits = 10;
-    private int rankFourCostDollars = 18;
-    private int rankFourCostCredits = 15;
-    private int rankFiveCostDollars = 28;
-    private int rankFiveCostCredits = 20;
-    private int rankSixCostDollars = 40;
-    private int rankSixCostCredits = 25;
+    static private int rankTwoCostDollars = 4;
+    static private int rankTwoCostCredits = 5;
+    static private int rankThreeCostDollars = 10;
+    static private int rankThreeCostCredits = 10;
+    static private int rankFourCostDollars = 18;
+    static private int rankFourCostCredits = 15;
+    static private int rankFiveCostDollars = 28;
+    static private int rankFiveCostCredits = 20;
+    static private int rankSixCostDollars = 40;
+    static private int rankSixCostCredits = 25;
 
     /* Method rewards player on their success in acting based on if they are in a
      * starring role or acting as an extra
@@ -54,6 +54,19 @@ public class Bank{
         }
     }
 
+    public static void displayPrices(){
+        System.out.println("Here are the ranks and their prices:\n"
+        + "Rank | Dollars | Credits\n"
+        + "  2  |    " + rankTwoCostDollars + "    |    " + rankTwoCostCredits + "\n"
+        + "  3  |    " + rankThreeCostDollars + "   |    " + rankThreeCostCredits + "\n"
+        + "  4  |    " + rankFourCostDollars + "   |    " + rankFourCostCredits + "\n"
+        + "  5  |    " + rankFiveCostDollars + "   |    " + rankFiveCostCredits + "\n"
+        + "  6  |    " + rankSixCostDollars + "   |    " + rankSixCostCredits + "\n");
+
+        System.out.println("Syntax for buying a rank:\n"
+                        + "Buying with Dollars: upgrade-$-(rank number)\n"
+                        + "Buying with Credits: upgrade-c-(rank number)\n");
+    }
     /* Method only called when an off card actor fails to act
      * The Player recieves 1 dollar, no shot counters are removed
      */
@@ -119,8 +132,118 @@ public class Bank{
      * Method returns true for succesful upgrade
      * Method returns false otherwise
      */
-    public static void upgrade(Player player, int rankRequest){
-        //Player.rank = upgradedRank
+    public static boolean upgrade(Player player, int rankRequest, char moneyType){
+        if(player.getRank() < rankRequest){
+            if(moneyType == '$'){
+                switch (rankRequest) {
+                    case 2: if(player.getDollars() >= rankTwoCostDollars){
+                                if(player.subtractDollars(rankTwoCostDollars)){
+                                    player.setRank(2);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    case 3: if(player.getDollars() >= rankThreeCostDollars){
+                                if(player.subtractDollars(rankThreeCostDollars)){
+                                    player.setRank(3);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    case 4: if(player.getDollars() >= rankFourCostDollars){
+                                if(player.subtractDollars(rankFourCostDollars)){
+                                    player.setRank(4);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    case 5: if(player.getDollars() >= rankFiveCostDollars){
+                                if(player.subtractDollars(rankFiveCostDollars)){
+                                    player.setRank(5);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    case 6: if(player.getDollars() >= rankSixCostDollars){
+                                if(player.subtractDollars(rankSixCostDollars)){
+                                    player.setRank(6);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    default : System.out.println("Entered an invalid rank!\n"
+                                               + "Ranks range from 1 to 6, try again.\n");
+                                return false;
+                }
+            } else if(moneyType == 'c'){
+                switch (rankRequest) {
+                    case 2: if(player.getCredits() >= rankTwoCostCredits){
+                                if(player.subtractCredits(rankTwoCostCredits)){
+                                    player.setRank(2);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    case 3: if(player.getCredits() >= rankThreeCostCredits){
+                                if(player.subtractCredits(rankThreeCostCredits)){
+                                    player.setRank(3);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    case 4: if(player.getCredits() >= rankFourCostCredits){
+                                if(player.subtractCredits(rankFourCostCredits)){
+                                    player.setRank(4);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    case 5: if(player.getCredits() >= rankFiveCostCredits){
+                                if(player.subtractCredits(rankFiveCostCredits)){
+                                    player.setRank(5);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    case 6: if(player.getCredits() >= rankSixCostCredits){
+                                if(player.subtractCredits(rankSixCostCredits)){
+                                    player.setRank(6);
+                                }else{
+                                    return false;
+                                }
+                            }
+                            break;
+
+                    default : System.out.println("Entered an invalid rank!\n"
+                                               + "Ranks range from 1 to 6, try again.\n");
+                              return false;
+                }
+            }
+
+            return true;
+        } else{
+            System.out.println("Your rank is: " + player.getRank()
+                             + "\nTry to purchase a higher rank.\n");
+            return false;
+        }
     }
 
 }
