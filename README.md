@@ -28,4 +28,6 @@ x is the number of players, 2-8 inclusive
 
 ```upgrade-{type}``` when player is in casting office, player can upgrade their role, specifing payment type by replacing type with $ for dollars and c for credits, will then ask for specific rank
 
+```score```          prints the dollars, credits, rank and total score of the current player
+
 Note: any other input will print out the possible commands
