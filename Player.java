@@ -40,11 +40,6 @@ public class Player{
         return currentRoom;
     }
 
-    //this might not be necessary
-    public int getScore(){
-        return dollars + credits + (rank * 5);
-    }
-
     public void addDollars(int amount){
         dollars += amount;
     }
@@ -69,12 +64,10 @@ public class Player{
         currentRoom = room;
     }
 
-    //might move this to a new Role's Class
     public void setRoleType(String rt){
         roleType = rt;
     }
 
-    //might move this to a new Roles's Class
     public String getRoleType(){
         return roleType;
     }
