@@ -304,6 +304,7 @@ public class Deadwood{
             if((currentPlayer.getPracticeChips() + currentPlayer.getRank()) >= budget){
                 System.out.println("The budget of the room is " + budget + " and you are rank " + currentPlayer.getRank() + " with " + currentPlayer.getPracticeChips() + " so you are guarenteed success if you act! So no more rehearsing!!");
             }else{
+                System.out.println("You've gained a practice chip!");
                 currentPlayer.getPracticeChips();
             }
 
@@ -416,10 +417,7 @@ public class Deadwood{
         //the game begins
         while(currentDay < maxDays){
             if(totalShotsRemaning() == 0){
-                // end day
-                // players go back to trailer
-              //  currentDay++;
-                //newDay();
+                newDay();
             }            
 
             if(currentPlayerIndex == playerAmount){
