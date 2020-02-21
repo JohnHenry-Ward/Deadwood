@@ -5,10 +5,11 @@ public class Card {
     private int budget;
     private Role[] roles;
     private Boolean flipped = false;
+    //ArrayList<Player> players represents players actively on the card (note: not players in the room)
     private ArrayList<Player> players = new ArrayList<Player>(); 
-    //this will be players on the card
 
-    //called when a player has entered a room for the first time
+    /* Method called when a player enters into a room for the first time
+     */
     public void initalize(String n, int b){
         name = n;
         budget = b;
@@ -16,23 +17,11 @@ public class Card {
     }
 
     public String getName(){
-        //Gets name of card
         return name;
     }
 
-    public void setName(Card card, String s){
-        //Sets name of card, used in initialization
-        card.name = s;
-    }
-
     public int getBudget(){
-        //Gets the budget of card
         return budget;
-    }
-
-    public void setBudget(Card card, int budget){
-        //Sets the budget of card, used in initialization
-        card.budget = budget;
     }
 
     public ArrayList<Player> getPlayers(){
@@ -40,7 +29,6 @@ public class Card {
     }
 
     public Role[] getRoles(){
-        //Returns an array, containing the roles on the card
         return roles;
     }
 
@@ -52,25 +40,33 @@ public class Card {
         flipped = status;
     }
 
+    /* All three iterations of setRoles used when the specific rooms are created
+     * What method called depends on how many roles are in each room (3, 2, 1)
+     * Note: roles only for the room, NOT for the card
+     */
     public void setRoles(Role a, Role b, Role c){
-        //This method is used for setting up 3 roles on a card, all iterations used in initialization
         roles = new Role[] {a, b, c};
     }
 
     public void setRoles(Role a, Role b){
-        //Overloaded method of upper one, lets you set just 2 roles, used in initialization
         roles = new Role[] {a, b};
     }
 
     public void setRoles(Role a){
-        //Overloaded method of upper ones, lets you set just 1 role, used in initialization
         roles = new Role[] {a};
     }
 
+    /* Player is added to room when they enter the room
+     * Necessary to keep track for when the room wraps
+     */
     public void addPlayer(Player player){
         players.add(player);
     }
 
+    /* Player is removed from room when they leave room
+     * Iterates through players to find the player specified and
+     * removes them from players arrayList
+     */
     public void removePlayer(Player player){
         for(int x = 0; x < players.size(); x++){
             if(players.get(x) == player){
