@@ -1,87 +1,83 @@
 public class Player{
-    String name;
-    int dollars;
-    int credits;
-    int rank;
-    Role currentRole;
-    Room currentRoom;
-    int practiceChips;
-    String roleType;
+    private String name;
+    private int dollars;
+    private int credits;
+    private int rank = 1;
+    private Role currentRole;
+    private Room currentRoom;
+    private int practiceChips;
+    private String roleType;
 
-    public Player(String name){
-        this.name = name;
+    public Player(String n){
+        name = n;
     }
 
-    public static String getName(Player player){
-        return player.name;
+    public String getName(){
+        return name;
     }
 
-    public static int getDollars(Player player){
-        return player.dollars;
+    public int getDollars(){
+        return dollars;
     }
 
-    public static int getCredits(Player player){
-        return player.credits;
+    public int getCredits(){
+        return credits;
     }
 
-    public static int getPracticeChips(Player player){
-        return player.practiceChips;
+    public int getPracticeChips(){
+        return practiceChips;
     }
 
-    public static int getRank(Player player){
-        return player.rank;
+    public int getRank(){
+        return rank;
     }
 
-    public static Role getCurrentRole(Player player){
-        return player.currentRole;
+    public Role getCurrentRole(){
+        return currentRole;
     }
 
-    public static Room getCurrentRoom(Player player){
-        return player.currentRoom;
-    }
-
-    //might move this to a new Roles's Class
-    public static String getRoleType(Player player){
-        return "a";
-        //return player.roleType;
+    public Room getCurrentRoom(){
+        return currentRoom;
     }
 
     //this might not be necessary
-    public static int getScore(Player player){
-        return player.dollars + player.credits + (player.rank * 5);
+    public int getScore(){
+        return dollars + credits + (rank * 5);
     }
 
-    public static void setName(Player player, String name){
-        player.name = name;
+    public void addDollars(int amount){
+        dollars += amount;
     }
 
-    public static void addDollars(Player player, int dollars){
-        player.dollars += dollars;
+    public void addCredits(int amount){
+        credits += amount;
     }
 
-    public static void addCredits(Player player, int credits){
-        player.credits += credits;
+    public void addPracticeChip(){
+        practiceChips += 1;
     }
 
-    public static void addPracticeChip(Player player){
-        player.practiceChips += 1;
+    public void setRank(int r){
+        rank = r;
     }
 
-    public static void setRank(Player player, int rank){
-        player.rank = rank;
+    public void setCurrentRole(Role role){
+        currentRole = role;
     }
 
-    public static void setCurrentRole(Player player, Role role){
-        player.currentRole = role;
-    }
-
-    public static void setCurrentRoom(Player player, Room room){
-        set player.currentRoom = room;
+    public void setCurrentRoom(Room room){
+        currentRoom = room;
     }
 
     //might move this to a new Role's Class
-    public static void setRoleType(Player player, String rollType){
-        //set player.roleType = rollType;
+    public void setRoleType(String rt){
+        roleType = rt;
     }
+
+    //might move this to a new Roles's Class
+    public String getRoleType(){
+        return roleType;
+    }
+
 }
 

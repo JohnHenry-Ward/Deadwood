@@ -1,42 +1,45 @@
 public class Role {
-    String name;
-    int rank;
-    Player currentPlayer = null;
+    private String name;
+    private int rank;
+    private Player currentPlayer = null;
+    private boolean roleAvailable = true;
 
-    public String getName(Role role){
-        return role.name;
+    public String getName(){
+        return name;
     }
 
-    Role(String name, int rank){
-        this.name = name;
-        this.rank = rank;
+    public Role(String n, int r){
+        name = n;
+        rank = r;
+        currentPlayer = null;
+        roleAvailable = true;
     }
 
-    public int getRank(Role role){
+    public int getRank(){
         //Returns the rank required to acquire this role
-        return role.rank;
+        return rank;
     }
 
 
     public Player getPlayer(){
+        return currentPlayer;
+    }
 
     public void setRank(Role role, int rank){
         //Sets the rank(int rank) for the role, used in initialization
-        this.role.rank = rank;
+        role.rank = rank;
     }
 
-    public Player getPlayer(Role role){
-
-        //Returns the current player that has this role acquired
-        return role.currentPlayer;
+    public void setPlayer(Player player){
+        currentPlayer = player;
     }
 
-    public void setPlayer(Player player, Role role){
-        //Links a player(Player p) to this current role
-        if(currentPlayer == null)
-        currentPlayer = p;
-        this.role.currentPlayer = player;
+    public void setRoleAvailable(boolean avail){
+        roleAvailable = avail;
+    }
 
+    public boolean isRoleAvailable(){
+        return roleAvailable;
     }
 }
 

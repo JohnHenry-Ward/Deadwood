@@ -1,14 +1,22 @@
-public class Room {
-    Card card;
-    int shotCounter;
-    Role[] roles;
-    String name;
-    Players[] players; //this will be players in the room only, not the card
+import java.util.*;
 
-    Room(String name, int shotCounter, Card card){
-        this.name = name;
-        this.shotCounter = shotCounter;
-        this.card = card;
+public class Room {
+    private Card card;
+    private int shotCounter;
+    private Role[] roles;
+    private String name;
+    private ArrayList<Player> players = new ArrayList<Player>(); 
+    //this will be players in the room only, not the card
+    private boolean wrapped = false;
+
+    public Room(String n, int shots, Card c){
+        name = n;
+        shotCounter = shots;
+        card = c;
+        wrapped = false;
+        if(n == "Trailers" || n == "Casting Office"){
+            wrapped = true;
+        }
     }
 
     public Card getCard(){
@@ -17,6 +25,7 @@ public class Room {
     }
 
     public void setCard(Card c){
+        card = c;
         //Sets the card(card c) on the current room, used in resetting the board and initialization
     }
 
@@ -27,6 +36,7 @@ public class Room {
 
     public void removeShot(){
         //Reduces shot counter by 1, used after succesful act occurs
+        shotCounter = shotCounter - 1;
     }
 
     public Role[] getRoles(){
@@ -59,7 +69,32 @@ public class Room {
         return name;
     }
 
-    public void setName(String s){
-        //Sets the name for the current room, used in initialization
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
+
+    public String hasWrapped(){
+        if(wrapped){
+            return "wrapped";
+        }
+        else{
+            return "unwrapped";
+        }
+    }
+
+    public void updateWrapped(boolean update){
+        wrapped = update;
+    }
+
+    public void addPlayer(Player player){
+        players.add(player);
+    }
+
+    public void removePlayer(Player player){
+        for(int x = 0; x < players.size(); x++){
+            if(players.get(x) == player){
+                players.remove(x);
+            }
+        }
     }
 }

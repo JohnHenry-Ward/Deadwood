@@ -1,16 +1,18 @@
+import java.util.*;
+
 public class Bank{
 
     //there is probably a better way to do this
-    int rankTwoCostDollars = 4;
-    int rankTwoCostCredits = 5;
-    int rankThreeCostDollars = 10;
-    int rankThreeCostCredits = 10;
-    int rankFourCostDollars = 18;
-    int rankFourCostCredits = 15;
-    int rankFiveCostDollars = 28;
-    int rankFiveCostCredits = 20;
-    int rankSixCostDollars = 40;
-    int rankSixCostCredits = 25;
+    private int rankTwoCostDollars = 4;
+    private int rankTwoCostCredits = 5;
+    private int rankThreeCostDollars = 10;
+    private int rankThreeCostCredits = 10;
+    private int rankFourCostDollars = 18;
+    private int rankFourCostCredits = 15;
+    private int rankFiveCostDollars = 28;
+    private int rankFiveCostCredits = 20;
+    private int rankSixCostDollars = 40;
+    private int rankSixCostCredits = 25;
 
     /* Method rewards player on their success in acting based on if they are in a
      * starring role or acting as an extra
@@ -19,25 +21,36 @@ public class Bank{
      * If there are 0 shot counters remaining after an actor has acted, then the scene must wrap
      */
     public static void actingSuccess(Player player, String rollType){
-        Room currentRoom = Player.getCurrentRoom(player);
+        Room currentRoom = player.getCurrentRoom();
         
         if(rollType == "onCard"){
-            Player.addCredits(player, 2);
-            Room.removeShot(currentRoom);
+            player.addCredits(2);
+            currentRoom.removeShot();
+            System.out.println("Congrats player " + player.getName() + ", you've received 2 credits!");
+            System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " remaining!");
         }
         else if(rollType == "offCard"){
-            Player.addCredits(player, 1);
-            Player.addDollars(player, 1);
-            Room.removeShot(currentRoom);
+            player.addCredits(1);
+            player.addDollars(1);
+            currentRoom.removeShot();
+            System.out.println("Congrats player " + player.getName() + ", you've received 1 dollar and 1 credit!");
+            System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " remaining!");
         }
 
-        if(Room.getShots(currentRoom) == 0){
-            Card currentCard = Room.getCard(currentRoom);
-            Players[] players = Card.getPlayers(currentCard);
+        if(currentRoom.getShots() == 0){
+            Card currentCard = currentRoom.getCard();
+            ArrayList<Player> players = currentCard.getPlayers();
 
-            if(players.length != 0){
-                sceneWrapBonus(players, currentRoom);
+            currentRoom.updateWrapped(true);
+            System.out.println("Looks like the scene is wrapped!");
+
+            if(players.size() != 0){
+                sceneWrapBonus(players, currentRoom, currentCard);
             }
+
+            //players should not be tied to roles
+            Deadwood.clearPlayerRoles(currentRoom);
+
         }
     }
 
@@ -45,7 +58,7 @@ public class Bank{
      * The Player recieves 1 dollar, no shot counters are removed
      */
     public static void actingFail(Player player){
-        Player.addDollars(player, 1);
+        player.addDollars(1);
     }
 
     /* Method called when there are 0 shot counters remaining in a room AND there is at least 1 Player acting on the card in the room
@@ -55,33 +68,50 @@ public class Bank{
      * The top role gets the highest die amount, the second role gets the second die amount, and so on
      * Off Card roles receive a dollar bonus based on the rank of the role they are working on
      */
-    public static void sceneWrapBonus(Players[] players, Room room, Card card){
-        int budget = Card.getBudget(card);
+    public static void sceneWrapBonus(ArrayList<Player> players, Room room, Card card){
+        System.out.print("There was at least 1 actor acting on a card in this room! So ");
+        for(int x = 0; x < players.size(); x++){
+            System.out.print(players.get(x).getName() + " ");
+        }
+        System.out.print("all get bonuses!");
+
+        int budget = card.getBudget();
         int[] dieRolls = Deadwood.rollDie(budget);
 
         int loopVar = 0;
         for(int x = 0; x < budget; x++){
-            Player.addDollars(players[loopVar], dieRolls[x]);
-            if(loopVar >= players.length){
+            players.get(loopVar).addDollars(dieRolls[x]);
+            System.out.println(players.get(loopVar).getName() + " just received " + dieRolls[x] + " dollars!");
+            if(loopVar >= players.size()){
                 loopVar = 0;
             }
         }
 
-        Player offCardPlayers[] = Room.getPlayers(room);
+        ArrayList<Player> offCardPlayers = room.getPlayers();
 
-        for(int x = 0; x < offCardPlayers.length; x++){
-            int playerRole = Player.getRole(offCardPlayers[x]);
-            int bonus = Role.getRank(playerRole);
-            Player.addDollars(offCardPlayers[x], bonus);
+        if(offCardPlayers.size() > 0){
+            System.out.print("Don't worry ");
+            for(int x = 0; x < offCardPlayers.size(); x++){
+                System.out.print(offCardPlayers.get(x) + " ");
+            }
+            System.out.print("you all get a bonus too!");
         }
+
+        for(int x = 0; x < offCardPlayers.size(); x++){
+            Role playerRole = offCardPlayers.get(x).getCurrentRole();
+            int bonus = playerRole.getRank();
+            offCardPlayers.get(x).addDollars(bonus);
+            System.out.println(offCardPlayers.get(x).getName() + "just got " + bonus + " dollars!");
+        }
+
 
     }
 
     /* Method called when a Player rehearses, rather than acts
      * The Players practice chip attribute increases by 1
      */
-    public static void gainPracticeChip(Player player){
-        Player.addPracticeChip(player);
+    public void gainPracticeChip(Player player){
+        player.addPracticeChip();
     }
 
     /* Method only available when a Player is in the Casting Office Room

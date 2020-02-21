@@ -1,59 +1,55 @@
-public class Card {
-    String name;
-    int budget;
-    Role[] roles;
-    Boolean flipped;
-    Players[] players; //this will players on the card
+import java.util.*;
 
-    public void initialize(String name, int budget, Role[] roles){
-        this.name = name;
-        this.budget = budget;
-        this.roles = roles;
-        flipped = false;
+public class Card {
+    private String name;
+    private int budget;
+    private Role[] roles;
+    private Boolean flipped = false;
+    private ArrayList<Player> players = new ArrayList<Player>(); 
+    //this will be players on the card
+
+    //called when a player has entered a room for the first time
+    public void initalize(String n, int b){
+        name = n;
+        budget = b;
+        flipped = true;
     }
 
-    public String getName(Card card){
+    public String getName(){
         //Gets name of card
-        return card.name;
+        return name;
     }
 
     public void setName(Card card, String s){
         //Sets name of card, used in initialization
-<<<<<<< HEAD
-        this.card.name = s;
-=======
-        name = s;
->>>>>>> b6dec963021c61b62d150af2a71ce17bb072d944
+        card.name = s;
     }
 
-    public int getBudget(Card card){
+    public int getBudget(){
         //Gets the budget of card
-        return card.budget;
+        return budget;
     }
 
     public void setBudget(Card card, int budget){
         //Sets the budget of card, used in initialization
-<<<<<<< HEAD
-        this.card.budget = budget;
-=======
-        budget = n;
->>>>>>> b6dec963021c61b62d150af2a71ce17bb072d944
+        card.budget = budget;
     }
 
-    public Players[] getPlayers(Card card){
-        return this.card.players;
+    public ArrayList<Player> getPlayers(){
+        return players;
     }
 
-    public Role[] getRoles(Card card){
+    public Role[] getRoles(){
         //Returns an array, containing the roles on the card
-<<<<<<< HEAD
-        return card.roles;
-=======
-        if(roles.length <= 0)
-        return null;
-        else
         return roles;
->>>>>>> b6dec963021c61b62d150af2a71ce17bb072d944
+    }
+
+    public boolean getFlipped(){
+        return flipped;
+    }
+
+    public void setFlipped(Boolean status){
+        flipped = status;
     }
 
     public void setRoles(Role a, Role b, Role c){
@@ -69,6 +65,18 @@ public class Card {
     public void setRoles(Role a){
         //Overloaded method of upper ones, lets you set just 1 role, used in initialization
         roles = new Role[] {a};
+    }
+
+    public void addPlayer(Player player){
+        players.add(player);
+    }
+
+    public void removePlayer(Player player){
+        for(int x = 0; x < players.size(); x++){
+            if(players.get(x) == player){
+                players.remove(x);
+            }
+        }
     }
     
 }
