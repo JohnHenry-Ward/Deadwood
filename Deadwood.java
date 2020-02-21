@@ -64,8 +64,7 @@ public class Deadwood{
             String[] cardLineArray = cardLine.split(",");
             String name = cardLineArray[0];
             int budget = Integer.parseInt(cardLineArray[1]);
-            //String desc = cardLineArray[2];
-            int numRoles = Integer.parseInt(cardLineArray[3]);
+            int numRoles = Integer.parseInt(cardLineArray[2]);
             cards[cardsFlipped] = new Card();
             room.setCard(cards[cardsFlipped]);
             room.getCard().initalize(name, budget);
@@ -75,8 +74,8 @@ public class Deadwood{
             Role[] roles = new Role[numRoles];
             int i = 0;
             for(int x = 0; x <= numRoles + 1; x+=2){
-                roleName = cardLineArray[4 + x];
-                roleRank = Integer.parseInt(cardLineArray[5 + x]);
+                roleName = cardLineArray[3 + x];
+                roleRank = Integer.parseInt(cardLineArray[4 + x]);
                 Role role = new Role(roleName, roleRank);
                 roles[i] = role;
                 i++;
@@ -528,22 +527,34 @@ public class Deadwood{
                     }
                     break;
                 }
-                else if(playerInput.equals("upgrade")){
-                    System.out.println(playerOrder[0].getName() + " is rank " + playerOrder[0].getRank());
-                
-                    System.out.println("Here are the ranks and their prices");
-                    System.out.println("Rank | Dollars | Credits");
-                    System.out.println("  2  |    4    |    5   ");
-                    System.out.println("  3  |    10   |    10  ");
-                    System.out.println("  4  |    18   |    15  ");
-                    System.out.println("  5  |    28   |    20  ");
-                    System.out.println("  6  |    40   |    25  ");
+                else if(playerInput.contains("upgrade")){
+                    System.out.println(currentPlayer.getName() + " is rank " + currentPlayer.getRank());
+                    String[] upgradePlayer = playerInput.split("-");
+                        if(upgradePlayer[1].toLowerCase() == "c" && upgradePlayer.length == 3){
+                            try{
+                            int rankChoice = Integer.parseInt(upgradePlayer[3]);
+                            }catch(Exception e){
+                                break;
+                            }
+                        }else if(currentPlayer.getCurrentRoom().getName() == "Casting Office"){
+                            System.out.println("Here are the ranks and their prices:\n"
+                                             + "Rank | Dollars | Credits\n"
+                                             + "  2  |    4    |    5   \n"
+                                             + "  3  |    10   |    10  \n"
+                                             + "  4  |    18   |    15  \n"
+                                             + "  5  |    28   |    20  \n"
+                                             + "  6  |    40   |    25  ");
+
+                            System.out.println("Syntax for buying a rank:\n"
+                                             + "Buying with Dollars: upgrade-$-(rank number)\n"
+                                             + "Buying with Credits: upgrade-c-(rank number)");
+                        }
                 }
                 else if(playerInput.equals("score")){
-                    System.out.println("Dollars: " + currentPlayer.getDollars());
-                    System.out.println("Credits: " + currentPlayer.getCredits());
-                    System.out.println("Rank: " + currentPlayer.getRank());
-                    System.out.println("Score: " + calculateScore(currentPlayer));
+                    System.out.println("Dollars: " + currentPlayer.getDollars()
+                                     + "\nCredits: " + currentPlayer.getCredits()
+                                     + "\nRank: " + currentPlayer.getRank()
+                                     + "\nScore: " + calculateScore(currentPlayer));
 
                 }
                 else{
