@@ -40,9 +40,9 @@ public class Card {
         flipped = status;
     }
 
-    /* All three iterations of setRoles used when the specific rooms are created
-     * What method called depends on how many roles are in each room (3, 2, 1)
-     * Note: roles only for the room, NOT for the card
+    /* All three iterations of setRoles used when the specific card is created
+     * What method is called depends on how many roles are on each card (3, 2, 1)
+     * Note: roles only for the card, NOT for the room
      */
     public void setRoles(Role a, Role b, Role c){
         roles = new Role[] {a, b, c};
