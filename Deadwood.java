@@ -49,6 +49,7 @@ public class Deadwood{
     //avoids problem of creating 10 new objects at the start of every day, and instead creating them over the course of the game
     public static void flipCard(Room room){
         //this is the first card flipped
+        cardsFlipped++;
         try{
             // Scanner sc;
             if(cardsFlipped == 0){
@@ -74,7 +75,7 @@ public class Deadwood{
                 Role role = new Role(roleName, roleRank);
                 roles[i] = role;
                 i++;
-        }
+            }
         switch(roles.length){
             case 1: room.getCard().setRoles(roles[0]);
                     break;
@@ -443,6 +444,11 @@ public class Deadwood{
                         System.out.println(playersInRoom.get(x).getName());
                     }
                 }else if(playerInput.equals("card")){
+                    Room currentRoom = currentPlayer.getCurrentRoom();
+                    if(currentRoom.equals(rooms[0]) || currentRoom.equals(rooms[1])){
+                        System.out.println(currentRoom.getName() + " doesn't have a card!");
+                        break;
+                    }
                     System.out.println("Current room: " + currentPlayer.getCurrentRoom().getName());
                     System.out.println("Card in room: " + currentPlayer.getCurrentRoom().getCard().getName());
                     Role[] roles = currentPlayer.getCurrentRoom().getCard().getRoles();
