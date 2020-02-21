@@ -5,8 +5,8 @@ public class Room {
     private int shotCounter;
     private Role[] roles;
     private String name;
+    //ArrayList<Player> players represents players actively in the room (note: not players on the card)
     private ArrayList<Player> players = new ArrayList<Player>(); 
-    //this will be players in the room only, not the card
     private boolean wrapped = false;
 
     public Room(String n, int shots, Card c){
@@ -19,58 +19,48 @@ public class Room {
         }
     }
 
+    public String getName(){
+        return name;
+    }
+
     public Card getCard(){
-        //Returns the current card on the Room
         return card;
     }
 
     public void setCard(Card c){
         card = c;
-        //Sets the card(card c) on the current room, used in resetting the board and initialization
     }
 
     public int getShots(){
-        //Returns how many shots are currently in the shot counter
         return shotCounter;
     }
 
     public void removeShot(){
-        //Reduces shot counter by 1, used after succesful act occurs
         shotCounter = shotCounter - 1;
     }
 
     public Role[] getRoles(){
-        //Returns an array consisting of all roles in the room, excluding roles on the card
         return roles;
     }
 
+    /* All four iterations of setRoles used when the specific rooms are created
+     * What method called depends on how many roles are in each room (4, 3, 2, 1)
+     * Note: roles only for the room, NOT for the card
+     */
     public void setRoles(Role a, Role b, Role c, Role d){
-        //This method is used for setting up 4 roles on a card, all iterations used in initialization
         roles = new Role[] {a, b, c, d};
     }
     
     public void setRoles(Role a, Role b, Role c){
-        //Overloaded method of upper one, lets you set just 3 roles, used in initialization
         roles = new Role[] {a, b, c};
     }
     
     public void setRoles(Role a, Role b){
-        //Overloaded method of upper ones, lets you set just 2 roles, used in initialization
         roles = new Role[] {a, b};
     }
 
     public void setRoles(Role a){
-        //Overloaded method of upper ones, lets you set just 1 role, used in initialization
         roles = new Role[] {a};
-    }
-    
-    public String getName(){
-        //Returns name of the current room
-        return name;
-    }
-
-    public ArrayList<Player> getPlayers(){
-        return players;
     }
 
     public String hasWrapped(){
@@ -86,10 +76,21 @@ public class Room {
         wrapped = update;
     }
 
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
+
+    /* Player is added to room when they enter the room
+     * Necessary to keep track for when the room wraps
+     */
     public void addPlayer(Player player){
         players.add(player);
     }
 
+    /* Player is removed from room when they leave room
+     * Iterates through players to find the player specified and
+     * removes them from players arrayList
+     */
     public void removePlayer(Player player){
         for(int x = 0; x < players.size(); x++){
             if(players.get(x) == player){
