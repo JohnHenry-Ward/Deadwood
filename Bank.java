@@ -34,7 +34,7 @@ public class Bank{
             player.addDollars(1);
             currentRoom.removeShot();
             System.out.println("Congrats player " + player.getName() + ", you've received 1 dollar and 1 credit!");
-            System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " remaining!");
+            System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " shots remaining!");
         }
 
         if(currentRoom.getShots() == 0){
@@ -54,7 +54,7 @@ public class Bank{
         }
     }
 
-    public static void displayPrices(){
+    public void displayPrices(){
         System.out.println("Here are the ranks and their prices:\n"
         + "Rank | Dollars | Credits\n"
         + "  2  |    " + rankTwoCostDollars + "    |    " + rankTwoCostCredits + "\n"
@@ -132,7 +132,7 @@ public class Bank{
      * Method returns true for succesful upgrade
      * Method returns false otherwise
      */
-    public static boolean upgrade(Player player, int rankRequest, char moneyType){
+    public boolean upgrade(Player player, int rankRequest, char moneyType){
         if(player.getRank() < rankRequest){
             if(moneyType == '$'){
                 switch (rankRequest) {

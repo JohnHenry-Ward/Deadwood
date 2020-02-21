@@ -281,8 +281,9 @@ public class Deadwood{
 
         if(playerRole != null && playerRoom.hasWrapped() != "wrapped"){
             int[] dieRoll = rollDie(1);
-            System.out.println("die roll: " + dieRoll[0]);
-            if(dieRoll[0] >= budget){//Success
+            System.out.println("Die roll: " + dieRoll[0] + " practice chips: " + currentPlayer.getPracticeChips());
+            System.out.println("Budget: " + currentPlayer.getCurrentRoom().getCard().getBudget());
+            if(dieRoll[0] + currentPlayer.getPracticeChips() >= budget){//Success
                 Bank.actingSuccess(currentPlayer, rollType);
                 acted = true;
             }else if(rollType == "offCard"){//Fail
@@ -445,10 +446,10 @@ public class Deadwood{
                     Room currentRoom = currentPlayer.getCurrentRoom();
                     if(currentRoom.equals(rooms[0]) || currentRoom.equals(rooms[1])){
                         System.out.println(currentRoom.getName() + " doesn't have a card!");
-                        break;
                     }
                     System.out.println("Current room: " + currentPlayer.getCurrentRoom().getName());
                     System.out.println("Card in room: " + currentPlayer.getCurrentRoom().getCard().getName());
+                    System.out.println("Budget: " + currentPlayer.getCurrentRoom().getCard().getBudget());
                     Role[] roles = currentPlayer.getCurrentRoom().getCard().getRoles();
                     for(int x = 0; x < roles.length; x++){
                         System.out.println("Role name: " + roles[x].getName());
@@ -472,6 +473,14 @@ public class Deadwood{
                         System.out.println("Sorry! You are already working on role: " + currentPlayer.getCurrentRole().getName());
                         System.out.println(currentPlayer.getCurrentRoom().getName() + " (the room you are currently in) needs to wrap before you can take a new role.\n");
                     }
+                }else if(playerInput.equals("room options")){
+                    ArrayList<Room> neighbors = board.getNeighbors(currentPlayer.getCurrentRoom());
+                    System.out.println(currentPlayer.getName() + " is in room: " + currentPlayer.getCurrentRoom().getName());
+                    System.out.println("You can move to: ");
+                    for(int x = 0; x < neighbors.size(); x++){
+                        System.out.println(neighbors.get(x).getName());
+                    }
+
                 }else if(playerInput.contains("work")){
                     try{
                         String[] inputArray = playerInput.split("-");
@@ -487,7 +496,10 @@ public class Deadwood{
                     }
                 }else if(playerInput.equals("act")){
                     if(attemptToAct(((currentPlayer.getCurrentRoom()).getCard()).getBudget(), currentPlayer.getRoleType())){
-                        break;
+                        
+                    }
+                    else{
+                        System.out.println("Sorry! You were unsuccessful");
                     }
                 }else if(playerInput.equals("rehearse")){
                     rehearse();
