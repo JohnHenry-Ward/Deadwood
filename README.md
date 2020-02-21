@@ -3,7 +3,8 @@
 Compile syntax: javac Deadwood.java
 
 Run syntax: java Deadwood x
-    -x is the number of players, 2-8 inclusive
+    
+   -x is the number of players, 2-8 inclusive
 
 **Legal operations during gameplay**
 
