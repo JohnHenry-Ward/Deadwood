@@ -14,7 +14,7 @@ public class Deadwood{
     static Board<Room> board;
     static int cardsFlipped = -1;
     static Scanner sc;
-
+    static Bank bank = new Bank();
     /* Before the game begins, room objects are created and initalized, card objects are created
      */
     public static void initalizeBoard(){
@@ -35,12 +35,11 @@ public class Deadwood{
      * Resets shot counter for each Room
      */
     public static void newDay(){
-        //set each players room to the trailers
         for(int x = 0; x < playerAmount; x++){
             playerOrder[x].setCurrentRoom(rooms[0]);
         }
-        //clear card objects from rooms
-        //reset shot counters
+        createRooms();
+        currentDay++;
     }
 
     //FORMAT: name,budget,description,numberOfRoles,roleName,roleRank,roleDescription role stuff continues for numberOfRoles
@@ -50,10 +49,6 @@ public class Deadwood{
     //avoids problem of creating 10 new objects at the start of every day, and instead creating them over the course of the game
     public static void flipCard(Room room){
         //this is the first card flipped
-
-        //NEED TO SOME HOW MAKE IT REMEMBER WHAT IT LAST READ
-        cardsFlipped++; //AKA what line was read last
-        
         try{
             // Scanner sc;
             if(cardsFlipped == 0){
@@ -80,7 +75,17 @@ public class Deadwood{
                 roles[i] = role;
                 i++;
         }
-        room.getCard().setRoles(roles[0], roles[1], roles[2]);
+        switch(roles.length){
+            case 1: room.getCard().setRoles(roles[0]);
+                    break;
+            case 2: room.getCard().setRoles(roles[0], roles[1]);
+                    break;
+            case 3: room.getCard().setRoles(roles[0], roles[1], roles[2]);
+                    break;
+            default: System.out.println("\nERROR on card initialization\n");
+                    System.exit(0);
+        }
+        
         }
         catch(FileNotFoundException e){
             System.out.println("File not found");
@@ -128,7 +133,6 @@ public class Deadwood{
          rooms[11] = new Room("Train Station", 3, null);
          rooms[11].setRoles(new Role("Crusty Prospector", 1), new Role("Dragged by Train", 1), new Role("Preacher with Bag", 2), new Role("Cyrus the Gunfighter", 4));
     }
-
     //paths are created on a graph, each node is a room
     public static void createPaths(){
         board.addPath(rooms[0], rooms[2]);//trailer <-> main street
@@ -205,8 +209,7 @@ public class Deadwood{
             System.out.print(onCardRoles[x].getName() + " which is rank: " + onCardRoles[x].getRank() + ". ");
             if(onCardRoles[x].getPlayer() == null){
                 System.out.println(" There is no one working on this role!");
-            }
-            else{
+            }else{
                 System.out.println(onCardRoles[x].getPlayer().getName() + " is working on this role");
             }
         }
@@ -216,8 +219,7 @@ public class Deadwood{
             System.out.print(offCardRoles[x].getName() + " which is rank: " + offCardRoles[x].getRank() + ". ");
             if(offCardRoles[x].getPlayer() == null){
                 System.out.println(" There is no one working on this role!");
-            }
-            else{
+            }else{
                 System.out.println(offCardRoles[x].getPlayer().getName() + " is working on this role");
             }
 
@@ -279,17 +281,13 @@ public class Deadwood{
         if(playerRole != null && playerRoom.hasWrapped() != "wrapped"){
             int[] dieRoll = rollDie(1);
             System.out.println("die roll: " + dieRoll[0]);
-            //success
-            if(dieRoll[0] >= budget){
+            if(dieRoll[0] >= budget){//Success
                 Bank.actingSuccess(currentPlayer, rollType);
                 acted = true;
-            }
-            //fail
-            else if(rollType == "offCard"){
+            }else if(rollType == "offCard"){//Fail
                 Bank.actingFail(currentPlayer);
             }
-        }
-        else{
+        }else{
             System.out.println("You have yet to take a role!");
         }
         return acted;
@@ -304,13 +302,11 @@ public class Deadwood{
             int budget = ((currentPlayer.getCurrentRoom()).getCard()).getBudget();
             if((currentPlayer.getPracticeChips() + currentPlayer.getRank()) >= budget){
                 System.out.println("The budget of the room is " + budget + " and you are rank " + currentPlayer.getRank() + " with " + currentPlayer.getPracticeChips() + " so you are guarenteed success if you act! So no more rehearsing!!");
-            }
-            else{
+            }else{
                 currentPlayer.getPracticeChips();
             }
 
-        }
-        else{
+        }else{
             System.out.println("You have yet to take a role!");
         }
     }
@@ -331,11 +327,9 @@ public class Deadwood{
             currentRoom.removePlayer(player);
             newRoom.addPlayer(player);
             //players need to be added to room aswell
-        }
-        else if(!isNeighbor){
+        }else if(!isNeighbor){
             System.out.println("Sorry! " + currentRoom.getName() + " is not next to " + newRoom.getName());
-        }
-        else if(!(player.getCurrentRole() == null)){
+        }else if(!(player.getCurrentRole() == null)){
             System.out.println("Sorry! You can't leave a room until it has wrapped! There are still " + currentRoom.getShots() + " shot(s) remaining!");
         }
     }
@@ -379,25 +373,21 @@ public class Deadwood{
     public static void specialRules(){
         if(playerAmount <= 3){
             maxDays = 3;
-        }
-        else if(playerAmount == 4){
+        }else if(playerAmount == 4){
             maxDays = 4;
-        }
-        else if(playerAmount == 5){
+        }else if(playerAmount == 5){
             //players start with 2 credits
             for(int i = 0; i < playerAmount; i++){
                 playerOrder[i].addCredits(2);
             }
             maxDays = 4;
-        }
-        else if(playerAmount == 6){
+        }else if(playerAmount == 6){
             //players start with 4 credits
             for(int i = 0; i < playerAmount; i++){
                 playerOrder[i].addCredits(4);
             }
             maxDays = 4;
-        }
-        else{
+        }else{
             //players start with rank 2
             for(int i = 0; i < playerAmount; i++){
                 playerOrder[i].setRank(2);
@@ -444,8 +434,7 @@ public class Deadwood{
 
                 if(playerInput.equals("who")){
                     System.out.println("Current player: " + currentPlayer.getName());
-                }
-                else if(playerInput.equals("room")){
+                }else if(playerInput.equals("room")){
                     Room currRoom = currentPlayer.getCurrentRoom();
                     ArrayList<Player> playersInRoom = currRoom.getPlayers();
                     System.out.println("Room: " + currRoom.getName());
@@ -453,8 +442,7 @@ public class Deadwood{
                     for(int x = 0; x < playersInRoom.size(); x++){
                         System.out.println(playersInRoom.get(x).getName());
                     }
-                }
-                else if(playerInput.equals("card")){
+                }else if(playerInput.equals("card")){
                     System.out.println("Current room: " + currentPlayer.getCurrentRoom().getName());
                     System.out.println("Card in room: " + currentPlayer.getCurrentRoom().getCard().getName());
                     Role[] roles = currentPlayer.getCurrentRoom().getCard().getRoles();
@@ -463,31 +451,24 @@ public class Deadwood{
                         System.out.println("Role rank: " + roles[x].getRank());
                         System.out.println("Role player: " + roles[x].getPlayer());
                     }
-                }
-                else if(playerInput.equals("where")){
+                }else if(playerInput.equals("where")){
                     System.out.println("Current player is in room: " + currentPlayer.getCurrentRoom().getName() + " which is " + currentPlayer.getCurrentRoom().hasWrapped());
-                }
-                else if(playerInput.equals("role")){
+                }else if(playerInput.equals("role")){
                     if(currentPlayer.getCurrentRole() != null){
                         System.out.println("The current player's role is: " + currentPlayer.getCurrentRole().getName());
-                    }
-                    else{
+                    }else{
                         System.out.println("Player " + currentPlayer.getName() + " has not taken a role!");
                     }
-                }
-                else if(playerInput.equals("role options")){
+                }else if(playerInput.equals("role options")){
                     if(currentPlayer.getCurrentRoom().hasWrapped() == "wrapped"){
                         System.out.println("Sorry! The room: " + currentPlayer.getCurrentRoom().getName() + " has wrapped!");
-                    }
-                    else if(currentPlayer.getCurrentRole() == null){
+                    }else if(currentPlayer.getCurrentRole() == null){
                         roleOptions();
-                    }
-                    else{
+                    }else{
                         System.out.println("Sorry! You are already working on role: " + currentPlayer.getCurrentRole().getName());
-                        System.out.println(currentPlayer.getCurrentRoom().getName() + " (the room you are currently in) needs to wrap before you can take a new role.");
+                        System.out.println(currentPlayer.getCurrentRoom().getName() + " (the room you are currently in) needs to wrap before you can take a new role.\n");
                     }
-                }
-                else if(playerInput.contains("work")){
+                }else if(playerInput.contains("work")){
                     try{
                         String[] inputArray = playerInput.split("-");
                         String roleName = inputArray[1];
@@ -495,88 +476,83 @@ public class Deadwood{
                             break;
                         }
                         else{
-                            System.out.println("Sorry! This role is either spelt wrong, not in this room, already has someone acting on it, the room is wrapped, or you aren't the right rank!");
+                            System.out.println("Sorry! This role is either spelt wrong, not in this room, already has someone acting on it, the room is wrapped, or you aren't the right rank!\n");
                         }
                     } catch (ArrayIndexOutOfBoundsException ex){
-                        System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'");
+                        System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'\n");
                     }
-                }
-                else if(playerInput.equals("act")){
+                }else if(playerInput.equals("act")){
                     if(attemptToAct(((currentPlayer.getCurrentRoom()).getCard()).getBudget(), currentPlayer.getRoleType())){
                         break;
                     }
-                }
-                else if(playerInput.equals("rehearse")){
+                }else if(playerInput.equals("rehearse")){
                     rehearse();
                     break;
-                }
-                else if(playerInput.contains("move")){
-                    String[] moveLocation = playerInput.split("-");
-                    String location = moveLocation[1];
-                    for(int x = 0; x < rooms.length; x++){
-                        if(rooms[x].getName().equals(location)){
-                            movePlayer(currentPlayer, rooms[x]);
-                            if(rooms[x].getCard() == null){
-                                //not equals to trailers or casting office
-                                if(!(rooms[x].equals(rooms[0])) && !(rooms[x].equals(rooms[1]))){
-                                    flipCard(rooms[x]);
+                }else if(playerInput.contains("move")){
+                    try{
+                        String[] moveLocation = playerInput.split("-");
+                        String location = moveLocation[1];
+                        for(int x = 0; x < rooms.length; x++){
+                            if(rooms[x].getName().equals(location) && !currentPlayer.getMoveFlag()){
+                                movePlayer(currentPlayer, rooms[x]);
+                                currentPlayer.setMoveFlag(true);
+                                if(rooms[x].getCard() == null){
+                                    //not equals to trailers or casting office
+                                    if(!(rooms[x].equals(rooms[0])) && !(rooms[x].equals(rooms[1]))){
+                                        flipCard(rooms[x]);
+                                    }
                                 }
                             }
+                        }
+                    }catch(ArrayIndexOutOfBoundsException a){
+                        System.out.println("\nPlease specify where you want to move.\n"
+                                         + "Syntax: move-(name of room)\n");
+                    }
+                }else if(playerInput.contains("upgrade")){
+                    int rankChoice = 0;
+                    System.out.println(currentPlayer.getName() + " is rank " + currentPlayer.getRank());
+                    String[] upgradePlayer = playerInput.split("-");
+                    if(upgradePlayer.length == 1 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
+                        bank.displayPrices();
+                    } else if(upgradePlayer[1].toLowerCase().equals("c") || upgradePlayer[1].equals("$") && upgradePlayer.length == 3 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
+                        try{
+                            rankChoice = Integer.parseInt(upgradePlayer[2]);
+                        }catch(Exception z){
+                            System.out.println("WRONG SYNTAX");
+                            break;
+                        }
+                        if(bank.upgrade(currentPlayer, rankChoice, upgradePlayer[1].toLowerCase().charAt(0))){
+                            System.out.println(currentPlayer.getName() + " is now rank: " + currentPlayer.getRank() + "\n");
                             break;
                         }
                     }
-                    break;
-                }
-                else if(playerInput.contains("upgrade")){
-                    System.out.println(currentPlayer.getName() + " is rank " + currentPlayer.getRank());
-                    String[] upgradePlayer = playerInput.split("-");
-                        if(upgradePlayer[1].toLowerCase() == "c" && upgradePlayer.length == 3){
-                            try{
-                            int rankChoice = Integer.parseInt(upgradePlayer[3]);
-                            }catch(Exception e){
-                                break;
-                            }
-                        }else if(currentPlayer.getCurrentRoom().getName() == "Casting Office"){
-                            System.out.println("Here are the ranks and their prices:\n"
-                                             + "Rank | Dollars | Credits\n"
-                                             + "  2  |    4    |    5   \n"
-                                             + "  3  |    10   |    10  \n"
-                                             + "  4  |    18   |    15  \n"
-                                             + "  5  |    28   |    20  \n"
-                                             + "  6  |    40   |    25  ");
-
-                            System.out.println("Syntax for buying a rank:\n"
-                                             + "Buying with Dollars: upgrade-$-(rank number)\n"
-                                             + "Buying with Credits: upgrade-c-(rank number)");
-                        }
-                }
-                else if(playerInput.equals("score")){
+                }else if(playerInput.equals("score")){
                     System.out.println("Dollars: " + currentPlayer.getDollars()
                                      + "\nCredits: " + currentPlayer.getCredits()
                                      + "\nRank: " + currentPlayer.getRank()
-                                     + "\nScore: " + calculateScore(currentPlayer));
+                                     + "\nScore: " + calculateScore(currentPlayer) +"\n");
 
                 }
                 else{
                     //show syntax
-                    System.out.println("Whoops! Looks like your syntax is wrong. Here is what you can do.");
-                    System.out.println("who (prints out the current player");
-                    System.out.println("where (prints out where the current player is");
-                    System.out.println("role (prints out the current player's role");
-                    System.out.println("role options (prints all role options for the current player)");
-                    System.out.println("work-roleName (this makes the current player begin to work on a specified role");
-                    System.out.println("act (this makes the current player attempt to act on their role, if they have one");
-                    System.out.println("rehearse (this give the current player a practice chip, unless they have guarenteed acting success)");
-                    System.out.println("move-location (this moves the current player to a specified room, if possible");
-                    System.out.println("upgrade (this prompts the user for more information about upgrading their rank)");
-                    System.out.println("score (shows the current players dollars, credits, rank, and total score");
-                    System.out.println("end (this ends your move)");
+                    System.out.println("\nWhoops! Looks like your syntax is wrong. Here is what you can do:\n"
+                                     + "who --(prints out the current player)\n"
+                                     + "where --(prints out where the current player is)\n"
+                                     + "role --(prints out the current player's role)\n"
+                                     + "role options --(prints all role options for the current player)\n"
+                                     + "work-roleName --(this makes the current player begin to work on a specified role)\n"
+                                     + "act --(this makes the current player attempt to act on their role, if they have one)\n"
+                                     + "rehearse --(this give the current player a practice chip, unless they have guarenteed acting success)\n"
+                                     + "move-location --(this moves the current player to a specified room, if possible)\n"
+                                     + "upgrade --(this prompts the user for more information about upgrading their rank)\n"
+                                     + "score --(shows the current players dollars, credits, rank, and total score)\n"
+                                     + "end --(this ends your move)\n");
 
                 }
                 
 
                 playerInput = in.nextLine();
-
+                
             
 
             
@@ -598,7 +574,7 @@ public class Deadwood{
             //user inputs "end"
             //playerX's turn is over, loop back to top and currentPlayer = playerOrder[X+1];
         }
-
+        currentPlayer.setMoveFlag(false);
         currentPlayerIndex++; //move to next player
 
         //just for testing
