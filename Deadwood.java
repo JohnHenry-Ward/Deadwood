@@ -268,11 +268,11 @@ public class Deadwood{
         }
 
         for(int x = 0; x < cardRoles.length; x++){
-            if(cardRoles[x].getName().equals(roleName) && roomRoles[x].isRoleAvailable() && currentPlayer.getRank() >= cardRoles[x].getRank()  && currentRoom.hasWrapped() == "unwrapped"){
+            if(cardRoles[x].getName().equals(roleName) && cardRoles[x].isRoleAvailable() && currentPlayer.getRank() >= cardRoles[x].getRank()  && currentRoom.hasWrapped() == "unwrapped"){
                 currentPlayer.setCurrentRole(cardRoles[x]);
                 currentPlayer.setRoleType("onCard");
                 cardRoles[x].setPlayer(currentPlayer);
-                roomRoles[x].setRoleAvailable(false);
+                cardRoles[x].setRoleAvailable(false);
                 roleTaken = true;
             }
         }
