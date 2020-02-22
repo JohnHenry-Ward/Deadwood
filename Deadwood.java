@@ -139,28 +139,28 @@ public class Deadwood{
          rooms[3] = new Room("Saloon", 2, null);
          rooms[3].setRoles(new Role("Reluctant Farmer", 1), new Role("Woman in Red Dress", 2));
 
-         rooms[4] = new Room("Bank", 0, null);
+         rooms[4] = new Room("Bank", 1, null);
          rooms[4].setRoles(new Role("Suspicious Gentleman", 2), new Role("Flustered Teller", 3));
 
-         rooms[5] = new Room("Church", 0, null);
+         rooms[5] = new Room("Church", 2, null);
          rooms[5].setRoles(new Role("Dead Man", 1), new Role("Crying Woman", 2));
 
-         rooms[6] = new Room("Hotel", 0, null);
+         rooms[6] = new Room("Hotel", 3, null);
          rooms[6].setRoles(new Role("Sleeping Drunkard", 1), new Role("Rare Player", 1), new Role("Falls from Balcony", 2), new Role("Australian Bartender", 3));
 
-         rooms[7] = new Room("Secret Hideout", 0, null);
+         rooms[7] = new Room("Secret Hideout", 3, null);
          rooms[7].setRoles(new Role("Clumsy Pit Fighter", 1), new Role("Thug with Knife", 2), new Role("Dangerous Tom", 3), new Role("Penny, who is Lost", 4));
          
-         rooms[8] = new Room("Ranch", 0, null);
+         rooms[8] = new Room("Ranch", 2, null);
          rooms[8].setRoles(new Role("Shot in Leg", 1), new Role("Saucy Fred", 2), new Role("Man Under Horse", 3));
 
-         rooms[9] = new Room("General Store", 0, null);
+         rooms[9] = new Room("General Store", 2, null);
          rooms[9].setRoles(new Role("Man in Overalls", 1), new Role("Mister Keach", 3));
 
-         rooms[10] = new Room("Jail", 0, null);
+         rooms[10] = new Room("Jail", 1, null);
          rooms[10].setRoles(new Role("Prisoner in Cell", 2), new Role("Feller in Irons", 3));
 
-         rooms[11] = new Room("Train Station", 0, null);
+         rooms[11] = new Room("Train Station", 3, null);
          rooms[11].setRoles(new Role("Crusty Prospector", 1), new Role("Dragged by Train", 1), new Role("Preacher with Bag", 2), new Role("Cyrus the Gunfighter", 4));
     }
 
@@ -434,9 +434,6 @@ public class Deadwood{
     public static void specialRules(){
         if(playerAmount <= 3){
             maxDays = 3;
-            for(int i = 0; i < playerAmount; i++){
-                playerOrder[i].setRank(6);
-            }
         }else if(playerAmount == 4){
             maxDays = 4;
         }else if(playerAmount == 5){
