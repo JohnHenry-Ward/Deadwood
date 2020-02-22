@@ -77,6 +77,10 @@ public class Player{
         practiceChips++;
     }
 
+    public void resetPracticeChips(){
+        practiceChips = 0;
+    }
+
     public void setRank(int r){
         rank = r;
     }

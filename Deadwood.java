@@ -236,6 +236,15 @@ public class Deadwood{
         room.updateWrapped(true);
     }
 
+    /* Method called when a scene wraps
+     * Resets practice chips for each player to 0
+     */
+    public static void clearPracticeChips(){
+        for(int x = 0; x < playerAmount; x++){
+            playerOrder[x].resetPracticeChips();
+        }
+    }
+
     /* Method prints out options for player to work based on what room they are in
      */
     public static void roleOptions(){
