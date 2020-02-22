@@ -122,7 +122,7 @@ public class Deadwood{
 
          rooms[1] = new Room("Casting Office", 0, null);
 
-         rooms[2] = new Room("Main Street", 0, null);
+         rooms[2] = new Room("Main Street", 3, null);
          rooms[2].setRoles(new Role("Railroad worker", 1), new Role("Falls off Roof", 2), new Role("Woman in black Dress", 2), new Role("Mayor McGinty", 4));
 
          rooms[3] = new Room("Saloon", 2, null);
@@ -317,22 +317,25 @@ public class Deadwood{
         return acted;
     }
 
-    public static void rehearse(){
+    public static boolean rehearse(){
         Role playerRole = currentPlayer.getCurrentRole();
         Room playerRoom = currentPlayer.getCurrentRoom();
 
         if(playerRole != null && playerRoom.hasWrapped() != "wrapped"){
 
             int budget = ((currentPlayer.getCurrentRoom()).getCard()).getBudget();
-            if((currentPlayer.getPracticeChips() + currentPlayer.getRank()) >= budget){
-                System.out.println("The budget of the room is " + budget + " and you are rank " + currentPlayer.getRank() + " with " + currentPlayer.getPracticeChips() + " so you are guarenteed success if you act! So no more rehearsing!!");
+            if((currentPlayer.getPracticeChips()) >= budget){
+                System.out.println("The budget of the room is " + budget + " and you have " + currentPlayer.getPracticeChips() + " practice chips so you are guarenteed success if you act! So no more rehearsing!!");
+                return false;
             }else{
                 System.out.println("You've gained a practice chip!");
                 currentPlayer.addPracticeChip();
+                return true;
             }
 
         }else{
             System.out.println("You have yet to take a role!");
+            return false;
         }
     }
 
@@ -464,32 +467,7 @@ public class Deadwood{
 
                 if(playerInput.equals("who")){
                     System.out.println("Current player: " + currentPlayer.getName());
-                }
-                /*
-                else if(playerInput.equals("room")){
-                    Room currRoom = currentPlayer.getCurrentRoom();
-                    ArrayList<Player> playersInRoom = currRoom.getPlayers();
-                    System.out.println("Room: " + currRoom.getName());
-                    System.out.println("Players in room: " + playersInRoom.size());
-                    for(int x = 0; x < playersInRoom.size(); x++){
-                        System.out.println(playersInRoom.get(x).getName());
-                    }
-                }else if(playerInput.equals("card")){
-                    Room currentRoom = currentPlayer.getCurrentRoom();
-                    if(currentRoom.equals(rooms[0]) || currentRoom.equals(rooms[1])){
-                        System.out.println(currentRoom.getName() + " doesn't have a card!");
-                    }
-                    System.out.println("Current room: " + currentPlayer.getCurrentRoom().getName());
-                    System.out.println("Card in room: " + currentPlayer.getCurrentRoom().getCard().getName());
-                    System.out.println("Budget: " + currentPlayer.getCurrentRoom().getCard().getBudget());
-                    Role[] roles = currentPlayer.getCurrentRoom().getCard().getRoles();
-                    for(int x = 0; x < roles.length; x++){
-                        System.out.println("Role name: " + roles[x].getName());
-                        System.out.println("Role rank: " + roles[x].getRank());
-                        System.out.println("Role player: " + roles[x].getPlayer());
-                    }
-                }*/
-                else if(playerInput.equals("where")){
+                }else if(playerInput.equals("where")){
                     System.out.println("Current player is in room: " + currentPlayer.getCurrentRoom().getName() + " which is " + currentPlayer.getCurrentRoom().hasWrapped());
                 }else if(playerInput.equals("role")){
                     if(currentPlayer.getCurrentRole() != null){
@@ -536,8 +514,9 @@ public class Deadwood{
                         break;
                     }
                 }else if(playerInput.equals("rehearse")){
-                    rehearse();
-                    break;
+                    if(rehearse()){
+                        break;
+                    }
                 }else if(playerInput.contains("move")){
                     try{
                         String[] moveLocation = playerInput.split("-");
