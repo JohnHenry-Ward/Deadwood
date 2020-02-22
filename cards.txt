@@ -10,7 +10,7 @@ Buffalo Bill: The Lost Years,4,3,Hollering Boy,2,Drunk Farmer,3,Meek Little Sara
 Ol' Shooter and Little Doll,4,,3,Sleeping Man,1,Man with Pig,2,Shooter,4
 The Robbers of Trains,4,3,Buster,1,Man Reading Paper,4,Fat Pete,5
 Jesse James: Man of Action,5,3,Shot in Back,2,Shot in Leg,4,Leaps into Cake,5
-Beyond the Pail:Life without Lactose,2,1,Martin
+Beyond the Pail:Life without Lactose,2,1,Martin,6
 Disaster at Flying J,5,3,Piano Player,2,Man in Turban,3,Falls on Hoe,4
 A Man Called Cow,3,2,Preacher,3,Amused Witness,6
 Shakespeare in Lubbock,3,3,Falls From Tree,1,Laughing Woman,3,Man with Whistle,4
