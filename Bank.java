@@ -86,7 +86,7 @@ public class Bank{
         for(int x = 0; x < players.size(); x++){
             System.out.print(players.get(x).getName() + " ");
         }
-        System.out.print("all get bonuses!");
+        System.out.println("all get bonuses!");
 
         int budget = card.getBudget();
         int[] dieRolls = Deadwood.rollDie(budget);
@@ -105,16 +105,16 @@ public class Bank{
         if(offCardPlayers.size() > 0){
             System.out.print("Don't worry ");
             for(int x = 0; x < offCardPlayers.size(); x++){
-                System.out.print(offCardPlayers.get(x) + " ");
+                System.out.print(offCardPlayers.get(x).getName() + " ");
             }
-            System.out.print("you all get a bonus too!");
+            System.out.println("you all get a bonus too!");
         }
 
         for(int x = 0; x < offCardPlayers.size(); x++){
             Role playerRole = offCardPlayers.get(x).getCurrentRole();
             int bonus = playerRole.getRank();
             offCardPlayers.get(x).addDollars(bonus);
-            System.out.println(offCardPlayers.get(x).getName() + "just got " + bonus + " dollars!");
+            System.out.println(offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!");
         }
 
 
