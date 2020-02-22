@@ -272,7 +272,9 @@ public class Deadwood{
                 currentPlayer.setCurrentRole(cardRoles[x]);
                 currentPlayer.setRoleType("onCard");
                 cardRoles[x].setPlayer(currentPlayer);
-                roomRoles[x].setRoleAvailable(false);
+                cardRoles[x].setRoleAvailable(false);
+                currentCard.addPlayer(currentPlayer);
+                currentRoom.removePlayer(currentPlayer);
                 roleTaken = true;
             }
         }
@@ -324,7 +326,7 @@ public class Deadwood{
                 System.out.println("The budget of the room is " + budget + " and you are rank " + currentPlayer.getRank() + " with " + currentPlayer.getPracticeChips() + " so you are guarenteed success if you act! So no more rehearsing!!");
             }else{
                 System.out.println("You've gained a practice chip!");
-                currentPlayer.getPracticeChips();
+                currentPlayer.addPracticeChip();
             }
 
         }else{
@@ -460,7 +462,9 @@ public class Deadwood{
 
                 if(playerInput.equals("who")){
                     System.out.println("Current player: " + currentPlayer.getName());
-                }else if(playerInput.equals("room")){
+                }
+                /*
+                else if(playerInput.equals("room")){
                     Room currRoom = currentPlayer.getCurrentRoom();
                     ArrayList<Player> playersInRoom = currRoom.getPlayers();
                     System.out.println("Room: " + currRoom.getName());
@@ -482,7 +486,8 @@ public class Deadwood{
                         System.out.println("Role rank: " + roles[x].getRank());
                         System.out.println("Role player: " + roles[x].getPlayer());
                     }
-                }else if(playerInput.equals("where")){
+                }*/
+                else if(playerInput.equals("where")){
                     System.out.println("Current player is in room: " + currentPlayer.getCurrentRoom().getName() + " which is " + currentPlayer.getCurrentRoom().hasWrapped());
                 }else if(playerInput.equals("role")){
                     if(currentPlayer.getCurrentRole() != null){
