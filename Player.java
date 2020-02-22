@@ -79,7 +79,7 @@ public class Player{
     }
 
     public void addPracticeChip(){
-        practiceChips += 1;
+        practiceChips++;
     }
 
     public void setRank(int r){
