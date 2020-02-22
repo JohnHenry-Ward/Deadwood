@@ -508,18 +508,20 @@ public class Deadwood{
                     }
 
                 }else if(playerInput.contains("work")){
-                    try{
+                    //try{
                         String[] inputArray = playerInput.split("-");
                         String roleName = inputArray[1];
+                        System.out.println(inputArray[1]);
+                        System.out.println(inputArray[0]);
                         if(takeARole(roleName)){
                             break;
                         }
                         else{
                             System.out.println("Sorry! This role is either spelt wrong, not in this room, already has someone acting on it, the room is wrapped, or you aren't the right rank!\n");
                         }
-                    } catch (ArrayIndexOutOfBoundsException ex){
-                        System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'\n");
-                    }
+                    //} catch (ArrayIndexOutOfBoundsException ex){
+                    //    System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'\n");
+                    //}
                 }else if(playerInput.equals("act")){
                     if(attemptToAct(((currentPlayer.getCurrentRoom()).getCard()).getBudget(), currentPlayer.getRoleType())){
                         break;
