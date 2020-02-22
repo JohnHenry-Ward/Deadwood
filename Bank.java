@@ -127,7 +127,7 @@ public class Bank{
             System.out.println(offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!");
         }
 
-        Deadwood.clearPracticeChips();
+        Deadwood.clearPracticeChips(offCardPlayers, card.getPlayers());
 
     }
 
