@@ -14,9 +14,9 @@ x is the number of players, 2-8 inclusive
 
 ```role```           prints role of current player
 
-```room```           prints room of current player and players in the room
+```room options```   prints all legal moves to adjacent rooms
 
-```card```           prints the card that is in the players room, along with the roles, rank, and players on those roles
+```role options```   pinrts all available roles
 
 ```move-{room}```    moves the current player to room specified by replacing room name with {room}
 
@@ -26,7 +26,7 @@ x is the number of players, 2-8 inclusive
 
 ```rehearse```       when player is assigned to a role, rehearse adds a practice chip to the player
 
-```upgrade-{type}``` when player is in casting office, player can upgrade their role, specifing payment type by replacing type with $ for dollars and c for credits, will then ask for specific rank
+```upgrade-{type}-{rank}``` when player is in casting office, player can upgrade their role, specifing payment type by replacing type with $ for dollars and c for credits, and rank by typing a number 2-6
 
 ```score```          prints the dollars, credits, rank and total score of the current player
 
