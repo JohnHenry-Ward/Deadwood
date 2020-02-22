@@ -568,11 +568,12 @@ public class Deadwood{
                                      + "where --(prints out where the current player is)\n"
                                      + "role --(prints out the current player's role)\n"
                                      + "role options --(prints all role options for the current player)\n"
+                                     + "room options --(prints all room options for the current player)\n"
+                                     + "move-location --(moves current player to specified room, replace location with room name)\n"
                                      + "work-roleName --(this makes the current player begin to work on a specified role)\n"
                                      + "act --(this makes the current player attempt to act on their role, if they have one)\n"
                                      + "rehearse --(this give the current player a practice chip, unless they have guarenteed acting success)\n"
-                                     + "move-location --(this moves the current player to a specified room, if possible)\n"
-                                     + "upgrade --(this prompts the user for more information about upgrading their rank)\n"
+                                     + "upgrade-type-rank --(upgrades player to rank specified using payment type ($ or c))\n"
                                      + "score --(shows the current players dollars, credits, rank, and total score)\n"
                                      + "end --(this ends your move)\n");
 
