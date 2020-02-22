@@ -90,13 +90,23 @@ public class Bank{
 
         int budget = card.getBudget();
         int[] dieRolls = Deadwood.rollDie(budget);
+        Role[] roles = room.getCard().getRoles();
+        int loopVar = roles.length - 1;
 
-        int loopVar = 0;
-        for(int x = 0; x < budget; x++){
-            players.get(loopVar).addDollars(dieRolls[x]);
-            System.out.println(players.get(loopVar).getName() + " just received " + dieRolls[x] + " dollars!");
-            if(loopVar >= players.size()){
-                loopVar = 0;
+        for(int i = roles.length; i >= 0; i--){
+            if(loopVar >= 0){
+                if(roles[loopVar].getPlayer() != null){
+                    roles[loopVar].getPlayer().addDollars(dieRolls[i]);
+                    System.out.println(roles[loopVar].getPlayer().getName() + " just got: " + dieRolls[i] + " Dollars");
+                }
+                loopVar--;
+            } else{
+                loopVar = roles.length - 1;
+                if(roles[loopVar].getPlayer() != null){
+                    roles[loopVar].getPlayer().addDollars(dieRolls[i]);
+                    System.out.println(roles[loopVar].getPlayer().getName() + " just got: " + dieRolls[i] + " Dollars");
+                }
+                loopVar--;
             }
         }
 
@@ -117,6 +127,7 @@ public class Bank{
             System.out.println(offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!");
         }
 
+        Deadwood.clearPracticeChips();
 
     }
 
@@ -135,7 +146,7 @@ public class Bank{
     public boolean upgrade(Player player, int rankRequest, char moneyType){
         if(player.getRank() < rankRequest){
             if(moneyType == '$'){
-                switch (rankRequest) {
+                switch (rankRequest) {//Switch compares players current dollar amount with what is needed
                     case 2: if(player.getDollars() >= rankTwoCostDollars){
                                 if(player.subtractDollars(rankTwoCostDollars)){
                                     player.setRank(2);
@@ -185,7 +196,7 @@ public class Bank{
                                                + "Ranks range from 1 to 6, try again.\n");
                                 return false;
                 }
-            } else if(moneyType == 'c'){
+            } else if(moneyType == 'c'){//Switch compares player current credit count with needed amount.
                 switch (rankRequest) {
                     case 2: if(player.getCredits() >= rankTwoCostCredits){
                                 if(player.subtractCredits(rankTwoCostCredits)){
