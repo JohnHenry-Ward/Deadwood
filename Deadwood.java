@@ -239,9 +239,12 @@ public class Deadwood{
     /* Method called when a scene wraps
      * Resets practice chips for each player to 0
      */
-    public static void clearPracticeChips(){
-        for(int x = 0; x < playerAmount; x++){
-            playerOrder[x].resetPracticeChips();
+    public static void clearPracticeChips(ArrayList<Player> offCardPlayers, ArrayList<Player> onCardPlayers){
+        for(int x = 0; x < offCardPlayers.size(); x++){
+            offCardPlayers.get(x).resetPracticeChips();
+        }
+        for(int x = 0; x < onCardPlayers.size(); x++){
+            onCardPlayers.get(x).resetPracticeChips();
         }
     }
 
@@ -521,7 +524,7 @@ public class Deadwood{
                     }
 
                 }else if(playerInput.contains("work")){
-                    //try{
+                    try{
                         String[] inputArray = playerInput.split("-");
                         String roleName = inputArray[1];
                         System.out.println(inputArray[1]);
@@ -532,9 +535,9 @@ public class Deadwood{
                         else{
                             System.out.println("Sorry! This role is either spelt wrong, not in this room, already has someone acting on it, the room is wrapped, or you aren't the right rank!\n");
                         }
-                    //} catch (ArrayIndexOutOfBoundsException ex){
-                    //    System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'\n");
-                    //}
+                    } catch(ArrayIndexOutOfBoundsException ex){
+                        System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'\n");
+                    }
                 }else if(playerInput.equals("act")){
                     if(attemptToAct(((currentPlayer.getCurrentRoom()).getCard()).getBudget(), currentPlayer.getRoleType())){
                         break;
