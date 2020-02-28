@@ -1,5 +1,6 @@
 import java.util.*;
 import javax.swing.*;
+import java.awt.Dimension;
 
 public class Board<Room> {
     
@@ -52,12 +53,28 @@ public class Board<Room> {
     }
 
     public void initalizeBoard(){
-        //ImagePanel panel = new ImagePanel(new ImageIcon("images/baord.jpg").getImage());
+        
+        // This is the window
         JFrame boardFrame = new JFrame("Deadwood");
-        //boardFrame.getContentPane().add(panel);
-        //boardFrame.pack();
-        boardFrame.setSize(500, 500);
         boardFrame.setVisible(true);
+
+        // This is the image of the board
+        ImageIcon image = new ImageIcon("images/board.jpg");
+        JLabel boardGameImg = new JLabel(image);
+        boardGameImg.setBounds(0, 0, 1200, 900);
+
+
+        // This is the "pane" the board is attacked too
+        JLayeredPane boardGame = new JLayeredPane();
+        boardGame.setPreferredSize(new Dimension(250, 250));
+        boardGame.setBorder(BorderFactory.createTitledBorder("Boardgame"));
+        boardGame.add(boardGameImg, new Integer(2));
+
+        // Adding the pane which has the image attached to it to the window
+        boardFrame.add(boardGame);
+        boardFrame.pack();
+        boardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public void displayBoard(){
