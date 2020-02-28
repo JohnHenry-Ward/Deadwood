@@ -1,7 +1,18 @@
 import java.util.*;
+import javax.swing.*;
 
 public class Board<Room> {
-    Bank bank;
+    
+    /* Singleton */
+    public static final Board boardGame = new Board();
+
+    private Board(){}
+
+    public static Board getInstance(){
+        return boardGame;
+    }
+    /* End Singleton */
+
 
     //The board will be represented by a map
     private Map<Room, List<Room> > map = new HashMap<>();
@@ -38,6 +49,19 @@ public class Board<Room> {
         }
     
         return neighbors;
+    }
+
+    public void initalizeBoard(){
+        //ImagePanel panel = new ImagePanel(new ImageIcon("images/baord.jpg").getImage());
+        JFrame boardFrame = new JFrame("Deadwood");
+        //boardFrame.getContentPane().add(panel);
+        //boardFrame.pack();
+        boardFrame.setSize(500, 500);
+        boardFrame.setVisible(true);
+    }
+
+    public void displayBoard(){
+
     }
 }
 
