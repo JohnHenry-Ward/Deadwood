@@ -25,7 +25,8 @@ public class Deadwood{
      */
     public static void initalizeBoard(){
         specialRules();
-        board = new Board<Room>();
+        // board = new Board<Room>();
+        board = Board.getInstance();
         createRooms();
         createPaths();
         //set each players room to the trailers
@@ -33,6 +34,10 @@ public class Deadwood{
             playerOrder[x].setCurrentRoom(rooms[0]);
             rooms[0].addPlayer(playerOrder[x]);
         }
+
+        board.initalizeBoard();
+        board.displayBoard();
+
         System.out.println("It's day " + currentDay);
     }
 
