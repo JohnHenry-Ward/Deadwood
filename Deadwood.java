@@ -15,7 +15,7 @@ public class Deadwood{
     static int cardsFlipped = -1;
     static Scanner sc;
     static Bank bank = new Bank();
-
+    static BoardLayersListener gui = new BoardLayersListener();
 
     /* Method called before the game begins
      * special rules are put in place
@@ -23,9 +23,9 @@ public class Deadwood{
      * room objects and paths to rooms are created
      * each players room is set to trailers and each player is added to trailers
      */
-    public static void initalizeBoard(){
+    public static void initializeBoard(){
+        gui.setVisible(true);
         specialRules();
-        // board = new Board<Room>();
         board = Board.getInstance();
         createRooms();
         createPaths();
@@ -33,10 +33,8 @@ public class Deadwood{
         for(int x = 0; x < playerAmount; x++){
             playerOrder[x].setCurrentRoom(rooms[0]);
             rooms[0].addPlayer(playerOrder[x]);
+            gui.addPlayers(playerOrder[x].getIcon());
         }
-
-        board.initalizeBoard();
-        board.displayBoard();
 
         System.out.println("It's day " + currentDay);
     }
@@ -47,10 +45,11 @@ public class Deadwood{
      * current day is incremented
      */
     public static void newDay(){
+        createRooms();
         for(int x = 0; x < playerAmount; x++){
             playerOrder[x].setCurrentRoom(rooms[0]);
+            rooms[0].addPlayer(playerOrder[x]);
         }
-        createRooms();
         currentDay++;
         System.out.println("It's a new day! All players are back in the trailers. It's day number " + currentDay);
     }
@@ -96,9 +95,10 @@ public class Deadwood{
             String name = cardLineArray[0];
             int budget = Integer.parseInt(cardLineArray[1]);
             int numRoles = Integer.parseInt(cardLineArray[2]);
+            String imageUrl = cardLineArray[9];
             cards[cardsFlipped] = new Card();
             room.setCard(cards[cardsFlipped]);
-            room.getCard().initalize(name, budget);
+            room.getCard().initalize(name, budget, imageUrl);
             String roleName;
             int roleRank;
             Role[] roles = new Role[numRoles];
@@ -469,10 +469,10 @@ public class Deadwood{
         playerOrder = new Player[playerAmount];
         int e = 0;
         while(e < playerAmount){
-            playerOrder[e] = new Player(colors[e]);
+            playerOrder[e] = new Player(colors[e], "images/dice/" + (""+colors[e].charAt(0)).toLowerCase() + "1.png");
             e++;
         }
-        initalizeBoard();
+        initializeBoard();
         int currentPlayerIndex = 0;
         currentPlayer = playerOrder[currentPlayerIndex];
 

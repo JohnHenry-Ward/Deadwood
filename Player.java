@@ -1,3 +1,5 @@
+import javax.swing.ImageIcon;
+
 public class Player{
     private String name;
     private int dollars = 0;
@@ -8,8 +10,10 @@ public class Player{
     private int practiceChips;
     private String roleType;
     private boolean hasMoved = false;
+    private ImageIcon pIcon;
 
-    public Player(String n){
+    public Player(String n, String playerIconUrl){
+        pIcon = new ImageIcon(playerIconUrl);
         name = n;
     }
 
@@ -106,6 +110,14 @@ public class Player{
     }
     public void setMoveFlag(boolean f){
         hasMoved = f;
+    }
+
+    public ImageIcon getIcon(){
+        return pIcon;
+    }
+
+    public void setIcon(ImageIcon p){
+        pIcon = p;
     }
 }
 

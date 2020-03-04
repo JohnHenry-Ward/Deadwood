@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.swing.ImageIcon;
 
 public class Card {
     private String name;
@@ -7,12 +8,14 @@ public class Card {
     private Boolean flipped = false;
     //ArrayList<Player> players represents players actively on the card (note: not players in the room)
     private ArrayList<Player> players = new ArrayList<Player>(); 
+    private ImageIcon cIcon = new ImageIcon();
 
     /* Method called when a player enters into a room for the first time
      */
-    public void initalize(String n, int b){
+    public void initalize(String n, int b, String cardIconUrl){
         name = n;
         budget = b;
+        cIcon = new ImageIcon(cardIconUrl);
         flipped = true;
     }
 
