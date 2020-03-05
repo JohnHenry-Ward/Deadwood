@@ -1,4 +1,4 @@
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class Player{
     private String name;
@@ -11,10 +11,12 @@ public class Player{
     private String roleType;
     private boolean hasMoved = false;
     private ImageIcon pIcon;
+    private JLabel pLabel;
 
-    public Player(String n, String playerIconUrl){
+    public Player(String n, String playerIconUrl, JLabel j){
         pIcon = new ImageIcon(playerIconUrl);
         name = n;
+        pLabel = j;
     }
 
     public String getName(){
@@ -118,6 +120,14 @@ public class Player{
 
     public void setIcon(ImageIcon p){
         pIcon = p;
+    }
+
+    public JLabel getPLabel(){
+        return pLabel;
+    }
+
+    public void setPLabel(JLabel j){
+        pLabel = j;
     }
 }
 

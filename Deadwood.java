@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
 
 public class Deadwood{
     static Player currentPlayer;
@@ -33,9 +34,11 @@ public class Deadwood{
         for(int x = 0; x < playerAmount; x++){
             playerOrder[x].setCurrentRoom(rooms[0]);
             rooms[0].addPlayer(playerOrder[x]);
-            gui.addPlayers(playerOrder[x].getIcon());
+            // gui.addPlayers(playerOrder[x]);
         }
 
+        // gui.movePlayer(playerOrder[0], 10, 10);
+        gui.initPlayerPosition(playerOrder);
         System.out.println("It's day " + currentDay);
     }
 
@@ -251,6 +254,10 @@ public class Deadwood{
         for(int x = 0; x < onCardPlayers.size(); x++){
             onCardPlayers.get(x).resetPracticeChips();
         }
+    }
+
+    public static Player getCurrentPlayer(){
+        return currentPlayer;
     }
 
     /* Method prints out options for player to work based on what room they are in
@@ -469,7 +476,7 @@ public class Deadwood{
         playerOrder = new Player[playerAmount];
         int e = 0;
         while(e < playerAmount){
-            playerOrder[e] = new Player(colors[e], "images/dice/" + (""+colors[e].charAt(0)).toLowerCase() + "1.png");
+            playerOrder[e] = new Player(colors[e], "images/dice/" + (""+colors[e].charAt(0)).toLowerCase() + "1.png", new JLabel());
             e++;
         }
         initializeBoard();
