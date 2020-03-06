@@ -108,12 +108,24 @@ public class Deadwood{
             int roleRank;
             Role[] roles = new Role[numRoles];
             int i = 0;
+            int startingX = 0;
+            int incr = 0;
+            if(numRoles == 3){
+                startingX = 20;
+            }
+            else if(numRoles == 2){
+                startingX = 53;
+            }
+            else if(numRoles == 1){
+                startingX = 83;
+            }
             for(int x = 0; x <= numRoles + 1; x+=2){
                 roleName = cardLineArray[3 + x];
                 roleRank = Integer.parseInt(cardLineArray[4 + x]);
-                Role role = new Role(roleName, roleRank);
+                Role role = new Role(roleName, roleRank, startingX + incr, 47);
                 roles[i] = role;
                 i++;
+                incr+=62;
             }
         switch(roles.length){
             case 1: room.getCard().setRoles(roles[0]);
