@@ -105,30 +105,12 @@ public class BoardLayersListener extends JFrame {
         JLabel currPlayerLabel = new JLabel("Current Player: ");
         currPlayerLabel.setBounds(icon.getIconWidth() + 10, 800, 200, 200);
         bPane.add(currPlayerLabel, new Integer(2));
-        System.out.println("GUI: " + currentPlayer.getName());
+
         JLabel currPlayerIcon = new JLabel();
-        currPlayerIcon = currentPlayer.getPLabel();
         currPlayerIcon.setIcon(currentPlayer.getIcon());
         currPlayerIcon.setBounds(icon.getIconWidth() + 130, 877, currentPlayer.getIcon().getIconHeight(), currentPlayer.getIcon().getIconHeight());
         bPane.add(currPlayerIcon, new Integer(2));
 
-    }
-
-    // THIS CAN/WILL BE DELETED
-    public void addPlayers(Player player){
-        // Add a dice to represent a player
-        JLabel plabel = player.getPLabel();
-        ImageIcon pIcon = player.getIcon();
-        plabel.setIcon(pIcon);
-        plabel.setBounds(1000, 300, 46, 46);
-        playerlabels.add(plabel);
-
-        int p = playerlabels.size() - 1;
-        //Code to set players location 
-        //~~~~~~~
-        
-        bPane.add(playerlabels.get(p), new Integer(3));
-        playerlabels.get(p).setVisible(true);
     }
 
     public void movePlayer(Player player, int xCord, int yCord){
@@ -146,6 +128,7 @@ public class BoardLayersListener extends JFrame {
         
         for(int i = 0; i < players.length; i++){
             pLabel = players[i].getPLabel();
+            // pLabel = new JLabel();
             pIcon = players[i].getIcon();
 
             pLabel.setIcon(pIcon);
@@ -164,26 +147,39 @@ public class BoardLayersListener extends JFrame {
             }
 
         }
-
-        // public void displayRoomButtons(Player player){
-
-        // }
     }
 
      public void displayScores(Player[] players){
         JLabel pLabel;
-        ImageIcon pIcon;
+        JLabel pDollars;
+        JLabel pCredits;
+        JLabel pRank;
+        JLabel pScore;
+        ImageIcon pIcon = new ImageIcon();
         int offSet = 0;
 
         for(int i = 0; i < players.length; i++){
-            pLabel = players[i].getPLabel();
+            pLabel = new JLabel();
+            pDollars = new JLabel("Dollars: " + players[i].getDollars());
+            pCredits = new JLabel("Credits: " + players[i].getCredits());
+            pRank = new JLabel("Rank: " + players[i].getRank());
+            pScore = new JLabel("Score: " + players[i].getScore());
+
             pIcon = players[i].getIcon();
 
             pLabel.setIcon(pIcon);
-            pLabel.setBounds(50 + offSet, 900, 46, 46);
+            pLabel.setBounds(25 + offSet, 900, 80, 46);
+            pDollars.setBounds(25 + offSet, 930, 80, 46);
+            pCredits.setBounds(25 + offSet, 960, 80, 46);
+            pRank.setBounds(25 + offSet, 990, 80, 46);
+            pScore.setBounds(25 + offSet, 1020, 80, 46);
 
-            // playerlabels.add(pLabel);
             bPane.add(pLabel, new Integer(2));
+            bPane.add(pDollars, new Integer(2));
+            bPane.add(pCredits, new Integer(2));
+            bPane.add(pRank, new Integer(2));
+            bPane.add(pScore, new Integer(2));
+
             pLabel.setVisible(true);
 
             offSet += 125;

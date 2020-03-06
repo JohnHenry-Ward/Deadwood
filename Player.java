@@ -39,6 +39,10 @@ public class Player{
         return rank;
     }
 
+    public int getScore(){
+        return dollars + credits + (rank * 5);
+    }
+
     public Role getCurrentRole(){
         return currentRole;
     }
