@@ -36,9 +36,11 @@ public class Deadwood{
             rooms[0].addPlayer(playerOrder[x]);
             // gui.addPlayers(playerOrder[x]);
         }
+        currentPlayer = playerOrder[0];
 
         // gui.movePlayer(playerOrder[0], 10, 10);
         gui.initPlayerPosition(playerOrder);
+        gui.displayCurrentPlayer();
         System.out.println("It's day " + currentDay);
     }
 
@@ -257,6 +259,7 @@ public class Deadwood{
     }
 
     public static Player getCurrentPlayer(){
+        System.out.println(currentPlayer);
         return currentPlayer;
     }
 
