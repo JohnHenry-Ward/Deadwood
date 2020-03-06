@@ -139,39 +139,44 @@ public class Deadwood{
     public static void createRooms(){
          rooms = new Room[12];
          
-         rooms[0] = new Room("Trailers", 0, null);
+         rooms[0] = new Room("Trailers", 0, null, 991, 248);
 
-         rooms[1] = new Room("Casting Office", 0, null);
+         rooms[1] = new Room("Casting Office", 0, null, 9, 459);
 
-         rooms[2] = new Room("Main Street", 3, null);
-         rooms[2].setRoles(new Role("Railroad worker", 1), new Role("Falls off Roof", 2), new Role("Woman in black Dress", 2), new Role("Mayor McGinty", 4));
+         rooms[2] = new Room("Main Street", 3, null, 969, 28, 1, 1, new int[] {804, 23, 858, 23, 912, 23});
+         rooms[2].setRoles(new Role("Railroad worker", 1, 637, 22), new Role("Falls off Roof", 2, 720, 22), 
+                           new Role("Woman in black Dress", 2, 637, 105), new Role("Mayor McGinty", 4, 720, 105));
 
-         rooms[3] = new Room("Saloon", 2, null);
-         rooms[3].setRoles(new Role("Reluctant Farmer", 1), new Role("Woman in Red Dress", 2));
+         rooms[3] = new Room("Saloon", 2, null, 632, 280, 1, 1, new int[] {679, 216, 626, 216});
+         rooms[3].setRoles(new Role("Reluctant Farmer", 1, 877, 352), new Role("Woman in Red Dress", 2, 877, 276));
 
-         rooms[4] = new Room("Bank", 1, null);
-         rooms[4].setRoles(new Role("Suspicious Gentleman", 2), new Role("Flustered Teller", 3));
+         rooms[4] = new Room("Bank", 1, null, 623, 475, 1, 1, new int[] {840, 549});
+         rooms[4].setRoles(new Role("Suspicious Gentleman", 2, 911, 554), new Role("Flustered Teller", 3, 911, 470));
 
-         rooms[5] = new Room("Church", 2, null);
-         rooms[5].setRoles(new Role("Dead Man", 1), new Role("Crying Woman", 2));
+         rooms[5] = new Room("Church", 2, null, 623, 734, 1, 1, new int[] {682, 675, 623, 675});
+         rooms[5].setRoles(new Role("Dead Man", 1, 857, 730), new Role("Crying Woman", 2, 858, 730));
 
-         rooms[6] = new Room("Hotel", 3, null);
-         rooms[6].setRoles(new Role("Sleeping Drunkard", 1), new Role("Rare Player", 1), new Role("Falls from Balcony", 2), new Role("Australian Bartender", 3));
+         rooms[6] = new Room("Hotel", 3, null, 969, 740, 1, 1, new int[] {1111, 683, 1058, 683, 1005, 683});
+         rooms[6].setRoles(new Role("Sleeping Drunkard", 1, 1111, 469), new Role("Rare Player", 1, 1044, 509), 
+                           new Role("Falls from Balcony", 2, 1111, 557), new Role("Australian Bartender", 3, 1046, 596));
 
-         rooms[7] = new Room("Secret Hideout", 3, null);
-         rooms[7].setRoles(new Role("Clumsy Pit Fighter", 1), new Role("Thug with Knife", 2), new Role("Dangerous Tom", 3), new Role("Penny, who is Lost", 4));
+         rooms[7] = new Room("Secret Hideout", 3, null, 27, 732, 1, 1, new int[] {354, 764, 299, 764, 244, 764});
+         rooms[7].setRoles(new Role("Clumsy Pit Fighter", 1, 435, 719), new Role("Thug with Knife", 2, 521, 719), 
+                           new Role("Dangerous Tom", 3, 435, 808), new Role("Penny, who is Lost", 4, 521, 808));
          
-         rooms[8] = new Room("Ranch", 2, null);
-         rooms[8].setRoles(new Role("Shot in Leg", 1), new Role("Saucy Fred", 2), new Role("Man Under Horse", 3));
+         rooms[8] = new Room("Ranch", 2, null, 252, 478, 1, 1, new int[] {525, 473, 472, 473});
+         rooms[8].setRoles(new Role("Shot in Leg", 1, 412, 608), new Role("Saucy Fred", 2, 488, 608), 
+                           new Role("Man Under Horse", 3, 488, 525));
 
-         rooms[9] = new Room("General Store", 2, null);
-         rooms[9].setRoles(new Role("Man in Overalls", 1), new Role("Mister Keach", 3));
+         rooms[9] = new Room("General Store", 2, null, 370, 282, 1, 1, new int[] {313, 330, 313, 277});
+         rooms[9].setRoles(new Role("Man in Overalls", 1, 236, 276), new Role("Mister Keach", 3, 236, 358));
 
-         rooms[10] = new Room("Jail", 1, null);
-         rooms[10].setRoles(new Role("Prisoner in Cell", 2), new Role("Feller in Irons", 3));
+         rooms[10] = new Room("Jail", 1, null, 281, 27, 1, 1, new int[] {442, 156});
+         rooms[10].setRoles(new Role("Prisoner in Cell", 2, 519, 25), new Role("Feller in Irons", 3, 519, 105));
 
-         rooms[11] = new Room("Train Station", 3, null);
-         rooms[11].setRoles(new Role("Crusty Prospector", 1), new Role("Dragged by Train", 1), new Role("Preacher with Bag", 2), new Role("Cyrus the Gunfighter", 4));
+         rooms[11] = new Room("Train Station", 3, null, 21, 69, 1, 1, new int[] {141, 11, 89, 11, 36, 11});
+         rooms[11].setRoles(new Role("Crusty Prospector", 1, 114, 227), new Role("Dragged by Train", 1, 51, 268), 
+                            new Role("Preacher with Bag", 2, 114, 320), new Role("Cyrus the Gunfighter", 4, 49, 356));
     }
 
     /* Method called to create paths to each room node
