@@ -40,7 +40,7 @@ public class Deadwood{
 
         // gui.movePlayer(playerOrder[0], 10, 10);
         gui.initPlayerPosition(playerOrder);
-        gui.displayCurrentPlayer();
+        gui.displayScores(playerOrder);
         System.out.println("It's day " + currentDay);
     }
 
@@ -276,7 +276,6 @@ public class Deadwood{
     }
 
     public static Player getCurrentPlayer(){
-        System.out.println(currentPlayer);
         return currentPlayer;
     }
 
@@ -519,6 +518,7 @@ public class Deadwood{
             currentPlayer = playerOrder[currentPlayerIndex];
             
             System.out.println("Player: " + currentPlayer.getName() + ", you're up! ");
+            gui.displayCurrentPlayer(currentPlayer);
 
             Scanner in = new Scanner(System.in);
             String playerInput = in.nextLine();

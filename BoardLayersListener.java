@@ -100,15 +100,14 @@ public class BoardLayersListener extends JFrame {
     
     }
 
-    public void displayCurrentPlayer(){
+    public void displayCurrentPlayer(Player currentPlayer){
 
         JLabel currPlayerLabel = new JLabel("Current Player: ");
         currPlayerLabel.setBounds(icon.getIconWidth() + 10, 800, 200, 200);
         bPane.add(currPlayerLabel, new Integer(2));
-
-        Player currentPlayer = Deadwood.getCurrentPlayer();
-        System.out.println(currentPlayer.getName());
+        System.out.println("GUI: " + currentPlayer.getName());
         JLabel currPlayerIcon = new JLabel();
+        currPlayerIcon = currentPlayer.getPLabel();
         currPlayerIcon.setIcon(currentPlayer.getIcon());
         currPlayerIcon.setBounds(icon.getIconWidth() + 130, 877, currentPlayer.getIcon().getIconHeight(), currentPlayer.getIcon().getIconHeight());
         bPane.add(currPlayerIcon, new Integer(2));
@@ -154,7 +153,7 @@ public class BoardLayersListener extends JFrame {
 
             playerlabels.add(pLabel);
 
-            bPane.add(pLabel, new Integer(1));
+            bPane.add(pLabel, new Integer(2));
             pLabel.setVisible(true);
 
             x += 50;
@@ -169,6 +168,28 @@ public class BoardLayersListener extends JFrame {
         // public void displayRoomButtons(Player player){
 
         // }
+    }
+
+     public void displayScores(Player[] players){
+        JLabel pLabel;
+        ImageIcon pIcon;
+        int offSet = 0;
+
+        for(int i = 0; i < players.length; i++){
+            pLabel = players[i].getPLabel();
+            pIcon = players[i].getIcon();
+
+            pLabel.setIcon(pIcon);
+            pLabel.setBounds(50 + offSet, 900, 46, 46);
+
+            // playerlabels.add(pLabel);
+            bPane.add(pLabel, new Integer(2));
+            pLabel.setVisible(true);
+
+            offSet += 125;
+
+        }
+
     }
 
     //this notify's deadwood.java that something was clicked
