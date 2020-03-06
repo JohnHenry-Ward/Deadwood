@@ -97,20 +97,21 @@ public class BoardLayersListener extends JFrame {
         bPane.add(bUpgrade, new Integer(2));
         bPane.add(bTakeRole, new Integer(2));
         bPane.add(bEnd, new Integer(2));
+
+        // Current Player Label
+        JLabel currPlayerLabel = new JLabel("Current Player: ");
+        currPlayerLabel.setBounds(icon.getIconWidth() + 10, 800, 200, 200);
+        bPane.add(currPlayerLabel, new Integer(2));
     
     }
 
     public void displayCurrentPlayer(Player currentPlayer){
-
-        JLabel currPlayerLabel = new JLabel("Current Player: ");
-        currPlayerLabel.setBounds(icon.getIconWidth() + 10, 800, 200, 200);
-        bPane.add(currPlayerLabel, new Integer(2));
-
-        JLabel currPlayerIcon = new JLabel();
-        currPlayerIcon.setIcon(currentPlayer.getIcon());
-        currPlayerIcon.setBounds(icon.getIconWidth() + 130, 877, currentPlayer.getIcon().getIconHeight(), currentPlayer.getIcon().getIconHeight());
-        bPane.add(currPlayerIcon, new Integer(2));
-
+        System.out.println("CURRPLAYER: " + currentPlayer.getIcon());
+        JLabel pLabel = new JLabel();
+        pLabel.setIcon(currentPlayer.getIcon());
+        pLabel.setBounds(icon.getIconWidth() + 130, 877, currentPlayer.getIcon().getIconHeight(), currentPlayer.getIcon().getIconHeight());
+        bPane.add(pLabel, new Integer(2));
+        bPane.moveToFront(pLabel);
     }
 
     public void movePlayer(Player player, int xCord, int yCord){
