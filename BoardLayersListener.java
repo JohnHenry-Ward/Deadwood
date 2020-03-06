@@ -21,9 +21,12 @@ public class BoardLayersListener extends JFrame {
     JButton bMove;
     JButton bUpgrade;
     JButton bTakeRole;
+    JButton bEnd;
 
     // JLayered Pane
     JLayeredPane bPane;
+
+    ImageIcon icon;
 
     // Constructor
     public BoardLayersListener() {
@@ -34,7 +37,7 @@ public class BoardLayersListener extends JFrame {
         bPane = getLayeredPane();
 
         boardlabel = new JLabel();
-        ImageIcon icon = new ImageIcon("images/board.jpg");
+        icon = new ImageIcon("images/board.jpg");
         boardlabel.setIcon(icon);
         boardlabel.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
 
@@ -46,41 +49,46 @@ public class BoardLayersListener extends JFrame {
         cardlabel = new JLabel();
         ImageIcon cIcon = new ImageIcon("images/cards/01.png");
         cardlabel.setIcon(cIcon);
-        cardlabel.setBounds(20, 65, cIcon.getIconWidth(), cIcon.getIconHeight());
+        cardlabel.setBounds(21, 68, cIcon.getIconWidth(), cIcon.getIconHeight());
         cardlabel.setOpaque(true);
 
         bPane.add(cardlabel, new Integer(1));
 
         // Create menu for action buttons
         mlabel = new JLabel("MENU");
-        mlabel.setBounds(icon.getIconWidth() + 40, 0, 100, 20);
+        mlabel.setBounds(icon.getIconWidth() + 320, 0, 100, 20);
         bPane.add(mlabel, new Integer(2));
 
         // Create action buttons
         bAct = new JButton("ACT");
         bAct.setBackground(Color.white);
-        bAct.setBounds(icon.getIconWidth() + 10, 60, 100, 20);
+        bAct.setBounds(icon.getIconWidth() + 10, 60, 150, 100);
         bAct.addMouseListener(new boardMouseListener());
 
         bRehearse = new JButton("REHEARSE");
         bRehearse.setBackground(Color.white);
-        bRehearse.setBounds(icon.getIconWidth() + 10, 90, 100, 20);
+        bRehearse.setBounds(icon.getIconWidth() + 170, 60, 150, 100);
         bRehearse.addMouseListener(new boardMouseListener());
 
         bMove = new JButton("MOVE");
         bMove.setBackground(Color.white);
-        bMove.setBounds(icon.getIconWidth() + 10, 120, 100, 20);
+        bMove.setBounds(icon.getIconWidth() + 330, 60, 150, 100);
         bMove.addMouseListener(new boardMouseListener());
 
         bUpgrade = new JButton("UPGRADE");
         bUpgrade.setBackground(Color.white);
-        bUpgrade.setBounds(icon.getIconWidth() + 10, 150, 100, 20);
+        bUpgrade.setBounds(icon.getIconWidth() + 10, 170, 150, 100);
         bUpgrade.addMouseListener(new boardMouseListener());
 
         bTakeRole = new JButton("TAKE ROLE");
         bTakeRole.setBackground(Color.white);
-        bTakeRole.setBounds(icon.getIconWidth() + 10, 180, 100, 20);
+        bTakeRole.setBounds(icon.getIconWidth() + 170, 170, 150, 100);
         bTakeRole.addMouseListener(new boardMouseListener());
+
+        bEnd = new JButton("END");
+        bEnd.setBackground(Color.white);
+        bEnd.setBounds(icon.getIconWidth() + 330, 170, 150, 100);
+        bEnd.addMouseListener(new boardMouseListener());
 
         // Place the action buttons in the top layer
         bPane.add(bAct, new Integer(2));
@@ -88,6 +96,23 @@ public class BoardLayersListener extends JFrame {
         bPane.add(bMove, new Integer(2));
         bPane.add(bUpgrade, new Integer(2));
         bPane.add(bTakeRole, new Integer(2));
+        bPane.add(bEnd, new Integer(2));
+    
+    }
+
+    public void displayCurrentPlayer(){
+
+        JLabel currPlayerLabel = new JLabel("Current Player: ");
+        currPlayerLabel.setBounds(icon.getIconWidth() + 10, 800, 200, 200);
+        bPane.add(currPlayerLabel, new Integer(2));
+
+        Player currentPlayer = Deadwood.getCurrentPlayer();
+        System.out.println(currentPlayer.getName());
+        JLabel currPlayerIcon = new JLabel();
+        currPlayerIcon.setIcon(currentPlayer.getIcon());
+        currPlayerIcon.setBounds(icon.getIconWidth() + 130, 877, currentPlayer.getIcon().getIconHeight(), currentPlayer.getIcon().getIconHeight());
+        bPane.add(currPlayerIcon, new Integer(2));
+
     }
 
     // THIS CAN/WILL BE DELETED
@@ -177,6 +202,10 @@ public class BoardLayersListener extends JFrame {
             else if(e.getSource() == bTakeRole){
                 System.out.println("Take Role is Selected\n");
                 //display valid roles
+            }
+            else if(e.getSource() == bEnd){
+                System.out.println("End is Selected\n");
+                //end player turn
             }
         }
         public void mousePressed(MouseEvent e) {
