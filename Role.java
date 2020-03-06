@@ -3,10 +3,14 @@ public class Role {
     private int rank;
     private Player currentPlayer = null;
     private boolean roleAvailable = true;
+    private int roleXCoord;
+    private int roleYCoord;
 
-    public Role(String n, int r){
+    public Role(String n, int r, int xCoord, int yCoord){
         name = n;
         rank = r;
+        roleXCoord = xCoord;
+        roleYCoord = yCoord;
         currentPlayer = null;
         roleAvailable = true;
     }

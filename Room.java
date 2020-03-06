@@ -8,11 +8,35 @@ public class Room {
     //ArrayList<Player> players represents players actively in the room (note: not players on the card)
     private ArrayList<Player> players = new ArrayList<Player>(); 
     private boolean wrapped = false;
+    private int cardSlotX;
+    private int cardSlotY;
+    private ArrayList<Integer> shotCounterCoord = new ArrayList<Integer>();// Format: [X1][Y1][X2][Y2]...
+    private int roomXCoord;
+    private int roomYCoord;
 
-    public Room(String n, int shots, Card c){
+    public Room(String n, int shots, Card c, int roomX, int roomY, int cardX, int cardY, int[] shotCCoord){
         name = n;
         shotCounter = shots;
         card = c;
+        cardSlotX = cardX;
+        cardSlotY = cardY;
+        roomXCoord = roomX;
+        roomYCoord = roomY;
+        for(int i : shotCCoord){
+            shotCounterCoord.add(i);
+        }
+        wrapped = false;
+        if(n == "Trailers" || n == "Casting Office"){
+            wrapped = true;
+        }
+    }
+
+    public Room(String n, int shots, Card c, int roomX, int roomY){
+        name = n;
+        shotCounter = shots;
+        card = c;
+        roomXCoord = roomX;
+        roomYCoord = roomY;
         wrapped = false;
         if(n == "Trailers" || n == "Casting Office"){
             wrapped = true;
