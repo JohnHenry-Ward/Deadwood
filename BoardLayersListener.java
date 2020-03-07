@@ -192,18 +192,30 @@ public class BoardLayersListener extends JFrame {
     //then deadwood will update view
     class boardMouseListener implements MouseListener {
         JButton[] roomButtonArr;
+        String actionMode = "";
 
         // Code for the different button clicksindex
         public void mouseClicked(MouseEvent e){
             
             if(e.getSource() == bAct){
                 System.out.println("Acting is Selected\n");
+                actionMode = "Act";
+                if(Deadwood.attemptToAct()){
+                    System.out.println("Success!");
+                }
+                else{
+                    System.out.println("Fail");
+                }
                 //do acting logic
             }else if(e.getSource() == bRehearse){
                 System.out.println("Rehearse is Selected\n");
+                
+                actionMode = "Rehearse";
                 //do rehearsing logic
             }else if(e.getSource() == bMove){
                 System.out.println("Move is Selected");
+                
+                actionMode = "Move";
                 Player player = Deadwood.getCurrentPlayer();
                 Room currentRoom = player.getCurrentRoom();
                 board = Board.getInstance();
@@ -222,45 +234,34 @@ public class BoardLayersListener extends JFrame {
                 //need to somehow get into a "move button pressed mode"
                     //all regular actions deactivated
                     //only can click on move buttons
-                boolean roomSelected = false;
-                while(roomSelected == false){
-                    for(int i = 0; i < roomButtonArr.length; i++){
-                        if(e.getSource() == roomButtonArr[i]){
-                            System.out.println(roomButtonArr[i] + " selected");
-                            roomSelected = true;
-                        }
-                    }
-                }
                 
             }
             else if(e.getSource() == bUpgrade){
                 System.out.println("Upgrade is Selected\n");
+                
+                actionMode = "Upgrade";
                 //display rank options
                     //display payment options
             }
             else if(e.getSource() == bTakeRole){
                 System.out.println("Take Role is Selected\n");
+                
+                actionMode = "Role";
                 //display valid roles
             }
             else if(e.getSource() == bEnd){
+                
+                actionMode = "End";
                 System.out.println("End is Selected\n");
                 Deadwood.endTurn();
                 if(Deadwood.isGameOver()){
                     Deadwood.endGame();
                 }
             }
-            // else{
-            //     System.out.println("here: " + e.getSource());
-            //     for(int i = 0; i < roomButtonArr.length; i++){
-            //         System.out.println("here: " + roomButtonArr.length);
-            //         if(e.getSource() == roomButtonArr[i]){
-            //             System.out.println(roomButtonArr[i] + " selected");
-            //         }
-            //     }
-            // }
+            if(actionMode.equals("Act") || actionMode.equals("Upgrade") || actionMode.equals("Role") || actionMode.equals("Rehearse"))
+            System.out.println("Mode: " + actionMode);
         }
         public void mousePressed(MouseEvent e) {
-            System.out.println("pressed");
         }
         public void mouseReleased(MouseEvent e) {
         }
