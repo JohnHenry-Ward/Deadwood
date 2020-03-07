@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class Deadwood{
     static Player currentPlayer;
+    static int currentPlayerIndex;
     static int currentDay = 1;
     static int maxDays;
     static Player[] playerOrder;
@@ -403,6 +404,15 @@ public class Deadwood{
         }
     }
 
+    public static void endTurn(){
+        currentPlayerIndex++;
+        if(currentPlayerIndex == playerAmount){
+            currentPlayerIndex = 0;
+        }
+        currentPlayer = playerOrder[currentPlayerIndex];
+        gui.displayCurrentPlayer(currentPlayer);
+    }
+
     /* Player wants to move from their current room to a new room
      * Room must be adjacent to players current room
      * Returns true if succesfully moved
@@ -455,6 +465,10 @@ public class Deadwood{
         return shotsRemaining;
     }
 
+    public static boolean isGameOver(){
+        return currentDay > maxDays;
+    }
+
     /* Method called before the game begins, and adds special rules depending on playerCount
      * 2-3 Players: 3 days
      * 4 Players:   Normal rules
@@ -499,153 +513,153 @@ public class Deadwood{
             e++;
         }
         initializeBoard();
-        int currentPlayerIndex = 0;
+        currentPlayerIndex = 0;
         currentPlayer = playerOrder[currentPlayerIndex];
 
         //the game begins
-        while(currentDay <= maxDays){
-            if(totalShotsRemaning() == 0){
-                if(currentDay == maxDays){
-                    endGame();
-                }
-                newDay();
-            }            
+        // while(currentDay <= maxDays){
+        //     if(totalShotsRemaning() == 0){
+        //         if(currentDay == maxDays){
+        //             endGame();
+        //         }
+        //         newDay();
+        //     }            
 
-            if(currentPlayerIndex == playerAmount){
-                currentPlayerIndex = 0;
-            }
+        //     if(currentPlayerIndex == playerAmount){
+        //         currentPlayerIndex = 0;
+        //     }
 
-            currentPlayer = playerOrder[currentPlayerIndex];
-            System.out.println("Player: " + currentPlayer.getName() + ", you're up! ");
+            //currentPlayer = playerOrder[currentPlayerIndex];
+            //System.out.println("Player: " + currentPlayer.getName() + ", you're up! ");
             gui.displayCurrentPlayer(currentPlayer);
 
-            Scanner in = new Scanner(System.in);
-            String playerInput = in.nextLine();
+            // Scanner in = new Scanner(System.in);
+            // String playerInput = in.nextLine();
 
-            while(!(playerInput.equals("end"))){
+            // while(!(playerInput.equals("end"))){
 
-                if(playerInput.equals("who")){
-                    System.out.println("Current player: " + currentPlayer.getName());
-                }else if(playerInput.equals("where")){
-                    System.out.println("Current player is in room: " + currentPlayer.getCurrentRoom().getName() + " which is " + currentPlayer.getCurrentRoom().hasWrapped());
-                }else if(playerInput.equals("role")){
-                    if(currentPlayer.getCurrentRole() != null){
-                        System.out.println("The current player's role is: " + currentPlayer.getCurrentRole().getName());
-                    }else{
-                        System.out.println("Player " + currentPlayer.getName() + " has not taken a role!");
-                    }
-                }else if(playerInput.equals("role options")){
-                    if(currentPlayer.getCurrentRoom().hasWrapped() == "wrapped"){
-                        System.out.println("Sorry! The room: " + currentPlayer.getCurrentRoom().getName() + " has wrapped!");
-                    }else if(currentPlayer.getCurrentRole() == null){
-                        roleOptions();
-                    }else{
-                        System.out.println("Sorry! You are already working on role: " + currentPlayer.getCurrentRole().getName());
-                        System.out.println(currentPlayer.getCurrentRoom().getName() + " (the room you are currently in) needs to wrap before you can take a new role.\n");
-                    }
-                }else if(playerInput.equals("room options")){
-                    ArrayList<Room> neighbors = board.getNeighbors(currentPlayer.getCurrentRoom());
-                    System.out.println(currentPlayer.getName() + " is in room: " + currentPlayer.getCurrentRoom().getName());
-                    System.out.println("You can move to: ");
-                    for(int x = 0; x < neighbors.size(); x++){
-                        System.out.println(neighbors.get(x).getName());
-                    }
+            //     if(playerInput.equals("who")){
+            //         System.out.println("Current player: " + currentPlayer.getName());
+            //     }else if(playerInput.equals("where")){
+            //         System.out.println("Current player is in room: " + currentPlayer.getCurrentRoom().getName() + " which is " + currentPlayer.getCurrentRoom().hasWrapped());
+            //     }else if(playerInput.equals("role")){
+            //         if(currentPlayer.getCurrentRole() != null){
+            //             System.out.println("The current player's role is: " + currentPlayer.getCurrentRole().getName());
+            //         }else{
+            //             System.out.println("Player " + currentPlayer.getName() + " has not taken a role!");
+            //         }
+            //     }else if(playerInput.equals("role options")){
+            //         if(currentPlayer.getCurrentRoom().hasWrapped() == "wrapped"){
+            //             System.out.println("Sorry! The room: " + currentPlayer.getCurrentRoom().getName() + " has wrapped!");
+            //         }else if(currentPlayer.getCurrentRole() == null){
+            //             roleOptions();
+            //         }else{
+            //             System.out.println("Sorry! You are already working on role: " + currentPlayer.getCurrentRole().getName());
+            //             System.out.println(currentPlayer.getCurrentRoom().getName() + " (the room you are currently in) needs to wrap before you can take a new role.\n");
+            //         }
+            //     }else if(playerInput.equals("room options")){
+            //         ArrayList<Room> neighbors = board.getNeighbors(currentPlayer.getCurrentRoom());
+            //         System.out.println(currentPlayer.getName() + " is in room: " + currentPlayer.getCurrentRoom().getName());
+            //         System.out.println("You can move to: ");
+            //         for(int x = 0; x < neighbors.size(); x++){
+            //             System.out.println(neighbors.get(x).getName());
+            //         }
 
-                }else if(playerInput.contains("work")){
-                    try{
-                        String[] inputArray = playerInput.split("-");
-                        String roleName = inputArray[1];
-                        System.out.println(inputArray[1]);
-                        System.out.println(inputArray[0]);
-                        if(takeARole(roleName)){
-                            break;
-                        }
-                        else{
-                            System.out.println("Sorry! This role is either spelt wrong, not in this room, already has someone acting on it, the room is wrapped, or you aren't the right rank!\n");
-                        }
-                    } catch(ArrayIndexOutOfBoundsException ex){
-                        System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'\n");
-                    }
-                }else if(playerInput.equals("act")){
-                    if(attemptToAct(((currentPlayer.getCurrentRoom()).getCard()).getBudget(), currentPlayer.getRoleType())){
-                        break;
-                    }
-                    else{
-                        System.out.println("Sorry! You were unsuccessful");
-                        break;
-                    }
-                }else if(playerInput.equals("rehearse")){
-                    if(rehearse()){
-                        break;
-                    }
-                }else if(playerInput.contains("move")){
-                    try{
-                        String[] moveLocation = playerInput.split("-");
-                        String location = moveLocation[1];
-                        for(int x = 0; x < rooms.length; x++){
-                            if(rooms[x].getName().equals(location) && !currentPlayer.getMoveFlag()){
-                                movePlayer(currentPlayer, rooms[x]);
-                                currentPlayer.setMoveFlag(true);
-                                if(rooms[x].getCard() == null){
-                                    //not equals to trailers or casting office
-                                    if(!(rooms[x].equals(rooms[0])) && !(rooms[x].equals(rooms[1]))){
-                                        flipCard(rooms[x]);
-                                    }
-                                }
-                            }
-                        }
-                    }catch(ArrayIndexOutOfBoundsException a){
-                        System.out.println("\nPlease specify where you want to move.\n"
-                                         + "Syntax: move-(name of room)\n");
-                    }
-                }else if(playerInput.contains("upgrade")){
-                    int rankChoice = 0;
-                    System.out.println(currentPlayer.getName() + " is rank " + currentPlayer.getRank());
-                    String[] upgradePlayer = playerInput.split("-");
-                    if(upgradePlayer.length == 1 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
-                        bank.displayPrices();
-                    } else if(upgradePlayer[1].toLowerCase().equals("c") || upgradePlayer[1].equals("$") && upgradePlayer.length == 3 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
-                        try{
-                            rankChoice = Integer.parseInt(upgradePlayer[2]);
-                        }catch(Exception z){
-                            System.out.println("WRONG SYNTAX");
-                            break;
-                        }
-                        if(bank.upgrade(currentPlayer, rankChoice, upgradePlayer[1].toLowerCase().charAt(0))){
-                            System.out.println(currentPlayer.getName() + " is now rank: " + currentPlayer.getRank() + "\n");
-                            break;
-                        }
-                    }
-                }else if(playerInput.equals("score")){
-                    System.out.println("Dollars: " + currentPlayer.getDollars()
-                                     + "\nCredits: " + currentPlayer.getCredits()
-                                     + "\nRank: " + currentPlayer.getRank()
-                                     + "\nScore: " + calculateScore(currentPlayer) +"\n");
+            //     }else if(playerInput.contains("work")){
+            //         try{
+            //             String[] inputArray = playerInput.split("-");
+            //             String roleName = inputArray[1];
+            //             System.out.println(inputArray[1]);
+            //             System.out.println(inputArray[0]);
+            //             if(takeARole(roleName)){
+            //                 break;
+            //             }
+            //             else{
+            //                 System.out.println("Sorry! This role is either spelt wrong, not in this room, already has someone acting on it, the room is wrapped, or you aren't the right rank!\n");
+            //             }
+            //         } catch(ArrayIndexOutOfBoundsException ex){
+            //             System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'\n");
+            //         }
+            //     }else if(playerInput.equals("act")){
+            //         if(attemptToAct(((currentPlayer.getCurrentRoom()).getCard()).getBudget(), currentPlayer.getRoleType())){
+            //             break;
+            //         }
+            //         else{
+            //             System.out.println("Sorry! You were unsuccessful");
+            //             break;
+            //         }
+            //     }else if(playerInput.equals("rehearse")){
+            //         if(rehearse()){
+            //             break;
+            //         }
+            //     }else if(playerInput.contains("move")){
+            //         try{
+            //             String[] moveLocation = playerInput.split("-");
+            //             String location = moveLocation[1];
+            //             for(int x = 0; x < rooms.length; x++){
+            //                 if(rooms[x].getName().equals(location) && !currentPlayer.getMoveFlag()){
+            //                     movePlayer(currentPlayer, rooms[x]);
+            //                     currentPlayer.setMoveFlag(true);
+            //                     if(rooms[x].getCard() == null){
+            //                         //not equals to trailers or casting office
+            //                         if(!(rooms[x].equals(rooms[0])) && !(rooms[x].equals(rooms[1]))){
+            //                             flipCard(rooms[x]);
+            //                         }
+            //                     }
+            //                 }
+            //             }
+            //         }catch(ArrayIndexOutOfBoundsException a){
+            //             System.out.println("\nPlease specify where you want to move.\n"
+            //                              + "Syntax: move-(name of room)\n");
+            //         }
+            //     }else if(playerInput.contains("upgrade")){
+            //         int rankChoice = 0;
+            //         System.out.println(currentPlayer.getName() + " is rank " + currentPlayer.getRank());
+            //         String[] upgradePlayer = playerInput.split("-");
+            //         if(upgradePlayer.length == 1 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
+            //             bank.displayPrices();
+            //         } else if(upgradePlayer[1].toLowerCase().equals("c") || upgradePlayer[1].equals("$") && upgradePlayer.length == 3 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
+            //             try{
+            //                 rankChoice = Integer.parseInt(upgradePlayer[2]);
+            //             }catch(Exception z){
+            //                 System.out.println("WRONG SYNTAX");
+            //                 break;
+            //             }
+            //             if(bank.upgrade(currentPlayer, rankChoice, upgradePlayer[1].toLowerCase().charAt(0))){
+            //                 System.out.println(currentPlayer.getName() + " is now rank: " + currentPlayer.getRank() + "\n");
+            //                 break;
+            //             }
+            //         }
+            //     }else if(playerInput.equals("score")){
+            //         System.out.println("Dollars: " + currentPlayer.getDollars()
+            //                          + "\nCredits: " + currentPlayer.getCredits()
+            //                          + "\nRank: " + currentPlayer.getRank()
+            //                          + "\nScore: " + calculateScore(currentPlayer) +"\n");
 
-                }
-                else{
-                    System.out.println("\nWhoops! Looks like your syntax is wrong. Here is what you can do:\n"
-                                     + "who --(prints out the current player)\n"
-                                     + "where --(prints out where the current player is)\n"
-                                     + "role --(prints out the current player's role)\n"
-                                     + "role options --(prints all role options for the current player)\n"
-                                     + "room options --(prints all room options for the current player)\n"
-                                     + "move-location --(moves current player to specified room, replace location with room name)\n"
-                                     + "work-roleName --(this makes the current player begin to work on a specified role)\n"
-                                     + "act --(this makes the current player attempt to act on their role, if they have one)\n"
-                                     + "rehearse --(this give the current player a practice chip, unless they have guarenteed acting success)\n"
-                                     + "upgrade-type-rank --(upgrades player to rank specified using payment type ($ or c))\n"
-                                     + "score --(shows the current players dollars, credits, rank, and total score)\n"
-                                     + "end --(this ends your move)\n");
+            //     }
+            //     else{
+            //         System.out.println("\nWhoops! Looks like your syntax is wrong. Here is what you can do:\n"
+            //                          + "who --(prints out the current player)\n"
+            //                          + "where --(prints out where the current player is)\n"
+            //                          + "role --(prints out the current player's role)\n"
+            //                          + "role options --(prints all role options for the current player)\n"
+            //                          + "room options --(prints all room options for the current player)\n"
+            //                          + "move-location --(moves current player to specified room, replace location with room name)\n"
+            //                          + "work-roleName --(this makes the current player begin to work on a specified role)\n"
+            //                          + "act --(this makes the current player attempt to act on their role, if they have one)\n"
+            //                          + "rehearse --(this give the current player a practice chip, unless they have guarenteed acting success)\n"
+            //                          + "upgrade-type-rank --(upgrades player to rank specified using payment type ($ or c))\n"
+            //                          + "score --(shows the current players dollars, credits, rank, and total score)\n"
+            //                          + "end --(this ends your move)\n");
 
-                }
+            //     }
                 
 
-                playerInput = in.nextLine();
+            //     playerInput = in.nextLine();
                 
-            }//end of while that checks for player input
-        currentPlayer.setMoveFlag(false);
-        currentPlayerIndex++; //move to next player  
-        } //end of while check for days
+            // }//end of while that checks for player input
+        //currentPlayer.setMoveFlag(false);
+        //currentPlayerIndex++; //move to next player  
+        //} //end of while check for days
     }
 }

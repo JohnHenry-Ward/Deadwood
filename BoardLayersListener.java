@@ -191,11 +191,11 @@ public class BoardLayersListener extends JFrame {
     //this notify's deadwood.java that something was clicked
     //then deadwood will update view
     class boardMouseListener implements MouseListener {
-        private JButton[] roomButtonArr;
+        JButton[] roomButtonArr;
 
         // Code for the different button clicksindex
         public void mouseClicked(MouseEvent e){
-
+            
             if(e.getSource() == bAct){
                 System.out.println("Acting is Selected\n");
                 //do acting logic
@@ -222,6 +222,16 @@ public class BoardLayersListener extends JFrame {
                 //need to somehow get into a "move button pressed mode"
                     //all regular actions deactivated
                     //only can click on move buttons
+                boolean roomSelected = false;
+                while(roomSelected == false){
+                    for(int i = 0; i < roomButtonArr.length; i++){
+                        if(e.getSource() == roomButtonArr[i]){
+                            System.out.println(roomButtonArr[i] + " selected");
+                            roomSelected = true;
+                        }
+                    }
+                }
+                
             }
             else if(e.getSource() == bUpgrade){
                 System.out.println("Upgrade is Selected\n");
@@ -234,10 +244,23 @@ public class BoardLayersListener extends JFrame {
             }
             else if(e.getSource() == bEnd){
                 System.out.println("End is Selected\n");
-                //end player turn
-            } 
+                Deadwood.endTurn();
+                if(Deadwood.isGameOver()){
+                    Deadwood.endGame();
+                }
+            }
+            // else{
+            //     System.out.println("here: " + e.getSource());
+            //     for(int i = 0; i < roomButtonArr.length; i++){
+            //         System.out.println("here: " + roomButtonArr.length);
+            //         if(e.getSource() == roomButtonArr[i]){
+            //             System.out.println(roomButtonArr[i] + " selected");
+            //         }
+            //     }
+            // }
         }
         public void mousePressed(MouseEvent e) {
+            System.out.println("pressed");
         }
         public void mouseReleased(MouseEvent e) {
         }
