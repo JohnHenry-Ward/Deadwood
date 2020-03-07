@@ -12,11 +12,13 @@ public class Player{
     private boolean hasMoved = false;
     private ImageIcon pIcon;
     private JLabel pLabel;
+    private String playerIconUrl;
 
-    public Player(String n, String playerIconUrl, JLabel j){
-        pIcon = new ImageIcon(playerIconUrl);
+    public Player(String n, String piURL, JLabel j){
+        pIcon = new ImageIcon(piURL);
         name = n;
         pLabel = j;
+        playerIconUrl = piURL;
     }
 
     public String getName(){
@@ -114,6 +116,7 @@ public class Player{
     public boolean getMoveFlag(){
         return hasMoved;
     }
+
     public void setMoveFlag(boolean f){
         hasMoved = f;
     }
@@ -124,6 +127,10 @@ public class Player{
 
     public void setIcon(ImageIcon p){
         pIcon = p;
+    }
+
+    public String getPIconURL(){
+        return playerIconUrl;
     }
 
     public JLabel getPLabel(){

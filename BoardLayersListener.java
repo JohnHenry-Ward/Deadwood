@@ -127,8 +127,8 @@ public class BoardLayersListener extends JFrame {
         int y = 0;
         
         for(int i = 0; i < players.length; i++){
-            pLabel = players[i].getPLabel();
-            // pLabel = new JLabel();
+            // pLabel = players[i].getPLabel();
+            pLabel = new JLabel();
             pIcon = players[i].getIcon();
 
             pLabel.setIcon(pIcon);
@@ -150,38 +150,25 @@ public class BoardLayersListener extends JFrame {
     }
 
      public void displayScores(Player[] players){
+        // ImageIcon pIcon = new ImageIcon();
         JLabel pLabel;
-        JLabel pDollars;
-        JLabel pCredits;
-        JLabel pRank;
-        JLabel pScore;
-        ImageIcon pIcon = new ImageIcon();
         int offSet = 0;
 
         for(int i = 0; i < players.length; i++){
-            pLabel = new JLabel();
-            pDollars = new JLabel("Dollars: " + players[i].getDollars());
-            pCredits = new JLabel("Credits: " + players[i].getCredits());
-            pRank = new JLabel("Rank: " + players[i].getRank());
-            pScore = new JLabel("Score: " + players[i].getScore());
+            pLabel = players[i].getPLabel();
 
-            pIcon = players[i].getIcon();
+            pLabel.setText("<html> Dollars: " + players[i].getDollars() + 
+                            "<br> Credits: " + players[i].getCredits() + 
+                            "<br> Rank: " + players[i].getRank() + 
+                            "<br> Score: " + players[i].getScore() + "</html>");
+            
 
+            // pIcon = players[i].getIcon();
+            ImageIcon pIcon = new ImageIcon(players[i].getPIconURL());
             pLabel.setIcon(pIcon);
-            pLabel.setBounds(25 + offSet, 900, 80, 46);
-            pDollars.setBounds(25 + offSet, 930, 80, 46);
-            pCredits.setBounds(25 + offSet, 960, 80, 46);
-            pRank.setBounds(25 + offSet, 990, 80, 46);
-            pScore.setBounds(25 + offSet, 1020, 80, 46);
-
+            pLabel.setBounds(25 + offSet, 900, 190, 100);
             bPane.add(pLabel, new Integer(2));
-            bPane.add(pDollars, new Integer(2));
-            bPane.add(pCredits, new Integer(2));
-            bPane.add(pRank, new Integer(2));
-            bPane.add(pScore, new Integer(2));
-
             pLabel.setVisible(true);
-
             offSet += 125;
 
         }
@@ -258,8 +245,14 @@ public class BoardLayersListener extends JFrame {
                     Deadwood.endGame();
                 }
             }
-            if(actionMode.equals("Act") || actionMode.equals("Upgrade") || actionMode.equals("Role") || actionMode.equals("Rehearse"))
+            if(actionMode.equals("Act") || actionMode.equals("Upgrade") || actionMode.equals("Role") || actionMode.equals("Rehearse")){
+                Deadwood.endTurn();
+                if(Deadwood.isGameOver()){
+                    Deadwood.endGame();
+                }
+            }
             System.out.println("Mode: " + actionMode);
+            displayScores(Deadwood.getPlayerOrder());
         }
         public void mousePressed(MouseEvent e) {
         }

@@ -280,6 +280,10 @@ public class Deadwood{
         return currentPlayer;
     }
 
+    public static Player[] getPlayerOrder(){
+        return playerOrder;
+    }
+
     /* Method prints out options for player to work based on what room they are in
      */
     public static void roleOptions(){
@@ -524,8 +528,6 @@ public class Deadwood{
         currentPlayer = playerOrder[currentPlayerIndex];
         gui.displayCurrentPlayer(currentPlayer);
 
-        movePlayer(currentPlayer, rooms[2]);
-
         //the game begins
         // while(currentDay <= maxDays){
         //     if(totalShotsRemaning() == 0){
@@ -668,7 +670,7 @@ public class Deadwood{
                 playerInput = in.nextLine();
                 
             }//end of while that checks for player input
-        //currentPlayer.setMoveFlag(false);
+        currentPlayer.setMoveFlag(false);
         //currentPlayerIndex++; //move to next player  
         //} //end of while check for days
     }
