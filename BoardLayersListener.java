@@ -106,7 +106,6 @@ public class BoardLayersListener extends JFrame {
     }
 
     public void displayCurrentPlayer(Player currentPlayer){
-        System.out.println("CURRPLAYER: " + currentPlayer.getIcon());
         JLabel pLabel = new JLabel();
         pLabel.setIcon(currentPlayer.getIcon());
         pLabel.setBounds(icon.getIconWidth() + 130, 877, currentPlayer.getIcon().getIconHeight(), currentPlayer.getIcon().getIconHeight());
@@ -192,6 +191,8 @@ public class BoardLayersListener extends JFrame {
     //this notify's deadwood.java that something was clicked
     //then deadwood will update view
     class boardMouseListener implements MouseListener {
+        private JButton[] roomButtonArr;
+
         // Code for the different button clicksindex
         public void mouseClicked(MouseEvent e){
 
@@ -207,10 +208,20 @@ public class BoardLayersListener extends JFrame {
                 Room currentRoom = player.getCurrentRoom();
                 board = Board.getInstance();
                 ArrayList<Room> neighbors = board.getNeighbors(currentRoom);
+                roomButtonArr = new JButton[neighbors.size()];
+                int offset = 0;
                 for(int i = 0; i < neighbors.size(); i++){
-                    //create buttons for each room options
+                    roomButtonArr[i] = new JButton(neighbors.get(i).getName());
+                    roomButtonArr[i].setBackground(Color.white);
+                    roomButtonArr[i].setBounds(icon.getIconWidth() + 170, 300 + offset, 150, 100);
+                    roomButtonArr[i].addMouseListener(new boardMouseListener());
+                    bPane.add(roomButtonArr[i], new Integer(2));
+                    offset += 150;
                 }
                 //display valid move locations as buttons
+                //need to somehow get into a "move button pressed mode"
+                    //all regular actions deactivated
+                    //only can click on move buttons
             }
             else if(e.getSource() == bUpgrade){
                 System.out.println("Upgrade is Selected\n");
@@ -224,7 +235,7 @@ public class BoardLayersListener extends JFrame {
             else if(e.getSource() == bEnd){
                 System.out.println("End is Selected\n");
                 //end player turn
-            }
+            } 
         }
         public void mousePressed(MouseEvent e) {
         }

@@ -516,7 +516,6 @@ public class Deadwood{
             }
 
             currentPlayer = playerOrder[currentPlayerIndex];
-            
             System.out.println("Player: " + currentPlayer.getName() + ", you're up! ");
             gui.displayCurrentPlayer(currentPlayer);
 
