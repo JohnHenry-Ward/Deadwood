@@ -122,4 +122,12 @@ public class Room {
             }
         }
     }
+
+    public int getCardX(){
+        return cardSlotX;
+    }
+
+    public int getCardY(){
+        return cardSlotY;
+    }
 }

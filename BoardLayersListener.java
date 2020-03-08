@@ -149,6 +149,24 @@ public class BoardLayersListener extends JFrame {
         }
     }
 
+    public void placeBlankCards(Room[] rooms){
+        JLabel blankCard;
+        ImageIcon cardImg;
+        for(int i = 0; i < rooms.length; i++){
+            if(!(rooms[i].getName().equals("Trailers")) && !(rooms[i].getName().equals("Casting Office"))){
+                blankCard = new JLabel();
+                cardImg = new ImageIcon("images/cardback.jpg");
+                Image scaledImg = cardImg.getImage();
+                scaledImg = scaledImg.getScaledInstance(205, 115, java.awt.Image.SCALE_SMOOTH);
+                cardImg = new ImageIcon(scaledImg);
+                blankCard.setIcon(cardImg);
+                blankCard.setBounds(rooms[i].getCardX(), rooms[i].getCardY(), 205, 115);
+                bPane.add(blankCard, new Integer(2));
+                blankCard.setVisible(true);
+            }
+        }
+    }
+
      public void displayScores(Player[] players){
         // ImageIcon pIcon = new ImageIcon();
         JLabel pLabel;
