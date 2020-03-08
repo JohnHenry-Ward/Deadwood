@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class BoardLayersListener extends JFrame {
 
     static Board<Room> board;
+    static final long serialVersionUID = 0;
 
     // JLabels
     JLabel boardlabel;
@@ -35,7 +36,7 @@ public class BoardLayersListener extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         bPane = getLayeredPane();
-
+        
         boardlabel = new JLabel();
         icon = new ImageIcon("images/board.jpg");
         boardlabel.setIcon(icon);
@@ -149,7 +150,7 @@ public class BoardLayersListener extends JFrame {
         }
     }
 
-    public void placeBlankCards(Room[] rooms){
+    public void initBlankCards(Room[] rooms){
         JLabel blankCard;
         ImageIcon cardImg;
         for(int i = 0; i < rooms.length; i++){
@@ -163,6 +164,33 @@ public class BoardLayersListener extends JFrame {
                 blankCard.setBounds(rooms[i].getCardX(), rooms[i].getCardY(), 205, 115);
                 bPane.add(blankCard, new Integer(2));
                 blankCard.setVisible(true);
+            }
+        }
+    }
+
+    public void initShotCounters(Room[] rooms){
+        JLabel shotArea;
+        // shotArr[0] = new JLabel();
+        // shotArr[1] = new JLabel();
+        // shotArr[2] = new JLabel();
+        ImageIcon shot;
+        for(int i = 0; i < rooms.length; i++){
+            if(!(rooms[i].getName().equals("Trailers")) && !(rooms[i].getName().equals("Casting Office"))){
+                ArrayList<Integer> shotCounterCoords = rooms[i].getShotCounterCoords();
+                System.out.println(rooms[i].getName());
+                int y = 1;
+                for(int x = 0; x < shotCounterCoords.size(); x+=2){
+                    shot = new ImageIcon("images/shot.png");
+                    shotArea = new JLabel();
+                    shotArea.setIcon(shot);
+                    System.out.println(shotCounterCoords.size()/2 + 1);
+                    System.out.println("x: " + x);
+                    shotArea.setBounds(shotCounterCoords.get(x), shotCounterCoords.get(y), shot.getIconWidth(), shot.getIconHeight());
+                    bPane.add(shotArea, new Integer(2));
+                    shotArea.setVisible(true);
+                    System.out.println("Placing at (x, y): " + shotCounterCoords.get(x) + ", " + shotCounterCoords.get(y));
+                    y+=2;
+                }
             }
         }
     }

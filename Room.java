@@ -130,4 +130,8 @@ public class Room {
     public int getCardY(){
         return cardSlotY;
     }
+
+    public ArrayList<Integer> getShotCounterCoords(){
+        return shotCounterCoord;
+    }
 }
