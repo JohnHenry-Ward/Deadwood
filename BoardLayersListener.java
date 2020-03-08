@@ -188,9 +188,7 @@ public class BoardLayersListener extends JFrame {
             bPane.add(pLabel, new Integer(2));
             pLabel.setVisible(true);
             offSet += 125;
-
         }
-
     }
 
     //this notify's deadwood.java that something was clicked
