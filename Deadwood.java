@@ -41,6 +41,7 @@ public class Deadwood{
 
         // gui.movePlayer(playerOrder[0], 10, 10);
         gui.initPlayerPosition(playerOrder);
+        gui.placeBlankCards(rooms);
         gui.displayScores(playerOrder);
         System.out.println("It's day " + currentDay);
     }
