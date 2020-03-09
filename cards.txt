@@ -1,4 +1,4 @@
-Evil Wears a Hat,4,3,Defrocked Priest,2,Marshal Canfield,3,One Eyed Man,4,images/card/01.png
+Evil Wears a Hat,4,3,Defrocked Priest,2,Marshal Canfield,3,One Eyed Man,4,images/cards/01.png
 Square Deal City,6,3,Squeaking Boy,2,Pharaoh Imhotep,4,Aunt Martha,6,images/cards/06.png
 Law and the Old West,3,3,Rug Merchant,1,Bank,2,Talking Mule,5,images/cards/02.png
 Davy Crockett: A Drunkard's tale,4,2,The Duck,4,His Brother,6,images/cards/07.png
@@ -17,7 +17,7 @@ Shakespeare in Lubbock,3,3,Falls From Tree,1,Laughing Woman,3,Man with Whistle,4
 Taffy Commercial,2,2,Curious Girl,3,Ghost of Plato,4,images/cards/14.png
 Go West You!,3,2,Ex Convict,4,Man with Onion,6,images/cards/19.png
 Gun Commercial,2,2,Surprised Bison,2,Man with Horn,4,images/cards/15.png
-The Life and Times of John Skywater,5,3,Staggering Man,3,Woman with Beer,5,Marcie,6
+The Life and Times of John Skywater,5,3,Staggering Man,3,Woman with Beer,5,Marcie,6,images/cards/png
 Gun! The Musical,6,4,Looks like Elvis,4,Singing Dead Man,5,Apothecary,6,images/cards/21.png
 One False Step for Mankind,6,3,Flustered Man,1,Space Monkey,2,Cowbot Dan,5,images/cards/26.png
 Humor at the Expense of Others,5,3,Jailer,2,Mephistopheles,4,Breaks a Window,5,images/cards/22.png
@@ -31,8 +31,8 @@ Davy Crockett: A Drunkard's Tale,4,3,Voice of God,2,Hands of God,3,Jack Kemp,4,i
 Czechs in the Sonora,4,2,Monkey,5,Man with Gun,6,images/cards/31.png
 J. Robert Lucky: Man of Substance,4,3,Man with Rope,1,Svetlana,2,Accidental Victim,5,images/cards/36.png
 Swing'em Wide,6,3,Thrifty Mike,1,Sober Physician,3,Man on Floor,5,images/cards/32.png
-Thirteen the Hard Way,5,3,Very Wet Man,2,Dejected Housewife,4,Man with Box,5
-Swing'em Wide,6,3,Liberated Nun,3,Witch Doctor,5,Voice of Reason,6
+Thirteen the Hard Way,5,3,Very Wet Man,2,Dejected Housewife,4,Man with Box,5,images/cards/37.png
+Swing'em Wide,6,3,Liberated Nun,3,Witch Doctor,5,Voice of Reason,6,images/cards/33.png
 How They Get Milk,4,3,Marksman,4,Postal Woker,5,A Horse,6,images/cards/38.png
 Trials of the Frist Pioneers,4,3,Burning Man,2,Cheese Vendor,4,Hit with Table,5,images/cards/34.png
 Breakin' in Trick Ponies,3,2,Fraternity Pledge,2,Man with Sword,6,images/cards/39.png

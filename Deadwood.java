@@ -41,7 +41,7 @@ public class Deadwood{
 
         // gui.movePlayer(playerOrder[0], 10, 10);
         gui.initPlayerPosition(playerOrder);
-        gui.initBlankCards(rooms);
+        // gui.initBlankCards(rooms);
         gui.initShotCounters(rooms);
         gui.displayScores(playerOrder);
         System.out.println("It's day " + currentDay);
@@ -145,6 +145,7 @@ public class Deadwood{
         catch(FileNotFoundException e){
             System.out.println("File not found");
         }
+        gui.revealCard(room, room.getCard());
         
     }
     

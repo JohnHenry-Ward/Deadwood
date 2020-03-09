@@ -15,6 +15,7 @@ public class Room {
     private int roomXCoord;
     private int roomYCoord;
     private JLabel[] shotLabels;
+    private JLabel roomLabel = new JLabel();
 
     public Room(String n, int shots, Card c, int roomX, int roomY, int cardX, int cardY, int[] shotCCoord){
         name = n;
@@ -140,6 +141,10 @@ public class Room {
 
     public JLabel[] getShotLabels(){
         return shotLabels;
+    }
+
+    public JLabel getJLabel(){
+        return roomLabel;
     }
 }
 
