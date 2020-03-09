@@ -9,6 +9,7 @@ public class Room {
     //ArrayList<Player> players represents players actively in the room (note: not players on the card)
     private ArrayList<Player> players = new ArrayList<Player>(); 
     private boolean wrapped = false;
+    private int ID;
     private int cardSlotX;
     private int cardSlotY;
     private ArrayList<Integer> shotCounterCoord = new ArrayList<Integer>();// Format: [X1][Y1][X2][Y2]...
@@ -17,10 +18,11 @@ public class Room {
     private JLabel[] shotLabels;
     private JLabel roomLabel = new JLabel();
 
-    public Room(String n, int shots, Card c, int roomX, int roomY, int cardX, int cardY, int[] shotCCoord){
+    public Room(String n, int shots, Card c, int id, int roomX, int roomY, int cardX, int cardY, int[] shotCCoord){
         name = n;
         shotCounter = shots;
         card = c;
+        ID = id;
         cardSlotX = cardX;
         cardSlotY = cardY;
         roomXCoord = roomX;
@@ -53,6 +55,10 @@ public class Room {
 
     public Card getCard(){
         return card;
+    }
+
+    public int getID(){
+        return ID;
     }
 
     public void setCard(Card c){

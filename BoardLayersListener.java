@@ -15,6 +15,7 @@ public class BoardLayersListener extends JFrame {
     JLabel cardlabel;
     ArrayList<JLabel> playerlabels = new ArrayList<JLabel>();
     JLabel mlabel;
+    JLabel[] blankCards;
 
     // JButtons
     JButton bAct;
@@ -45,15 +46,6 @@ public class BoardLayersListener extends JFrame {
         bPane.add(boardlabel, new Integer(0));
 
         setSize(icon.getIconWidth() + 200, icon.getIconHeight());
-
-        //Mock card label
-        cardlabel = new JLabel();
-        ImageIcon cIcon = new ImageIcon("images/cards/01.png");
-        cardlabel.setIcon(cIcon);
-        cardlabel.setBounds(21, 68, cIcon.getIconWidth(), cIcon.getIconHeight());
-        cardlabel.setOpaque(true);
-
-        bPane.add(cardlabel, new Integer(1));
 
         // Create menu for action buttons
         mlabel = new JLabel("MENU");
@@ -151,19 +143,19 @@ public class BoardLayersListener extends JFrame {
     }
 
     public void initBlankCards(Room[] rooms){
-        JLabel blankCard;
+        blankCards = new JLabel[12];
         ImageIcon cardImg;
         for(int i = 0; i < rooms.length; i++){
             if(!(rooms[i].getName().equals("Trailers")) && !(rooms[i].getName().equals("Casting Office"))){
-                blankCard = new JLabel();
+                blankCards[i] = new JLabel();
                 cardImg = new ImageIcon("images/cardback.jpg");
                 Image scaledImg = cardImg.getImage();
                 scaledImg = scaledImg.getScaledInstance(205, 115, java.awt.Image.SCALE_SMOOTH);
                 cardImg = new ImageIcon(scaledImg);
-                blankCard.setIcon(cardImg);
-                blankCard.setBounds(rooms[i].getCardX(), rooms[i].getCardY(), 205, 115);
-                bPane.add(blankCard, new Integer(2));
-                blankCard.setVisible(true);
+                blankCards[i].setIcon(cardImg);
+                blankCards[i].setBounds(rooms[i].getCardX(), rooms[i].getCardY(), 205, 115);
+                bPane.add(blankCards[i], new Integer(2));
+                blankCards[i].setVisible(true);
             }
         }
     }
@@ -195,19 +187,19 @@ public class BoardLayersListener extends JFrame {
         cardLabel.setIcon(cardImg);
         cardLabel.setBounds(room.getCardX(), room.getCardY(), cardImg.getIconWidth(), cardImg.getIconHeight());
         cardLabel.setVisible(true);
-        bPane.add(cardLabel, new Integer(1));
+        bPane.add(cardLabel, new Integer(3));
+        blankCards[room.getID()].setVisible(false);
+    }
 
-        //Mock card label
-        // cardlabel = new JLabel();
-        // ImageIcon cIcon = new ImageIcon("images/cards/01.png");
-        // cardlabel.setIcon(cIcon);
-        // cardlabel.setBounds(0, 0, cIcon.getIconWidth(), cIcon.getIconHeight());
-        // cardlabel.setOpaque(true);
-        // bPane.add(cardlabel, new Integer(1));
+    public void clearCard(Card card){
+        JLabel cardLabel = card.getJLabel();
+        cardLabel.setVisible(false);
+
     }
 
     public void removeCard(Card card){
         JLabel cardLabel = card.getJLabel();
+        System.out.println("here");
         cardLabel.setVisible(false);
     }
 

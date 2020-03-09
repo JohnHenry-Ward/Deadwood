@@ -51,6 +51,9 @@ public class Bank{
             //players should not be tied to roles
             Deadwood.clearPlayerRoles(currentRoom);
 
+            BoardLayersListener gui = new BoardLayersListener();
+            gui.clearCard(currentRoom.getCard());
+
         }
     }
 
