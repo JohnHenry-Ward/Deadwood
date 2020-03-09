@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.swing.*;
 
 public class Room {
     private Card card;
@@ -13,6 +14,7 @@ public class Room {
     private ArrayList<Integer> shotCounterCoord = new ArrayList<Integer>();// Format: [X1][Y1][X2][Y2]...
     private int roomXCoord;
     private int roomYCoord;
+    private JLabel[] shotLabels;
 
     public Room(String n, int shots, Card c, int roomX, int roomY, int cardX, int cardY, int[] shotCCoord){
         name = n;
@@ -29,6 +31,7 @@ public class Room {
         if(n == "Trailers" || n == "Casting Office"){
             wrapped = true;
         }
+        shotLabels = new JLabel[shotCounter];
     }
 
     public Room(String n, int shots, Card c, int roomX, int roomY){
@@ -134,4 +137,9 @@ public class Room {
     public ArrayList<Integer> getShotCounterCoords(){
         return shotCounterCoord;
     }
+
+    public JLabel[] getShotLabels(){
+        return shotLabels;
+    }
 }
+

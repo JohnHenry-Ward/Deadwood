@@ -384,6 +384,7 @@ public class Deadwood{
             if(dieRoll[0] + currentPlayer.getPracticeChips() >= budget){//Success
                 Bank.actingSuccess(currentPlayer, roleType);
                 acted = true;
+                gui.removeShotCounter(playerRoom);
             }else if(roleType == "offCard"){//Fail
                 Bank.actingFail(currentPlayer);
             }
@@ -531,7 +532,7 @@ public class Deadwood{
         gui.displayCurrentPlayer(currentPlayer);
 
         //the game begins
-        // while(currentDay <= maxDays){
+        while(currentDay <= maxDays){
         //     if(totalShotsRemaning() == 0){
         //         if(currentDay == maxDays){
         //             endGame();
@@ -673,7 +674,7 @@ public class Deadwood{
                 
             }//end of while that checks for player input
         currentPlayer.setMoveFlag(false);
-        //currentPlayerIndex++; //move to next player  
-        //} //end of while check for days
+        currentPlayerIndex++; //move to next player  
+        } //end of while check for days
     }
 }

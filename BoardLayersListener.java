@@ -170,29 +170,39 @@ public class BoardLayersListener extends JFrame {
 
     public void initShotCounters(Room[] rooms){
         JLabel shotArea;
+
         // shotArr[0] = new JLabel();
         // shotArr[1] = new JLabel();
         // shotArr[2] = new JLabel();
         ImageIcon shot;
         for(int i = 0; i < rooms.length; i++){
             if(!(rooms[i].getName().equals("Trailers")) && !(rooms[i].getName().equals("Casting Office"))){
+                JLabel[] shotLabels = rooms[i].getShotLabels();
                 ArrayList<Integer> shotCounterCoords = rooms[i].getShotCounterCoords();
                 System.out.println(rooms[i].getName());
+                int x = 0;
                 int y = 1;
-                for(int x = 0; x < shotCounterCoords.size(); x+=2){
+                for(int j = 0; j < shotCounterCoords.size()/2; j++){
                     shot = new ImageIcon("images/shot.png");
-                    shotArea = new JLabel();
-                    shotArea.setIcon(shot);
+                    shotLabels[j] = new JLabel();
+                    shotLabels[j].setIcon(shot);
                     System.out.println(shotCounterCoords.size()/2 + 1);
                     System.out.println("x: " + x);
-                    shotArea.setBounds(shotCounterCoords.get(x), shotCounterCoords.get(y), shot.getIconWidth(), shot.getIconHeight());
-                    bPane.add(shotArea, new Integer(2));
-                    shotArea.setVisible(true);
+                    shotLabels[j].setBounds(shotCounterCoords.get(x), shotCounterCoords.get(y), shot.getIconWidth(), shot.getIconHeight());
+                    bPane.add(shotLabels[j], new Integer(2));
+                    shotLabels[j].setVisible(true);
                     System.out.println("Placing at (x, y): " + shotCounterCoords.get(x) + ", " + shotCounterCoords.get(y));
+                    x+=2;
                     y+=2;
                 }
             }
         }
+    }
+
+    public void removeShotCounter(Room room){
+        int shotNum = room.getShots();
+        JLabel[] shotLabels = room.getShotLabels();
+        shotLabels[shotNum].setVisible(false);
     }
 
      public void displayScores(Player[] players){
