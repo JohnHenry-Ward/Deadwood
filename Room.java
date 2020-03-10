@@ -17,8 +17,9 @@ public class Room {
     private int roomYCoord;
     private JLabel[] shotLabels;
     private JLabel roomLabel = new JLabel();
+    private int[] playerHolders = new int[16];
 
-    public Room(String n, int shots, Card c, int id, int roomX, int roomY, int cardX, int cardY, int[] shotCCoord){
+    public Room(String n, int shots, Card c, int id, int roomX, int roomY, int cardX, int cardY, int[] shotCCoord, int playerHolderX, int playerHolderY){
         name = n;
         shotCounter = shots;
         card = c;
@@ -35,6 +36,17 @@ public class Room {
             wrapped = true;
         }
         shotLabels = new JLabel[shotCounter];
+
+        int offset = 0;
+        for(int j = 1; j <= 16; j+=2){
+            if(j == 9){
+                offset = 0;
+                playerHolderY+=50;
+            }
+            playerHolders[j-1] = playerHolderX+offset;
+            playerHolders[j] = playerHolderY;
+            offset+=50;
+        }
     }
 
     public Room(String n, int shots, Card c, int roomX, int roomY){
@@ -46,6 +58,17 @@ public class Room {
         wrapped = false;
         if(n == "Trailers" || n == "Casting Office"){
             wrapped = true;
+        }
+
+        int offset = 0;
+        for(int j = 1; j <= 16; j+=2){
+            if(j == 9){
+                offset = 0;
+                roomY+=50;
+            }
+            playerHolders[j-1] = roomX+offset;
+            playerHolders[j] = roomY;
+            offset+=50;
         }
     }
 
@@ -141,6 +164,14 @@ public class Room {
         return cardSlotY;
     }
 
+    public int getRoomX(){
+        return roomXCoord;
+    }
+
+    public int getRoomY(){
+        return roomYCoord;
+    }
+
     public ArrayList<Integer> getShotCounterCoords(){
         return shotCounterCoord;
     }
@@ -151,6 +182,10 @@ public class Room {
 
     public JLabel getJLabel(){
         return roomLabel;
+    }
+
+    public int[] getPlayerHolderCoord(){
+        return playerHolders;
     }
 }
 

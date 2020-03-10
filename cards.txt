@@ -7,7 +7,7 @@ The Way the West Was Run,4,3,Town Drunk,2,Squinting Miner,4,Poltergeist,5,images
 My Years on the Prairie,5,3,Drunk,3,Librarian,4,Man with Hay,6,images/cards/04.png
 Down in the Valley,3,3,Angry Barber,1,Woman with Board,3,Man on Fire,5,images/cards/09.png
 Buffalo Bill: The Lost Years,4,3,Hollering Boy,2,Drunk Farmer,3,Meek Little Sarah,5,images/cards/05.png
-Ol' Shooter and Little Doll,4,,3,Sleeping Man,1,Man with Pig,2,Shooter,4,images/cards/10.png
+Ol' Shooter and Little Doll,4,3,Sleeping Man,1,Man with Pig,2,Shooter,4,images/cards/10.png
 The Robbers of Trains,4,3,Buster,1,Man Reading Paper,4,Fat Pete,5,images/cards/11.png
 Jesse James: Man of Action,5,3,Shot in Back,2,Shot in Leg,4,Leaps into Cake,5,images/cards/16.png
 Beyond the Pail:Life without Lactose,2,1,Martin,6,images/cards/12.png
