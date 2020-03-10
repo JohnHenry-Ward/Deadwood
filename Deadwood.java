@@ -45,6 +45,7 @@ public class Deadwood{
         gui.initBlankCards(rooms);
         gui.initShotCounters(rooms);
         gui.displayScores(playerOrder);
+        gui.displayVisibleButtons(getCurrentPlayer());
         System.out.println("It's day " + currentDay);
     }
 
@@ -428,6 +429,7 @@ public class Deadwood{
         }
         currentPlayer = playerOrder[currentPlayerIndex];
         gui.displayCurrentPlayer(currentPlayer);
+        gui.displayVisibleButtons(getCurrentPlayer());
     }
 
     /* Player wants to move from their current room to a new room
@@ -564,8 +566,8 @@ public class Deadwood{
                 
                 while(playerInput.equals("")){
                     playerInput = actionMode;
-                }
-                /*if(playerInput.equals("who")){
+                }/*
+                if(playerInput.equals("who")){
                     System.out.println("Current player: " + currentPlayer.getName());
                 }else if(playerInput.equals("where")){
                     System.out.println("Current player is in room: " + currentPlayer.getCurrentRoom().getName() + " which is " + currentPlayer.getCurrentRoom().hasWrapped());

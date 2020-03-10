@@ -253,6 +253,31 @@ public class BoardLayersListener extends JFrame {
         }
     }
 
+    public void displayVisibleButtons(Player player){
+        enableAll();
+        if(player.getCurrentRole() == null || player.getCurrentRoom().getName() == "Trailers" || player.getCurrentRoom().getName() == "Casting Office"){
+            bAct.setEnabled(false);
+            bRehearse.setEnabled(false);
+        }
+        if(player.getCurrentRoom().getName() != "Casting Office"){
+            bUpgrade.setEnabled(false);
+            bMove.setEnabled(true);
+        }
+        else{
+            bAct.setEnabled(false);
+            bEnd.setEnabled(false);
+            bMove.setEnabled(false);
+            bRehearse.setEnabled(false);
+            bTakeRole.setEnabled(false);
+        }
+        if(player.getCurrentRoom().getName() == "Trailers"){
+            bTakeRole.setEnabled(false);
+        }
+        if(player.getCurrentRole() != null){
+            bMove.setEnabled(false);
+        }
+    }
+
     public void disableAll(){
         bAct.setEnabled(false);
         bEnd.setEnabled(false);
@@ -275,7 +300,6 @@ public class BoardLayersListener extends JFrame {
     //then deadwood will update view
     class boardMouseListener implements MouseListener {
         String actionMode = "";
-
         // Code for the different button clicksindex
         public void mouseClicked(MouseEvent e){
             if(e.getSource() == bAct && !moveSelections){
@@ -332,13 +356,22 @@ public class BoardLayersListener extends JFrame {
                             bPane.remove(roomButtonArr[x]);
                         }
                         enableAll();
+                        bAct.setEnabled(false);
+                        bRehearse.setEnabled(false);
+                        bUpgrade.setEnabled(false);
+                        bMove.setEnabled(false);
+                        if(((JButton)e.getSource()).getName().equals("Trailers") || ((JButton)e.getSource()).getName().equals("Casting Office")){
+                            bTakeRole.setEnabled(false);
+                        }
+                        if(((JButton)e.getSource()).getName().equals("Casting Office")){
+                            bUpgrade.setEnabled(true);
+                        }
                         break;
                     }
                 }
             }
             else if(e.getSource() == bUpgrade && !moveSelections){
                 System.out.println("Upgrade is Selected\n");
-                
                 actionMode = "Upgrade";
                 //display rank options
                     //display payment options
