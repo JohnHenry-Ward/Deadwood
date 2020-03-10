@@ -259,6 +259,12 @@ public class BoardLayersListener extends JFrame {
             bAct.setEnabled(false);
             bRehearse.setEnabled(false);
         }
+        if(player.getCurrentRoom().getName() == "Trailers"){
+            bTakeRole.setEnabled(false);
+        }
+        if(player.getCurrentRole() != null){
+            bMove.setEnabled(false);
+        }
         if(player.getCurrentRoom().getName() != "Casting Office"){
             bUpgrade.setEnabled(false);
             bMove.setEnabled(true);
@@ -266,15 +272,8 @@ public class BoardLayersListener extends JFrame {
         else{
             bAct.setEnabled(false);
             bEnd.setEnabled(false);
-            bMove.setEnabled(false);
             bRehearse.setEnabled(false);
             bTakeRole.setEnabled(false);
-        }
-        if(player.getCurrentRoom().getName() == "Trailers"){
-            bTakeRole.setEnabled(false);
-        }
-        if(player.getCurrentRole() != null){
-            bMove.setEnabled(false);
         }
     }
 
