@@ -325,13 +325,11 @@ public class Deadwood{
      * Returns false otherwise
      */
     public static boolean takeARole(String roleName){
-        
         Room currentRoom = currentPlayer.getCurrentRoom();
         Card currentCard = currentRoom.getCard();
         Role[] roomRoles = currentRoom.getRoles();
         Role[] cardRoles = currentCard.getRoles();
         Boolean roleTaken = false;
-
         for(int x = 0; x < roomRoles.length; x++){
             if(roomRoles[x].getName().equals(roleName) && roomRoles[x].isRoleAvailable() && currentPlayer.getRank() >= roomRoles[x].getRank() && currentRoom.hasWrapped() == "unwrapped"){
                 currentPlayer.setCurrentRole(roomRoles[x]);
@@ -355,9 +353,10 @@ public class Deadwood{
                 roleTaken = true;
             }
         }
-
         if(roleTaken){
-            System.out.println("Congrats! You are now working on " + currentPlayer.getCurrentRole().getName() + " which is an " + currentPlayer.getRoleType() + " role.");
+            Role role = currentPlayer.getCurrentRole();
+            System.out.println("Congrats! You are now working on " + role.getName() + " which is an " + currentPlayer.getRoleType() + " role.");
+            gui.movePlayer(currentPlayer, role.getXCoord(), role.getYCoord());
         }
         return roleTaken;
     }
@@ -422,14 +421,16 @@ public class Deadwood{
     }
 
     public static void endTurn(){
-        currentPlayer.setMoveFlag(false);
+        // currentPlayer.setMoveFlag(false);
+        System.out.println("Previous player: " + currentPlayer.getName());
         currentPlayerIndex++;
         if(currentPlayerIndex == playerAmount){
             currentPlayerIndex = 0;
         }
         currentPlayer = playerOrder[currentPlayerIndex];
+        System.out.println("Current Player: " + currentPlayer.getName());
         gui.displayCurrentPlayer(currentPlayer);
-        gui.displayVisibleButtons(getCurrentPlayer());
+        gui.displayVisibleButtons(currentPlayer);
     }
 
     /* Player wants to move from their current room to a new room
@@ -602,6 +603,7 @@ public class Deadwood{
                         System.out.println(inputArray[0]);
                         if(takeARole(roleName)){
                             actionMode = "";
+                            endTurn();
                             break;
                         }
                         else{
@@ -696,8 +698,8 @@ public class Deadwood{
                 playerInput = "";
                 System.out.println(currentPlayer.getCurrentRoom().getName());
             }//end of while that checks for player input
-        currentPlayer.setMoveFlag(false);
-        currentPlayerIndex++; //move to next player  
+        // currentPlayer.setMoveFlag(false);
+        // currentPlayerIndex++; //move to next player  
         } //end of while check for days
     }
 }
