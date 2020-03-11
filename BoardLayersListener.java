@@ -3,15 +3,19 @@ import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.lang.*;
 
 public class BoardLayersListener extends JFrame {
 
     static Board<Room> board;
     static final long serialVersionUID = 0;
     static boolean roomsVisible = false;
+    static boolean rolesVisible = false;
     static boolean moveSelections = false;
     static JButton[] roomButtonArr;
+    static JButton[] roleButtonArr;
+    static Role[] roleArr;
 
     // JLabels
     JLabel boardlabel;
@@ -256,43 +260,44 @@ public class BoardLayersListener extends JFrame {
     public void displayVisibleButtons(Player player){
         enableAll();
         if(player.getCurrentRole() == null || player.getCurrentRoom().getName() == "Trailers" || player.getCurrentRoom().getName() == "Casting Office"){
-            bAct.setEnabled(false);
-            bRehearse.setEnabled(false);
+            bAct.setVisible(false);
+            bRehearse.setVisible(false);
         }
         if(player.getCurrentRoom().getName() == "Trailers"){
-            bTakeRole.setEnabled(false);
+            bTakeRole.setVisible(false);
         }
         if(player.getCurrentRole() != null){
-            bMove.setEnabled(false);
+            bMove.setVisible(false);
         }
         if(player.getCurrentRoom().getName() != "Casting Office"){
-            bUpgrade.setEnabled(false);
-            bMove.setEnabled(true);
+            bUpgrade.setVisible(false);
+            bMove.setVisible(true);
+            bEnd.setVisible(true);
         }
         else{
-            bAct.setEnabled(false);
-            bEnd.setEnabled(false);
-            bRehearse.setEnabled(false);
-            bTakeRole.setEnabled(false);
+            bAct.setVisible(false);
+            bEnd.setVisible(false);
+            bRehearse.setVisible(false);
+            bTakeRole.setVisible(false);
         }
     }
 
     public void disableAll(){
-        bAct.setEnabled(false);
-        bEnd.setEnabled(false);
-        bMove.setEnabled(false);
-        bRehearse.setEnabled(false);
-        bTakeRole.setEnabled(false);
-        bUpgrade.setEnabled(false);
+        bAct.setVisible(false);
+        bEnd.setVisible(false);
+        bMove.setVisible(false);
+        bRehearse.setVisible(false);
+        bTakeRole.setVisible(false);
+        bUpgrade.setVisible(false);
     }
 
     public void enableAll(){
-        bAct.setEnabled(true);
-        bEnd.setEnabled(true);
-        bMove.setEnabled(true);
-        bRehearse.setEnabled(true);
-        bTakeRole.setEnabled(true);
-        bUpgrade.setEnabled(true);
+        bAct.setVisible(true);
+        bEnd.setVisible(true);
+        bMove.setVisible(true);
+        bRehearse.setVisible(true);
+        bTakeRole.setVisible(true);
+        bUpgrade.setVisible(true);
     }
 
     //this notify's deadwood.java that something was clicked
@@ -303,13 +308,13 @@ public class BoardLayersListener extends JFrame {
         public void mouseClicked(MouseEvent e){
             if(e.getSource() == bAct && !moveSelections){
                 System.out.println("Acting is Selected\n");
-                actionMode = "Act";
-                if(Deadwood.attemptToAct()){
-                    System.out.println("Success!");
-                }
-                else{
-                    System.out.println("Fail");
-                }
+                Deadwood.actionMode = "Act";
+                // if(Deadwood.attemptToAct()){
+                //     System.out.println("Success!");
+                // }
+                // else{
+                //     System.out.println("Fail");
+                // }
                 //do acting logic
             }else if(e.getSource() == bRehearse && !moveSelections){
                 System.out.println("Rehearse is Selected\n");
@@ -355,15 +360,15 @@ public class BoardLayersListener extends JFrame {
                             bPane.remove(roomButtonArr[x]);
                         }
                         enableAll();
-                        bAct.setEnabled(false);
-                        bRehearse.setEnabled(false);
-                        bUpgrade.setEnabled(false);
-                        bMove.setEnabled(false);
+                        bAct.setVisible(false);
+                        bRehearse.setVisible(false);
+                        bUpgrade.setVisible(false);
+                        bMove.setVisible(false);
                         if(((JButton)e.getSource()).getName().equals("Trailers") || ((JButton)e.getSource()).getName().equals("Casting Office")){
-                            bTakeRole.setEnabled(false);
+                            bTakeRole.setVisible(false);
                         }
                         if(((JButton)e.getSource()).getName().equals("Casting Office")){
-                            bUpgrade.setEnabled(true);
+                            bUpgrade.setVisible(true);
                         }
                         break;
                     }
@@ -377,9 +382,49 @@ public class BoardLayersListener extends JFrame {
             }
             else if(e.getSource() == bTakeRole && !moveSelections){
                 System.out.println("Take Role is Selected\n");
-                
                 actionMode = "Role";
-                //display valid roles
+                Player player = Deadwood.getCurrentPlayer();
+                Room currentRoom = player.getCurrentRoom();
+
+                int offset = 0;
+                if(!rolesVisible){
+                    Role[] roomRoles = currentRoom.getRoles();
+                    Role[] cardRoles = currentRoom.getCard().getRoles();
+                    roleArr = new Role[roomRoles.length + cardRoles.length];
+                    System.arraycopy(roomRoles, 0, roleArr, 0, roomRoles.length);
+                    System.arraycopy(cardRoles, 0, roleArr, roomRoles.length, cardRoles.length);
+                    roleButtonArr = new JButton[roleArr.length];
+                    // roleButtonArr = ArrayUtils.addAll(roomRoles, cardRoles);
+                    for(int i = 0; i < roleButtonArr.length; i++){
+                        
+                        roleButtonArr[i] = new JButton(roleArr[i].getName());
+                        roleButtonArr[i].setName(roleArr[i].getName());
+                        roleButtonArr[i].setBackground(Color.white);
+                        roleButtonArr[i].setBounds(icon.getIconWidth() + 170, 300 + offset, 150, 100);
+                        bPane.add(roleButtonArr[i], new Integer(2));
+                        offset += 100;
+                        rolesVisible = true;
+                        if(roleArr[i].getRank() > player.getRank()){
+                            roleButtonArr[i].setVisible(false);
+                        }
+                    } 
+                }
+                disableAll();
+                for(int j = 0; j < roleButtonArr.length; j++){
+                    if(((JButton)e.getSource()).getName() == roleButtonArr[j].getName()){
+                        rolesVisible = false;
+                        Deadwood.actionMode = ("work-" + ((JButton)e.getSource()).getName());
+                        for(int x = 0; x < roleButtonArr.length; x++){
+                            bPane.remove(roleButtonArr[x]);
+                        }
+                        enableAll();
+                        bAct.setVisible(false);
+                        bRehearse.setVisible(false);
+                        bUpgrade.setVisible(false);
+                        bMove.setVisible(false);
+                        break;
+                    }
+                }
             }
             else if(e.getSource() == bEnd && !moveSelections){
                 
