@@ -47,7 +47,7 @@ public class Bank{
             if(players.size() != 0){
                 sceneWrapBonus(players, currentRoom, currentCard);
             }
-
+            System.out.println("A: " + player.getCurrentRole().getCurrentPlayer().getName());
             //players should not be tied to roles
             Deadwood.clearPlayerRoles(currentRoom);
 

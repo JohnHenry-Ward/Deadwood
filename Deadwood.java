@@ -148,6 +148,7 @@ public class Deadwood{
             System.out.println("File not found");
         }
         gui.revealCard(room, room.getCard());
+        System.out.println("CARD INITALIZED");
         
     }
     
@@ -253,7 +254,10 @@ public class Deadwood{
         ArrayList<Player> offCardPlayers = room.getPlayers();
         ArrayList<Player> onCardPlayers = room.getCard().getPlayers();
 
+        Role[] offCardRoles = room.getRoles();
+        Role[] onCardRoles = room.getCard().getRoles();
 
+        //Remove roles from players
         if(offCardPlayers != null){
             for(int x = 0; x < offCardPlayers.size(); x++){
                 offCardPlayers.get(x).setCurrentRole(null);
@@ -264,6 +268,15 @@ public class Deadwood{
             for(int x = 0; x < onCardPlayers.size(); x++){
                 onCardPlayers.get(x).setCurrentRole(null);
             }
+        }
+
+        //remove players from roles
+        for(int x = 0; x < offCardRoles.length; x++){
+            offCardRoles[x].setPlayer(null);
+        }
+
+        for(int x = 0; x < onCardRoles.length; x++){
+            onCardRoles[x].setPlayer(null);
         }
 
         room.updateWrapped(true);
@@ -287,6 +300,32 @@ public class Deadwood{
 
     public static Player[] getPlayerOrder(){
         return playerOrder;
+    }
+
+    public static int getAvailableRolesCount(){
+        Room room = currentPlayer.getCurrentRoom();
+        Role[] roomRoles = room.getRoles();
+        Card card = room.getCard();
+        int roleCount = 0;
+        // if(card != null){
+            System.out.println("CARD: " + card);
+            Role[] cardRoles = card.getRoles();
+
+            for(int i = 0; i < roomRoles.length; i++){
+                if(roomRoles[i].getRank() <= currentPlayer.getRank() && roomRoles[i].getPlayer() == null){
+                    roleCount++;
+                }
+            }
+
+            for(int i = 0; i < cardRoles.length; i++){
+                if(cardRoles[i].getRank() <= currentPlayer.getRank() && cardRoles[i].getPlayer() == null){
+                    roleCount++;
+                }
+            }
+        // }
+        System.out.println("HERE: " + roleCount);
+        return roleCount;
+
     }
 
     /* Method prints out options for player to work based on what room they are in
@@ -428,7 +467,7 @@ public class Deadwood{
     }
 
     public static void endTurn(){
-        // currentPlayer.setMoveFlag(false);
+        currentPlayer.setMoveFlag(false);
         System.out.println("Previous player: " + currentPlayer.getName());
         currentPlayerIndex++;
         if(currentPlayerIndex == playerAmount){
@@ -711,7 +750,7 @@ public class Deadwood{
                 playerInput = "";
                 System.out.println(currentPlayer.getCurrentRoom().getName());
             }//end of while that checks for player input
-        // currentPlayer.setMoveFlag(false);
+        currentPlayer.setMoveFlag(false);
         // currentPlayerIndex++; //move to next player  
         } //end of while check for days
     }

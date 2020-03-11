@@ -51,5 +51,9 @@ public class Role {
     public int getYCoord(){
         return roleYCoord;
     }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
 }
 
