@@ -530,6 +530,7 @@ public class Deadwood{
             //players start with rank 2
             for(int i = 0; i < playerAmount; i++){
                 playerOrder[i].setRank(2);
+                gui.setNewRank(playerOrder[i], 2);
             }
             maxDays = 4;
         }

@@ -233,7 +233,13 @@ public class BoardLayersListener extends JFrame {
         shotLabels[shotNum].setVisible(false);
     }
 
-     public void displayScores(Player[] players){
+    public void setNewRank(Player player, int rank){
+        ImageIcon icon = new ImageIcon("images/dice/" + (""+player.getName().charAt(0)).toLowerCase() + rank + ".png");
+        player.setIcon(icon);
+        bPane.repaint();
+    }
+
+    public void displayScores(Player[] players){
         // ImageIcon pIcon = new ImageIcon();
         JLabel pLabel;
         int offSet = 0;
@@ -248,7 +254,8 @@ public class BoardLayersListener extends JFrame {
             
 
             // pIcon = players[i].getIcon();
-            ImageIcon pIcon = new ImageIcon(players[i].getPIconURL());
+            // ImageIcon pIcon = new ImageIcon(players[i].getPIconURL());
+            ImageIcon pIcon = players[i].getIcon();
             pLabel.setIcon(pIcon);
             pLabel.setBounds(25 + offSet, 900, 190, 100);
             bPane.add(pLabel, new Integer(2));
