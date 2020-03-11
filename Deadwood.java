@@ -696,6 +696,7 @@ public class Deadwood{
                                         flipCard(rooms[x]);
                                     }
                                 }
+                                gui.displayVisibleButtons(currentPlayer);
                             }
                         }
                     //}catch(ArrayIndexOutOfBoundsException a){

@@ -269,10 +269,10 @@ public class BoardLayersListener extends JFrame {
             bAct.setVisible(true);
             bRehearse.setVisible(true);
         }
-        if(player.getCurrentRole() == null){
+        if(player.getCurrentRole() == null && !player.getMoveFlag()){
             bMove.setVisible(true);
         }
-        if((player.getCurrentRole() == null && (player.getCurrentRoom().getName() != "Trailers" && player.getCurrentRoom().getName() != "Casting Office")) && player.getCurrentRoom().hasWrapped() == "unwrapped"){
+        if(player.getCurrentRole() == null && player.getCurrentRoom().hasWrapped() == "unwrapped" && Deadwood.getAvailableRolesCount() != 0){
             bTakeRole.setVisible(true);
         }
         if(player.getCurrentRoom().getName() == "Casting Office"){
