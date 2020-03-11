@@ -356,7 +356,12 @@ public class Deadwood{
         if(roleTaken){
             Role role = currentPlayer.getCurrentRole();
             System.out.println("Congrats! You are now working on " + role.getName() + " which is an " + currentPlayer.getRoleType() + " role.");
-            gui.movePlayer(currentPlayer, role.getXCoord(), role.getYCoord());
+            if(currentPlayer.getRoleType() == "offCard"){
+                gui.movePlayer(currentPlayer, role.getXCoord(), role.getYCoord());
+            }
+            else if(currentPlayer.getRoleType() == "onCard"){
+                gui.movePlayer(currentPlayer, currentRoom.getCardX() + role.getXCoord(), currentRoom.getCardY() + role.getYCoord());
+            }
         }
         return roleTaken;
     }
@@ -393,6 +398,7 @@ public class Deadwood{
         }else{
             System.out.println("You have yet to take a role!");
         }
+        gui.displayScores(playerOrder);
         return acted;
     }
 
@@ -412,6 +418,7 @@ public class Deadwood{
             }else{
                 System.out.println("You've gained a practice chip!");
                 currentPlayer.addPracticeChip();
+                gui.displayScores(playerOrder);
                 return true;
             }
         }else{
@@ -614,18 +621,23 @@ public class Deadwood{
                         System.out.println("Whoops, looks like your syntax is wrong. If you need to see what roles there are, type 'role options'\n");
                         actionMode = "";
                     }
-                }else if(playerInput.equals("act")){
+                }else if(playerInput.equals("Act")){
                     if(attemptToAct()){
                         actionMode = "";
+                        endTurn();
                         break;
                     }
                     else{
                         System.out.println("Sorry! You were unsuccessful");
                         actionMode = "";
+                        endTurn();
                         break;
                     }
-                }else if(playerInput.equals("rehearse")){
+                }else if(playerInput.equals("Rehearse")){
+                    System.out.println("in rehearse");
                     if(rehearse()){
+                        actionMode = "";
+                        endTurn();
                         break;
                     }
                 }else if(playerInput.contains("move")){

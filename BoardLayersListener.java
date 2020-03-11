@@ -153,7 +153,7 @@ public class BoardLayersListener extends JFrame {
 
             playerlabels.add(pLabel);
 
-            bPane.add(playerlabels.get(i), new Integer(2));
+            bPane.add(playerlabels.get(i), new Integer(5));
             pLabel.setVisible(true);
 
             x += 50;
@@ -258,33 +258,6 @@ public class BoardLayersListener extends JFrame {
     }
 
     public void displayVisibleButtons(Player player){
-        // enableAll();
-        // if(player.getCurrentRole() == null || player.getCurrentRoom().getName() == "Trailers" || player.getCurrentRoom().getName() == "Casting Office"){
-        //     bAct.setVisible(false);
-        //     bRehearse.setVisible(false);
-        // }
-        // if(player.getCurrentRoom().getName() == "Trailers"){
-        //     bTakeRole.setVisible(false);
-        // }
-        // if(player.getCurrentRole() != null){
-        //     bMove.setVisible(false);
-        // }
-        // if(player.getCurrentRole() != null){
-        //     bTakeRole.setVisible(false);
-        //     bMove.setVisible(false);
-        // }
-        // if(player.getCurrentRoom().getName() != "Casting Office"){
-        //     bUpgrade.setVisible(false);
-        //     bMove.setVisible(true);
-        //     bEnd.setVisible(true);
-        // }
-        // else{
-        //     bAct.setVisible(false);
-        //     bEnd.setVisible(false);
-        //     bRehearse.setVisible(false);
-        //     bTakeRole.setVisible(false);
-        // }
-
         disableAll();
         if(player.getCurrentRole() != null){
             bAct.setVisible(true);
