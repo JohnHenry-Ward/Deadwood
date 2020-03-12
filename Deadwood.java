@@ -39,25 +39,34 @@ public class Deadwood{
      * each players room is set to trailers and each player is added to trailers
      */
     public static void initializeBoard(){
-        gui.setVisible(true);
+        playerAmount = gui.getPlayerAmount();
+        playerOrder = new Player[playerAmount];
+        int e = 0;
+        while(e < playerAmount){
+            playerOrder[e] = new Player(colors[e], "images/dice/" + (""+colors[e].charAt(0)).toLowerCase() + "1.png", new JLabel());
+            e++;
+        }
+        currentPlayer = playerOrder[0];
+       
         specialRules();
         // board = Board.getInstance();
         createRooms();
         createPaths();
+        
         //set each players room to the trailers
         for(int x = 0; x < playerAmount; x++){
             playerOrder[x].setCurrentRoom(rooms[0]);
             rooms[0].addPlayer(playerOrder[x]);
             // gui.addPlayers(playerOrder[x]);
         }
-        currentPlayer = playerOrder[0];
-
+        
         // gui.movePlayer(playerOrder[0], 10, 10);
         gui.initPlayerPosition(playerOrder);
         gui.initBlankCards(rooms);
         gui.initShotCounters(rooms);
         gui.displayScores(playerOrder);
         gui.displayVisibleButtons(getCurrentPlayer());
+        gui.setVisible(true);
         System.out.println("It's day " + currentDay);
     }
 
@@ -560,17 +569,18 @@ public class Deadwood{
     
     /* Deadwood.java should be called as such: java Deadwood x (where x is players 2-8)*/
     public static void main(String args[]){
-        playerAmount = Integer.parseInt(args[0]);
+        // playerAmount = Integer.parseInt(args[0]);
         System.out.println("Welcome to Deadwood! You've selected a " + playerAmount + " player game!");
-        playerOrder = new Player[playerAmount];
-        int e = 0;
-        while(e < playerAmount){
-            playerOrder[e] = new Player(colors[e], "images/dice/" + (""+colors[e].charAt(0)).toLowerCase() + "1.png", new JLabel());
-            e++;
-        }
+        // playerOrder = new Player[playerAmount];
+        // int e = 0;
+        // while(e < playerAmount){
+        //     playerOrder[e] = new Player(colors[e], "images/dice/" + (""+colors[e].charAt(0)).toLowerCase() + "1.png", new JLabel());
+        //     e++;
+        // }
+        
         initializeBoard();
-        currentPlayerIndex = 0;
-        currentPlayer = playerOrder[currentPlayerIndex];
+        // currentPlayerIndex = 0;
+        // currentPlayer = playerOrder[currentPlayerIndex];
         gui.displayCurrentPlayer(currentPlayer);
 
         //the game begins

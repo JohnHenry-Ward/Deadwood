@@ -119,6 +119,16 @@ public class BoardLayersListener extends JFrame {
     
     }
 
+    public int getPlayerAmount(){
+        int count = 0;
+        JFrame playerPrompt = new JFrame();
+        while(count < 2 || count > 8){
+            count = Integer.parseInt(JOptionPane.showInputDialog(playerPrompt, "How Many Players? (2-8)"));
+            System.out.println(count);
+        }
+        return count;
+    }
+
     public void displayCurrentPlayer(Player currentPlayer){
         JLabel pLabel = new JLabel();
         pLabel.setIcon(currentPlayer.getIcon());
