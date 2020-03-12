@@ -358,11 +358,20 @@ public class BoardLayersListener extends JFrame {
         int shotNum = room.getShots();
         JLabel[] shotLabels = room.getShotLabels();
         shotLabels[shotNum].setVisible(false);
+
+        
     }
 
     public void setNewRank(Player player, int rank){
         ImageIcon icon = new ImageIcon("images/dice/" + (""+player.getName().charAt(0)).toLowerCase() + rank + ".png");
         player.setIcon(icon);
+        for(int i = 0; i < playerlabels.size(); i++){
+            if(player.getName() == playerlabels.get(i).getName()){
+                playerlabels.get(i).setIcon(icon);
+            }
+        }
+        displayScores(controller.getPlayerOrder());
+        displayCurrentPlayer(player);
         bPane.repaint();
     }
 

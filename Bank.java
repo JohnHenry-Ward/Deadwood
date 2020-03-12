@@ -13,7 +13,8 @@ public class Bank{
     static private int rankFiveCostCredits = 20;
     static private int rankSixCostDollars = 40;
     static private int rankSixCostCredits = 25;
-    Deadwood controller = Deadwood.getInstance();
+    static Deadwood controller = Deadwood.getInstance();
+    static BoardLayersListener gui = BoardLayersListener.getInstance();
 
     /* Method rewards player on their success in acting based on if they are in a
      * starring role or acting as an extra
@@ -49,9 +50,9 @@ public class Bank{
                 sceneWrapBonus(players, currentRoom, currentCard);
             }
             //players should not be tied to roles
-            Deadwood.clearPlayerRoles(currentRoom);
-            Deadwood.clearPracticeChips(player.getCurrentRoom().getPlayers(), player.getCurrentRoom().getCard().getPlayers());
-            BoardLayersListener gui = BoardLayersListener.getInstance();
+            controller.clearPlayerRoles(currentRoom);
+            controller.clearPracticeChips(player.getCurrentRoom().getPlayers(), player.getCurrentRoom().getCard().getPlayers());
+            
             gui.resetPositions(currentRoom);
             gui.clearCard(currentRoom.getCard());
 
@@ -93,7 +94,7 @@ public class Bank{
         System.out.println("all get bonuses!");
 
         int budget = card.getBudget();
-        int[] dieRolls = Deadwood.rollDie(budget);
+        int[] dieRolls = controller.rollDie(budget);
         Role[] roles = room.getCard().getRoles();
         int loopVar = roles.length - 1;
 
@@ -152,6 +153,7 @@ public class Bank{
                     case 2: if(player.getDollars() >= rankTwoCostDollars){
                                 if(player.subtractDollars(rankTwoCostDollars)){
                                     player.setRank(2);
+                                    gui.setNewRank(player, 2);
                                 }else{
                                     return false;
                                 }
@@ -161,6 +163,7 @@ public class Bank{
                     case 3: if(player.getDollars() >= rankThreeCostDollars){
                                 if(player.subtractDollars(rankThreeCostDollars)){
                                     player.setRank(3);
+                                    gui.setNewRank(player, 3);
                                 }else{
                                     return false;
                                 }
@@ -170,6 +173,7 @@ public class Bank{
                     case 4: if(player.getDollars() >= rankFourCostDollars){
                                 if(player.subtractDollars(rankFourCostDollars)){
                                     player.setRank(4);
+                                    gui.setNewRank(player, 4);
                                 }else{
                                     return false;
                                 }
@@ -179,6 +183,7 @@ public class Bank{
                     case 5: if(player.getDollars() >= rankFiveCostDollars){
                                 if(player.subtractDollars(rankFiveCostDollars)){
                                     player.setRank(5);
+                                    gui.setNewRank(player, 5);
                                 }else{
                                     return false;
                                 }
@@ -188,6 +193,7 @@ public class Bank{
                     case 6: if(player.getDollars() >= rankSixCostDollars){
                                 if(player.subtractDollars(rankSixCostDollars)){
                                     player.setRank(6);
+                                    gui.setNewRank(player, 6);
                                 }else{
                                     return false;
                                 }
