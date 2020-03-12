@@ -13,6 +13,7 @@ public class BoardLayersListener extends JFrame {
     static boolean roomsVisible = false;
     static boolean rolesVisible = false;
     static boolean moveSelections = false;
+    static boolean upgradesVisible = false;
     static JButton[] roomButtonArr;
     static JButton[] roleButtonArr;
     static JButton[] upgradeButtonArrDollar = new JButton[5];
@@ -210,26 +211,36 @@ public class BoardLayersListener extends JFrame {
     
     public void initUpgradeButtons(){
         upgradeButtonArrDollar[0] = new JButton("4");
-        upgradeButtonArrDollar[0].setName("2");
+        upgradeButtonArrDollar[0].setName("$-2");
+        upgradeButtonArrDollar[0].addMouseListener(new boardMouseListener());
         upgradeButtonArrDollar[1] = new JButton("10");
-        upgradeButtonArrDollar[1].setName("3");
+        upgradeButtonArrDollar[1].setName("$-3");
+        upgradeButtonArrDollar[1].addMouseListener(new boardMouseListener());
         upgradeButtonArrDollar[2] = new JButton("18");
-        upgradeButtonArrDollar[2].setName("4");
+        upgradeButtonArrDollar[2].setName("$-4");
+        upgradeButtonArrDollar[2].addMouseListener(new boardMouseListener());
         upgradeButtonArrDollar[3] = new JButton("28");
-        upgradeButtonArrDollar[3].setName("5");
+        upgradeButtonArrDollar[3].setName("$-5");
+        upgradeButtonArrDollar[3].addMouseListener(new boardMouseListener());
         upgradeButtonArrDollar[4] = new JButton("40");
-        upgradeButtonArrDollar[4].setName("6");
+        upgradeButtonArrDollar[4].setName("$-6");
+        upgradeButtonArrDollar[4].addMouseListener(new boardMouseListener());
 
         upgradeButtonArrCredit[0] = new JButton("5");
-        upgradeButtonArrCredit[0].setName("2");
+        upgradeButtonArrCredit[0].setName("c-2");
+        upgradeButtonArrCredit[0].addMouseListener(new boardMouseListener());
         upgradeButtonArrCredit[1] = new JButton("10");
-        upgradeButtonArrCredit[1].setName("3");
+        upgradeButtonArrCredit[1].setName("c-3");
+        upgradeButtonArrCredit[1].addMouseListener(new boardMouseListener());
         upgradeButtonArrCredit[2] = new JButton("15");
-        upgradeButtonArrCredit[2].setName("4");
+        upgradeButtonArrCredit[2].setName("c-4");
+        upgradeButtonArrCredit[2].addMouseListener(new boardMouseListener());
         upgradeButtonArrCredit[3] = new JButton("20");
-        upgradeButtonArrCredit[3].setName("5");
+        upgradeButtonArrCredit[3].setName("c-5");
+        upgradeButtonArrCredit[3].addMouseListener(new boardMouseListener());
         upgradeButtonArrCredit[4] = new JButton("25");
-        upgradeButtonArrCredit[4].setName("6");
+        upgradeButtonArrCredit[4].setName("c-6");
+        upgradeButtonArrCredit[4].addMouseListener(new boardMouseListener());
 
         ImageIcon board = new ImageIcon("images/board.jpg");
         int Yoffset = 0;
@@ -455,6 +466,7 @@ public class BoardLayersListener extends JFrame {
                     //display payment options
                 enableUpgrades();
                 disableMenu();
+                bEnd.setVisible(true);
             }
             else if(e.getSource() == bTakeRole || rolesVisible){
                 System.out.println("Take Role is Selected\n");
@@ -515,6 +527,7 @@ public class BoardLayersListener extends JFrame {
                 actionMode = "End";
                 System.out.println("End is Selected\n");
                 Deadwood.endTurn();
+                disableUpgrades();
                 if(Deadwood.isGameOver()){
                     Deadwood.endGame();
                 }
@@ -522,15 +535,13 @@ public class BoardLayersListener extends JFrame {
             else{
                 for(int x = 0; x < 5; x++){
                     if(e.getSource() == upgradeButtonArrDollar[x]){
-                        actionMode = "upgrade-$-" + upgradeButtonArrDollar[x].getName();
+                        actionMode = "upgrade-" + upgradeButtonArrDollar[x].getName();
                         Deadwood.actionMode = actionMode;
                         disableUpgrades();
-                        enableMenu();
                     }else if(e.getSource() == upgradeButtonArrCredit[x]){
-                        actionMode = "upgrade-c-" + upgradeButtonArrCredit[x].getName();
+                        actionMode = "upgrade-" + upgradeButtonArrCredit[x].getName();
                         Deadwood.actionMode = actionMode;
                         disableUpgrades();
-                        enableMenu();
                     }
                 }
             }
