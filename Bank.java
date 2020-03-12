@@ -49,6 +49,7 @@ public class Bank{
             }
             //players should not be tied to roles
             Deadwood.clearPlayerRoles(currentRoom);
+            Deadwood.clearPracticeChips(player.getCurrentRoom().getPlayers(), player.getCurrentRoom().getCard().getPlayers());
             BoardLayersListener gui = BoardLayersListener.getInstance();
             gui.resetPositions(currentRoom);
             gui.clearCard(currentRoom.getCard());
@@ -128,8 +129,6 @@ public class Bank{
             offCardPlayers.get(x).addDollars(bonus);
             System.out.println(offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!");
         }
-
-        Deadwood.clearPracticeChips(offCardPlayers, card.getPlayers());
 
     }
 
