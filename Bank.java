@@ -13,6 +13,7 @@ public class Bank{
     static private int rankFiveCostCredits = 20;
     static private int rankSixCostDollars = 40;
     static private int rankSixCostCredits = 25;
+    Deadwood controller = Deadwood.getInstance();
 
     /* Method rewards player on their success in acting based on if they are in a
      * starring role or acting as an extra
