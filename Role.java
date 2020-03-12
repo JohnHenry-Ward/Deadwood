@@ -43,5 +43,17 @@ public class Role {
     public boolean isRoleAvailable(){
         return roleAvailable;
     }
+
+    public int getXCoord(){
+        return roleXCoord;
+    }
+
+    public int getYCoord(){
+        return roleYCoord;
+    }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
 }
 
