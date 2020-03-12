@@ -289,7 +289,7 @@ public class BoardLayersListener extends JFrame {
             upgradeLabels[i].setBounds(board.getIconWidth() + 10, (board.getIconHeight()/2) + Yoffset, icon.getIconWidth(), icon.getIconHeight());
 
             upgradeButtonArrDollar[i].setBounds(board.getIconWidth() + 70, (board.getIconHeight()/2) + Yoffset, 50, 30);
-            upgradeButtonArrCredit[i].setBounds(board.getIconWidth() + 130, (board.getIconHeight()/2) + Yoffset, 50, 30);
+            upgradeButtonArrCredit[i].setBounds(board.getIconWidth() + 150, (board.getIconHeight()/2) + Yoffset, 50, 30);
 
             bPane.add(upgradeLabels[i]);
             bPane.add(upgradeButtonArrCredit[i]);
@@ -304,7 +304,7 @@ public class BoardLayersListener extends JFrame {
         upgradeLabels[6].setBounds(board.getIconWidth() + 70, (board.getIconHeight()/2) - 30, 100, 20);
 
         upgradeLabels[7] = new JLabel("CREDITS");
-        upgradeLabels[7].setBounds(board.getIconWidth() + 130, (board.getIconHeight()/2) - 30, 100, 20);
+        upgradeLabels[7].setBounds(board.getIconWidth() + 150, (board.getIconHeight()/2) - 30, 100, 20);
 
         bPane.add(upgradeLabels[5]);
         bPane.add(upgradeLabels[6]);
