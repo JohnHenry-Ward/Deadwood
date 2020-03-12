@@ -17,7 +17,7 @@ public class Deadwood{
     static int cardsFlipped = -1;
     static Scanner sc;
     static Bank bank = new Bank();
-    static BoardLayersListener gui = new BoardLayersListener();
+    static BoardLayersListener gui = BoardLayersListener.getInstance();
     static volatile String actionMode = "";
 
     /* Method called before the game begins

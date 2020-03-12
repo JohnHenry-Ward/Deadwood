@@ -20,7 +20,7 @@ public class BoardLayersListener extends JFrame {
     // JLabels
     JLabel boardlabel;
     JLabel cardlabel;
-    ArrayList<JLabel> playerlabels = new ArrayList<JLabel>();
+    ArrayList<JLabel> playerlabels;
     JLabel mlabel;
     JLabel[] blankCards;
 
@@ -37,8 +37,14 @@ public class BoardLayersListener extends JFrame {
 
     ImageIcon icon;
 
+    private static BoardLayersListener instance = new BoardLayersListener();
+
+    public static BoardLayersListener getInstance(){
+        return instance;
+    }
+
     // Constructor
-    public BoardLayersListener() {
+    private BoardLayersListener() {
         super("Deadwood");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -120,6 +126,7 @@ public class BoardLayersListener extends JFrame {
     }
 
     public void movePlayer(Player player, int xCord, int yCord){
+        System.out.println("MOVING :" + playerlabels.size());
         for(int i = 0; i < playerlabels.size(); i++){
             if(player.getName() == playerlabels.get(i).getName()){
                 /*bPane.remove(playerlabels.get(i));
@@ -129,9 +136,11 @@ public class BoardLayersListener extends JFrame {
                 playerlabels.set(i, plabel);
 
                 bPane.add(playerlabels.get(i));*/
+                
                 playerlabels.get(i).setBounds(xCord, yCord, player.getIcon().getIconWidth(), player.getIcon().getIconHeight());
             }
         }
+
         bPane.repaint();
     }
 
@@ -140,7 +149,7 @@ public class BoardLayersListener extends JFrame {
         ImageIcon pIcon;
         int x = 0;
         int y = 0;
-        
+        playerlabels = new ArrayList<JLabel>();
         for(int i = 0; i < players.length; i++){
             // pLabel = players[i].getPLabel();
             pLabel = new JLabel();
@@ -163,6 +172,21 @@ public class BoardLayersListener extends JFrame {
             }
 
         }
+    }
+
+    public void resetPositions(Room room){
+        ArrayList<Player> players = room.getPlayers();
+        ArrayList<Player> p = room.getCard().getPlayers();
+        players.addAll(p);
+
+        int[] playerHolders = room.getPlayerHolderCoord();
+        int x = 0;
+        for(int i = 0; i < players.size() * 2; i+=2){
+            movePlayer(players.get(x), playerHolders[i], playerHolders[i + 1]);
+            System.out.println(players.get(x).getName() + " at " + playerHolders[i] + ", " + playerHolders[i+1]);
+            x++;
+        }
+        
     }
 
     public void initBlankCards(Room[] rooms){

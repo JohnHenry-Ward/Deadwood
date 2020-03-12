@@ -47,11 +47,10 @@ public class Bank{
             if(players.size() != 0){
                 sceneWrapBonus(players, currentRoom, currentCard);
             }
-            System.out.println("A: " + player.getCurrentRole().getCurrentPlayer().getName());
             //players should not be tied to roles
             Deadwood.clearPlayerRoles(currentRoom);
-
-            BoardLayersListener gui = new BoardLayersListener();
+            BoardLayersListener gui = BoardLayersListener.getInstance();
+            gui.resetPositions(currentRoom);
             gui.clearCard(currentRoom.getCard());
 
         }
