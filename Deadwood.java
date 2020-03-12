@@ -62,6 +62,7 @@ public class Deadwood{
         
         // gui.movePlayer(playerOrder[0], 10, 10);
         gui.initPlayerPosition(playerOrder);
+        gui.initUpgradeButtons();
         gui.initBlankCards(rooms);
         gui.initShotCounters(rooms);
         gui.displayScores(playerOrder);
@@ -691,6 +692,7 @@ public class Deadwood{
                             break;
                         }
                     }
+                    gui.displayVisibleButtons(getCurrentPlayer());
                 }/*else if(playerInput.equals("score")){
                     System.out.println("Dollars: " + currentPlayer.getDollars()
                                      + "\nCredits: " + currentPlayer.getCredits()
