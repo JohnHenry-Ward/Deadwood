@@ -39,6 +39,7 @@ public class BoardLayersListener extends JFrame {
 
     Deadwood controller = Deadwood.getInstance();
 
+    // Singleton
     private static BoardLayersListener instance = new BoardLayersListener();
 
     public static BoardLayersListener getInstance(){
