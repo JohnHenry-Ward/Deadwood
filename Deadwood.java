@@ -13,7 +13,8 @@ public class Deadwood{
     static Room[] rooms;
     static Card[] cards = new Card[40];
     static String[] colors = new String[]{"BLUE", "GREEN", "RED", "YELLOW", "CYAN", "ORANGE", "PINK", "VIOLET"};//used for identifying players
-    static Board<Room> board;
+    @SuppressWarnings("unchecked")
+    static Board<Room> board = Board.getInstance();
     static int cardsFlipped = -1;
     static Scanner sc;
     static Bank bank = new Bank();
@@ -40,7 +41,7 @@ public class Deadwood{
     public static void initializeBoard(){
         gui.setVisible(true);
         specialRules();
-        board = Board.getInstance();
+        // board = Board.getInstance();
         createRooms();
         createPaths();
         //set each players room to the trailers
