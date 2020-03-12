@@ -15,8 +15,9 @@ public class BoardLayersListener extends JFrame {
     static boolean moveSelections = false;
     static JButton[] roomButtonArr;
     static JButton[] roleButtonArr;
+    static JButton[] upgradeButtonArr = new JButton[10];
     static Role[] roleArr;
-
+    
     // JLabels
     JLabel boardlabel;
     JLabel cardlabel;
@@ -299,6 +300,12 @@ public class BoardLayersListener extends JFrame {
         bUpgrade.setVisible(true);
     }
 
+    public void initUpgradeButtons(){
+
+        for(int i = 1; i <= ; i++){
+            upgradeButtonArr[i] = new JButton("Rank:");
+        }
+    }
     //this notify's deadwood.java that something was clicked
     //then deadwood will update view
     class boardMouseListener implements MouseListener {
@@ -372,6 +379,8 @@ public class BoardLayersListener extends JFrame {
                 actionMode = "Upgrade";
                 //display rank options
                     //display payment options
+
+                
             }
             else if(e.getSource() == bTakeRole || rolesVisible){
                 System.out.println("Take Role is Selected\n");
