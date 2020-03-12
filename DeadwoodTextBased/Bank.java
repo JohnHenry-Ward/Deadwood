@@ -13,7 +13,6 @@ public class Bank{
     static private int rankFiveCostCredits = 20;
     static private int rankSixCostDollars = 40;
     static private int rankSixCostCredits = 25;
-    Deadwood controller = Deadwood.getInstance();
 
     /* Method rewards player on their success in acting based on if they are in a
      * starring role or acting as an extra
@@ -48,12 +47,9 @@ public class Bank{
             if(players.size() != 0){
                 sceneWrapBonus(players, currentRoom, currentCard);
             }
+
             //players should not be tied to roles
             Deadwood.clearPlayerRoles(currentRoom);
-            Deadwood.clearPracticeChips(player.getCurrentRoom().getPlayers(), player.getCurrentRoom().getCard().getPlayers());
-            BoardLayersListener gui = BoardLayersListener.getInstance();
-            gui.resetPositions(currentRoom);
-            gui.clearCard(currentRoom.getCard());
 
         }
     }
@@ -130,6 +126,8 @@ public class Bank{
             offCardPlayers.get(x).addDollars(bonus);
             System.out.println(offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!");
         }
+
+        Deadwood.clearPracticeChips(offCardPlayers, card.getPlayers());
 
     }
 

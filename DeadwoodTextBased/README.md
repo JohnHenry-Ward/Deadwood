@@ -1,14 +1,5 @@
 # Deadwood
 
-**For the GUI based Version**
-
-Compile syntax: javac Deadwood.java
-
-Run syntax: java Deadwood
-
---------------------------------------------------------------------
-
-**For the text based version**
 Compile syntax: javac Deadwood.java
 
 Run syntax: java Deadwood x

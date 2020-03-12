@@ -24,7 +24,7 @@ public class BoardLayersListener extends JFrame {
     // JLabels
     JLabel boardlabel;
     JLabel cardlabel;
-    ArrayList<JLabel> playerlabels = new ArrayList<JLabel>();
+    ArrayList<JLabel> playerlabels;
     JLabel mlabel;
     JLabel[] blankCards;
 
@@ -41,8 +41,17 @@ public class BoardLayersListener extends JFrame {
 
     ImageIcon icon;
 
+    Deadwood controller = Deadwood.getInstance();
+
+    // Singleton
+    private static BoardLayersListener instance = new BoardLayersListener();
+
+    public static BoardLayersListener getInstance(){
+        return instance;
+    }
+
     // Constructor
-    public BoardLayersListener() {
+    private BoardLayersListener() {
         super("Deadwood");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -115,6 +124,16 @@ public class BoardLayersListener extends JFrame {
     
     }
 
+    public int getPlayerAmount(){
+        int count = 0;
+        JFrame playerPrompt = new JFrame();
+        while(count < 2 || count > 8){
+            count = Integer.parseInt(JOptionPane.showInputDialog(playerPrompt, "How Many Players? (2-8)"));
+            System.out.println(count);
+        }
+        return count;
+    }
+
     public void displayCurrentPlayer(Player currentPlayer){
         JLabel pLabel = new JLabel();
         pLabel.setIcon(currentPlayer.getIcon());
@@ -124,6 +143,7 @@ public class BoardLayersListener extends JFrame {
     }
 
     public void movePlayer(Player player, int xCord, int yCord){
+        System.out.println("MOVING :" + playerlabels.size());
         for(int i = 0; i < playerlabels.size(); i++){
             if(player.getName() == playerlabels.get(i).getName()){
                 /*bPane.remove(playerlabels.get(i));
@@ -133,9 +153,11 @@ public class BoardLayersListener extends JFrame {
                 playerlabels.set(i, plabel);
 
                 bPane.add(playerlabels.get(i));*/
+                
                 playerlabels.get(i).setBounds(xCord, yCord, player.getIcon().getIconWidth(), player.getIcon().getIconHeight());
             }
         }
+
         bPane.repaint();
     }
 
@@ -144,7 +166,7 @@ public class BoardLayersListener extends JFrame {
         ImageIcon pIcon;
         int x = 0;
         int y = 0;
-        
+        playerlabels = new ArrayList<JLabel>();
         for(int i = 0; i < players.length; i++){
             // pLabel = players[i].getPLabel();
             pLabel = new JLabel();
@@ -167,6 +189,21 @@ public class BoardLayersListener extends JFrame {
             }
 
         }
+    }
+
+    public void resetPositions(Room room){
+        ArrayList<Player> players = room.getPlayers();
+        ArrayList<Player> p = room.getCard().getPlayers();
+        players.addAll(p);
+
+        int[] playerHolders = room.getPlayerHolderCoord();
+        int x = 0;
+        for(int i = 0; i < players.size() * 2; i+=2){
+            movePlayer(players.get(x), playerHolders[i], playerHolders[i + 1]);
+            System.out.println(players.get(x).getName() + " at " + playerHolders[i] + ", " + playerHolders[i+1]);
+            x++;
+        }
+        
     }
 
     public void initBlankCards(Room[] rooms){
@@ -364,7 +401,7 @@ public class BoardLayersListener extends JFrame {
         if(player.getCurrentRole() == null && !player.getMoveFlag()){
             bMove.setVisible(true);
         }
-        if(player.getCurrentRole() == null && player.getCurrentRoom().hasWrapped() == "unwrapped" && Deadwood.getAvailableRolesCount() != 0){
+        if(player.getCurrentRole() == null && player.getCurrentRoom().hasWrapped() == "unwrapped" && controller.getAvailableRolesCount() != 0){
             bTakeRole.setVisible(true);
         }
         if(player.getCurrentRoom().getName() == "Casting Office"){
@@ -401,18 +438,18 @@ public class BoardLayersListener extends JFrame {
         public void mouseClicked(MouseEvent e){
             if(e.getSource() == bAct && !moveSelections){
                 System.out.println("Acting is Selected\n");
-                Deadwood.actionMode = "Act";
+                controller.actionMode = "Act";
             }else if(e.getSource() == bRehearse && !moveSelections){
                 System.out.println("Rehearse is Selected\n");
                 actionMode = "Rehearse";
-                Deadwood.actionMode = actionMode;
+                controller.actionMode = actionMode;
                 //do rehearsing logic
             }else if(e.getSource() == bMove || moveSelections){
                 System.out.println("Move is Selected");
 
                 moveSelections = true;
                 actionMode = "Move";
-                Player player = Deadwood.getCurrentPlayer();
+                Player player = controller.getCurrentPlayer();
                 Room currentRoom = player.getCurrentRoom();
                 board = Board.getInstance();
                 
@@ -440,7 +477,7 @@ public class BoardLayersListener extends JFrame {
                     if(((JButton)e.getSource()).getName() == roomButtonArr[j].getName()){
                         moveSelections = false;
                         roomsVisible = false;
-                        Deadwood.actionMode = ("move-" + ((JButton)e.getSource()).getName());
+                        controller.actionMode = ("move-" + ((JButton)e.getSource()).getName());
                         for(int x = 0; x < roomButtonArr.length; x++){
                             bPane.remove(roomButtonArr[x]);
                         }
@@ -471,7 +508,7 @@ public class BoardLayersListener extends JFrame {
             else if(e.getSource() == bTakeRole || rolesVisible){
                 System.out.println("Take Role is Selected\n");
                 actionMode = "Role";
-                Player player = Deadwood.getCurrentPlayer();
+                Player player = controller.getCurrentPlayer();
                 Room currentRoom = player.getCurrentRoom();
                 int invisibleCount = 0;
                 int offset = 0;
@@ -508,7 +545,7 @@ public class BoardLayersListener extends JFrame {
                     }
                     if(((JButton)e.getSource()).getName() == roleButtonArr[j].getName()){
                         rolesVisible = false;
-                        Deadwood.actionMode = ("work-" + ((JButton)e.getSource()).getName());
+                        controller.actionMode = ("work-" + ((JButton)e.getSource()).getName());
                         for(int x = 0; x < roleButtonArr.length; x++){
                             bPane.remove(roleButtonArr[x]);
                         }
@@ -526,10 +563,11 @@ public class BoardLayersListener extends JFrame {
                 
                 actionMode = "End";
                 System.out.println("End is Selected\n");
-                Deadwood.endTurn();
+                controller.endTurn();
                 disableUpgrades();
-                if(Deadwood.isGameOver()){
-                    Deadwood.endGame();
+                if(controller.isGameOver()){
+                    controller.endGame();
+
                 }
             }
             else{
@@ -546,12 +584,12 @@ public class BoardLayersListener extends JFrame {
                 }
             }
             /*if(actionMode.equals("Act") || actionMode.equals("Upgrade") || actionMode.equals("Role") || actionMode.equals("Rehearse")){
-                Deadwood.endTurn();
-                if(Deadwood.isGameOver()){
-                    Deadwood.endGame();
+                controller.endTurn();
+                if(controller.isGameOver()){
+                    controller.endGame();
                 }
             }*/
-            displayScores(Deadwood.getPlayerOrder());
+            displayScores(controller.getPlayerOrder());
         }
         public void mousePressed(MouseEvent e) {
         }
