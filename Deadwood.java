@@ -20,6 +20,17 @@ public class Deadwood{
     static BoardLayersListener gui = BoardLayersListener.getInstance();
     static volatile String actionMode = "";
 
+    /* Singleton */
+    public static final Deadwood instance = new Deadwood();
+
+    private Deadwood() {
+    }
+
+    public static Deadwood getInstance() {
+        return instance;
+    }
+    /* End Singleton */
+
     /* Method called before the game begins
      * special rules are put in place
      * board object is created

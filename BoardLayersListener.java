@@ -37,6 +37,8 @@ public class BoardLayersListener extends JFrame {
 
     ImageIcon icon;
 
+    Deadwood controller = Deadwood.getInstance();
+
     private static BoardLayersListener instance = new BoardLayersListener();
 
     public static BoardLayersListener getInstance(){
@@ -296,7 +298,7 @@ public class BoardLayersListener extends JFrame {
         if(player.getCurrentRole() == null && !player.getMoveFlag()){
             bMove.setVisible(true);
         }
-        if(player.getCurrentRole() == null && player.getCurrentRoom().hasWrapped() == "unwrapped" && Deadwood.getAvailableRolesCount() != 0){
+        if(player.getCurrentRole() == null && player.getCurrentRoom().hasWrapped() == "unwrapped" && controller.getAvailableRolesCount() != 0){
             bTakeRole.setVisible(true);
         }
         if(player.getCurrentRoom().getName() == "Casting Office"){
@@ -333,18 +335,18 @@ public class BoardLayersListener extends JFrame {
         public void mouseClicked(MouseEvent e){
             if(e.getSource() == bAct && !moveSelections){
                 System.out.println("Acting is Selected\n");
-                Deadwood.actionMode = "Act";
+                controller.actionMode = "Act";
             }else if(e.getSource() == bRehearse && !moveSelections){
                 System.out.println("Rehearse is Selected\n");
                 actionMode = "Rehearse";
-                Deadwood.actionMode = actionMode;
+                controller.actionMode = actionMode;
                 //do rehearsing logic
             }else if(e.getSource() == bMove || moveSelections){
                 System.out.println("Move is Selected");
 
                 moveSelections = true;
                 actionMode = "Move";
-                Player player = Deadwood.getCurrentPlayer();
+                Player player = controller.getCurrentPlayer();
                 Room currentRoom = player.getCurrentRoom();
                 board = Board.getInstance();
                 
@@ -372,7 +374,7 @@ public class BoardLayersListener extends JFrame {
                     if(((JButton)e.getSource()).getName() == roomButtonArr[j].getName()){
                         moveSelections = false;
                         roomsVisible = false;
-                        Deadwood.actionMode = ("move-" + ((JButton)e.getSource()).getName());
+                        controller.actionMode = ("move-" + ((JButton)e.getSource()).getName());
                         for(int x = 0; x < roomButtonArr.length; x++){
                             bPane.remove(roomButtonArr[x]);
                         }
@@ -400,7 +402,7 @@ public class BoardLayersListener extends JFrame {
             else if(e.getSource() == bTakeRole || rolesVisible){
                 System.out.println("Take Role is Selected\n");
                 actionMode = "Role";
-                Player player = Deadwood.getCurrentPlayer();
+                Player player = controller.getCurrentPlayer();
                 Room currentRoom = player.getCurrentRoom();
                 int invisibleCount = 0;
                 int offset = 0;
@@ -437,7 +439,7 @@ public class BoardLayersListener extends JFrame {
                     }
                     if(((JButton)e.getSource()).getName() == roleButtonArr[j].getName()){
                         rolesVisible = false;
-                        Deadwood.actionMode = ("work-" + ((JButton)e.getSource()).getName());
+                        controller.actionMode = ("work-" + ((JButton)e.getSource()).getName());
                         for(int x = 0; x < roleButtonArr.length; x++){
                             bPane.remove(roleButtonArr[x]);
                         }
@@ -455,18 +457,18 @@ public class BoardLayersListener extends JFrame {
                 
                 actionMode = "End";
                 System.out.println("End is Selected\n");
-                Deadwood.endTurn();
-                if(Deadwood.isGameOver()){
-                    Deadwood.endGame();
+                controller.endTurn();
+                if(controller.isGameOver()){
+                    controller.endGame();
                 }
             }
             /*if(actionMode.equals("Act") || actionMode.equals("Upgrade") || actionMode.equals("Role") || actionMode.equals("Rehearse")){
-                Deadwood.endTurn();
-                if(Deadwood.isGameOver()){
-                    Deadwood.endGame();
+                controller.endTurn();
+                if(controller.isGameOver()){
+                    controller.endGame();
                 }
             }*/
-            displayScores(Deadwood.getPlayerOrder());
+            displayScores(controller.getPlayerOrder());
         }
         public void mousePressed(MouseEvent e) {
         }
