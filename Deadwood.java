@@ -42,6 +42,7 @@ public class Deadwood{
 
         // gui.movePlayer(playerOrder[0], 10, 10);
         gui.initPlayerPosition(playerOrder);
+        gui.initUpgradeButtons();
         gui.initBlankCards(rooms);
         gui.initShotCounters(rooms);
         gui.displayScores(playerOrder);
