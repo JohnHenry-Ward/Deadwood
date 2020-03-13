@@ -774,7 +774,6 @@ public class Deadwood{
                             break;
                         }
                     }
-                    gui.displayVisibleButtons(getCurrentPlayer());
                 }/*else if(playerInput.equals("score")){
                     System.out.println("Dollars: " + currentPlayer.getDollars()
                                      + "\nCredits: " + currentPlayer.getCredits()

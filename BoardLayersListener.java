@@ -18,10 +18,11 @@ public class BoardLayersListener extends JFrame {
     static JButton[] roleButtonArr;
     static JButton[] upgradeButtonArrDollar = new JButton[5];
     static JButton[] upgradeButtonArrCredit = new JButton[5];
-    static JLabel[] upgradeLabels = new JLabel[8];
     static Role[] roleArr;
     
     // JLabels
+    static JLabel[] upgradeLabels = new JLabel[8];
+    static ArrayList<JLabel> scoreLabels;
     JLabel boardlabel;
     JLabel cardlabel;
     ArrayList<JLabel> playerlabels;
@@ -124,6 +125,11 @@ public class BoardLayersListener extends JFrame {
     
     }
 
+
+    public void displayMessage(String message){
+        JFrame frame = new JFrame("message");
+        JOptionPane.showMessageDialog(frame, message);
+
     public void resetGUI(){
         initBlankCards(controller.getRooms());
         initShotCounters(controller.getRooms());
@@ -188,6 +194,7 @@ public class BoardLayersListener extends JFrame {
         int x = 0;
         int y = 0;
         playerlabels = new ArrayList<JLabel>();
+        scoreLabels = new ArrayList<JLabel>();
         for(int i = 0; i < players.length; i++){
             // pLabel = players[i].getPLabel();
             pLabel = new JLabel();
@@ -208,7 +215,9 @@ public class BoardLayersListener extends JFrame {
                 x = 0;
                 y += 50;
             }
-
+            scoreLabels.add(i, players[i].getPLabel());
+            scoreLabels.get(i).setVisible(false);
+            bPane.add(scoreLabels.get(i), new Integer(2));
         }
     }
 
@@ -311,7 +320,7 @@ public class BoardLayersListener extends JFrame {
             upgradeLabels[i].setBounds(board.getIconWidth() + 10, (board.getIconHeight()/2) + Yoffset, icon.getIconWidth(), icon.getIconHeight());
 
             upgradeButtonArrDollar[i].setBounds(board.getIconWidth() + 70, (board.getIconHeight()/2) + Yoffset, 50, 30);
-            upgradeButtonArrCredit[i].setBounds(board.getIconWidth() + 130, (board.getIconHeight()/2) + Yoffset, 50, 30);
+            upgradeButtonArrCredit[i].setBounds(board.getIconWidth() + 150, (board.getIconHeight()/2) + Yoffset, 50, 30);
 
             bPane.add(upgradeLabels[i]);
             bPane.add(upgradeButtonArrCredit[i]);
@@ -326,7 +335,7 @@ public class BoardLayersListener extends JFrame {
         upgradeLabels[6].setBounds(board.getIconWidth() + 70, (board.getIconHeight()/2) - 30, 100, 20);
 
         upgradeLabels[7] = new JLabel("CREDITS");
-        upgradeLabels[7].setBounds(board.getIconWidth() + 130, (board.getIconHeight()/2) - 30, 100, 20);
+        upgradeLabels[7].setBounds(board.getIconWidth() + 150, (board.getIconHeight()/2) - 30, 100, 20);
 
         bPane.add(upgradeLabels[5]);
         bPane.add(upgradeLabels[6]);
@@ -399,13 +408,11 @@ public class BoardLayersListener extends JFrame {
 
     public void displayScores(Player[] players){
         // ImageIcon pIcon = new ImageIcon();
-        JLabel pLabel;
         int offSet = 0;
 
         for(int i = 0; i < players.length; i++){
-            pLabel = players[i].getPLabel();
 
-            pLabel.setText("<html> Dollars: " + players[i].getDollars() + 
+            scoreLabels.get(i).setText("<html> Dollars: " + players[i].getDollars() + 
                             "<br> Credits: " + players[i].getCredits() + 
                             "<br> Rank: " + players[i].getRank() + 
                             "<br> Score: " + players[i].getScore() + "</html>");
@@ -414,10 +421,11 @@ public class BoardLayersListener extends JFrame {
             // pIcon = players[i].getIcon();
             // ImageIcon pIcon = new ImageIcon(players[i].getPIconURL());
             ImageIcon pIcon = players[i].getIcon();
-            pLabel.setIcon(pIcon);
-            pLabel.setBounds(25 + offSet, 900, 190, 100);
-            bPane.add(pLabel, new Integer(2));
-            pLabel.setVisible(true);
+            scoreLabels.get(i).setIcon(pIcon);
+            scoreLabels.get(i).setBounds(25 + offSet, 900, 190, 100);
+            //bPane.add(scoreLabels.get(i), new Integer(2));
+            scoreLabels.get(i).setVisible(true);
+            bPane.repaint();
             offSet += 125;
         }
     }
@@ -611,10 +619,14 @@ public class BoardLayersListener extends JFrame {
                         actionMode = "upgrade-" + upgradeButtonArrDollar[x].getName();
                         Deadwood.actionMode = actionMode;
                         disableUpgrades();
+                        bUpgrade.setVisible(true);
+                        break;
                     }else if(e.getSource() == upgradeButtonArrCredit[x]){
                         actionMode = "upgrade-" + upgradeButtonArrCredit[x].getName();
                         Deadwood.actionMode = actionMode;
                         disableUpgrades();
+                        bUpgrade.setVisible(true);
+                        break;
                     }
                 }
             }
