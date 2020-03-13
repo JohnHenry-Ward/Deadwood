@@ -87,29 +87,30 @@ public class Bank{
      * Off Card roles receive a dollar bonus based on the rank of the role they are working on
      */
     public static void sceneWrapBonus(ArrayList<Player> players, Room room, Card card){
-        System.out.print("There was at least 1 actor acting on a card in this room! So ");
+        /*System.out.print("There was at least 1 actor acting on a card in this room! So ");
         for(int x = 0; x < players.size(); x++){
             System.out.print(players.get(x).getName() + " ");
         }
-        System.out.println("all get bonuses!");
+        System.out.println("all get bonuses!");*/
 
         int budget = card.getBudget();
         int[] dieRolls = controller.rollDie(budget);
         Role[] roles = room.getCard().getRoles();
         int loopVar = roles.length - 1;
+        String message = "";
 
         for(int i = roles.length; i >= 0; i--){
             if(loopVar >= 0){
                 if(roles[loopVar].getPlayer() != null){
                     roles[loopVar].getPlayer().addDollars(dieRolls[i]);
-                    System.out.println(roles[loopVar].getPlayer().getName() + " just got: " + dieRolls[i] + " Dollars");
+                    message += roles[loopVar].getPlayer().getName() + " just got: " + dieRolls[i] + " Dollars!\n";
                 }
                 loopVar--;
             } else{
                 loopVar = roles.length - 1;
                 if(roles[loopVar].getPlayer() != null){
                     roles[loopVar].getPlayer().addDollars(dieRolls[i]);
-                    System.out.println(roles[loopVar].getPlayer().getName() + " just got: " + dieRolls[i] + " Dollars");
+                    message += roles[loopVar].getPlayer().getName() + " just got: " + dieRolls[i] + " Dollars!\n";
                 }
                 loopVar--;
             }
@@ -117,21 +118,22 @@ public class Bank{
 
         ArrayList<Player> offCardPlayers = room.getPlayers();
 
-        if(offCardPlayers.size() > 0){
+        /*if(offCardPlayers.size() > 0){
             System.out.print("Don't worry ");
             for(int x = 0; x < offCardPlayers.size(); x++){
                 System.out.print(offCardPlayers.get(x).getName() + " ");
             }
             System.out.println("you all get a bonus too!");
-        }
+        }*/
 
         for(int x = 0; x < offCardPlayers.size(); x++){
             Role playerRole = offCardPlayers.get(x).getCurrentRole();
             int bonus = playerRole.getRank();
             offCardPlayers.get(x).addDollars(bonus);
-            System.out.println(offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!");
+            message += offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!\n";
         }
 
+        gui.displayMessage( message);
     }
 
     /* Method called when a Player rehearses, rather than acts
@@ -154,9 +156,12 @@ public class Bank{
                                 if(player.subtractDollars(rankTwoCostDollars)){
                                     player.setRank(2);
                                     gui.setNewRank(player, 2);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 2");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough dollars");
                             }
                             break;
 
@@ -164,9 +169,12 @@ public class Bank{
                                 if(player.subtractDollars(rankThreeCostDollars)){
                                     player.setRank(3);
                                     gui.setNewRank(player, 3);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 3");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough dollars");
                             }
                             break;
 
@@ -174,9 +182,12 @@ public class Bank{
                                 if(player.subtractDollars(rankFourCostDollars)){
                                     player.setRank(4);
                                     gui.setNewRank(player, 4);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 4");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough dollars");
                             }
                             break;
 
@@ -184,9 +195,12 @@ public class Bank{
                                 if(player.subtractDollars(rankFiveCostDollars)){
                                     player.setRank(5);
                                     gui.setNewRank(player, 5);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 5");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough dollars");
                             }
                             break;
 
@@ -194,9 +208,12 @@ public class Bank{
                                 if(player.subtractDollars(rankSixCostDollars)){
                                     player.setRank(6);
                                     gui.setNewRank(player, 6);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 6");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough dollars");
                             }
                             break;
 
@@ -209,45 +226,65 @@ public class Bank{
                     case 2: if(player.getCredits() >= rankTwoCostCredits){
                                 if(player.subtractCredits(rankTwoCostCredits)){
                                     player.setRank(2);
+                                    gui.setNewRank(player, 2);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 2");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough credits");
                             }
                             break;
 
                     case 3: if(player.getCredits() >= rankThreeCostCredits){
                                 if(player.subtractCredits(rankThreeCostCredits)){
                                     player.setRank(3);
+                                    gui.setNewRank(player, 2);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 3");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough credits");
                             }
                             break;
 
                     case 4: if(player.getCredits() >= rankFourCostCredits){
                                 if(player.subtractCredits(rankFourCostCredits)){
                                     player.setRank(4);
+                                    gui.setNewRank(player, 2);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 4");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough credits");
                             }
                             break;
 
                     case 5: if(player.getCredits() >= rankFiveCostCredits){
                                 if(player.subtractCredits(rankFiveCostCredits)){
                                     player.setRank(5);
+                                    gui.setNewRank(player, 2);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 5");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough credits");
                             }
                             break;
 
                     case 6: if(player.getCredits() >= rankSixCostCredits){
                                 if(player.subtractCredits(rankSixCostCredits)){
                                     player.setRank(6);
+                                    gui.setNewRank(player, 2);
+                                    gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 6");
                                 }else{
                                     return false;
                                 }
+                            }else{
+                                gui.displayMessage("Not enough credits");
                             }
                             break;
 
@@ -259,8 +296,8 @@ public class Bank{
 
             return true;
         } else{
-            System.out.println("Your rank is: " + player.getRank()
-                             + "\nTry to purchase a higher rank.\n");
+            gui.displayMessage("Your rank is: " + player.getRank()
+                             + "\nTry to purchase a higher rank.");
             return false;
         }
     }
