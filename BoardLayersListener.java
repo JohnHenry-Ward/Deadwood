@@ -159,7 +159,7 @@ public class BoardLayersListener extends JFrame {
         JLabel pLabel = new JLabel();
         pLabel.setIcon(currentPlayer.getIcon());
         pLabel.setBounds(icon.getIconWidth() + 130, 877, currentPlayer.getIcon().getIconHeight(), currentPlayer.getIcon().getIconHeight());
-        //bPane.add(pLabel, new Integer(2));
+        bPane.add(pLabel, new Integer(2));
         bPane.moveToFront(pLabel);
     }
 
@@ -485,10 +485,14 @@ public class BoardLayersListener extends JFrame {
                 board = Board.getInstance();
                 
                 int offset = 0;
+                System.out.println("ROOMS VISIBLE: " + roomsVisible);
                 if(!roomsVisible){
+                    System.out.println(player.getCurrentRoom());
                     ArrayList<Room> neighbors = board.getNeighbors(currentRoom);
+                    System.out.println("NEIGHBORS: " + neighbors.size());
                     roomButtonArr = new JButton[neighbors.size()];
                     for(int i = 0; i < neighbors.size(); i++){
+                        System.out.println(neighbors.get(i).getName());
                         roomButtonArr[i] = new JButton(neighbors.get(i).getName());
                         roomButtonArr[i].setName(neighbors.get(i).getName());
                         roomButtonArr[i].setBackground(Color.white);

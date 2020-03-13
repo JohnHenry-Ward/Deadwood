@@ -52,9 +52,10 @@ public class Bank{
             //players should not be tied to roles
             controller.clearPlayerRoles(currentRoom);
             controller.clearPracticeChips(player.getCurrentRoom().getPlayers(), player.getCurrentRoom().getCard().getPlayers());
-            
+            System.out.println(currentRoom);
             gui.resetPositions(currentRoom);
             gui.clearCard(currentRoom.getCard());
+            // controller.clearCard(currentRoom);
 
         }
     }

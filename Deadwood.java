@@ -79,7 +79,8 @@ public class Deadwood{
     public static void newDay(){
         Room unwrappedRoom;
         createRooms();
-        
+        createPaths();
+        unwrapRooms();
         for(int x = 0; x < playerAmount; x++){
             playerOrder[x].setCurrentRoom(rooms[0]);
             rooms[0].addPlayer(playerOrder[x]);
@@ -89,6 +90,9 @@ public class Deadwood{
         currentDay++;
 
         System.out.println("It's a new day! All players are back in the trailers. It's day number " + currentDay);
+        for(int i = 0; i < playerOrder.length; i++){
+            System.out.println(playerOrder[i].getName() + " at " + playerOrder[i].getCurrentRoom().getName() + " with role " + playerOrder[i].getCurrentRole());
+        }
     }
 
     /* Method called when the game is over
@@ -108,6 +112,12 @@ public class Deadwood{
         System.out.println("The winner is player: " + winner.getName());
         System.out.println("Thank you for playing :)");
         System.exit(1);
+    }
+
+    public static void unwrapRooms(){
+        for(int i = 0; i < rooms.length; i++){
+            rooms[i].updateWrapped(false);
+        }
     }
 
     //read from text file
@@ -173,6 +183,10 @@ public class Deadwood{
             System.out.println("File not found");
         }
         gui.revealCard(room, room.getCard());
+    }
+
+    public void clearCard(Room room){
+        room.setCard(null);
     }
     
     /* Method called at start of each day
@@ -341,6 +355,9 @@ public class Deadwood{
      */
     public static int getAvailableRolesCount(){
         Room room = currentPlayer.getCurrentRoom();
+        if(room.getName() == "Trailers" || room.getName() == "Casting Office"){
+            return 0;
+        }
         Role[] roomRoles = room.getRoles();
         Card card = room.getCard();
         int roleCount = 0;
