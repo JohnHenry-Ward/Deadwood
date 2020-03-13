@@ -93,6 +93,7 @@ public class Deadwood{
         for(int i = 0; i < playerOrder.length; i++){
             System.out.println(playerOrder[i].getName() + " at " + playerOrder[i].getCurrentRoom().getName() + " with role " + playerOrder[i].getCurrentRole());
         }
+        gui.displayVisibleButtons(currentPlayer);
     }
 
     /* Method called when the game is over
@@ -468,22 +469,31 @@ public class Deadwood{
     public static boolean rehearse(){
         Role playerRole = currentPlayer.getCurrentRole();
         Room playerRoom = currentPlayer.getCurrentRoom();
+        String message = "";
 
         if(playerRole != null && playerRoom.hasWrapped() != "wrapped"){
             int budget = ((currentPlayer.getCurrentRoom()).getCard()).getBudget();
             if((currentPlayer.getPracticeChips()) >= budget){
                 System.out.println("The budget of the room is " + budget + " and you have " + currentPlayer.getPracticeChips() + " practice chips so you are guarenteed success if you act! So no more rehearsing!!");
-                return false;
+                message += "The budget of the room is " + budget + " and you have " + currentPlayer.getPracticeChips() + " practice chips so you are guarenteed success if you act! So no more rehearsing!!";
+                gui.displayMessage(message);
+                return true;
             }else{
                 System.out.println("You've gained a practice chip!");
                 currentPlayer.addPracticeChip();
+                message += currentPlayer.getName() + " has received a practice chip\n";
+                message += "They now have " + currentPlayer.getPracticeChips();
                 gui.displayScores(playerOrder);
+                gui.displayMessage(message);
                 return true;
             }
         }else{
             System.out.println("You have yet to take a role!");
+            message += "You have yet to take a role!";
+             gui.displayMessage(message);
             return false;
         }
+       
     }
 
     /* Ends a players turn

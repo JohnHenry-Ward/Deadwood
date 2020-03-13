@@ -24,18 +24,20 @@ public class Bank{
      */
     public static void actingSuccess(Player player, String rollType){
         Room currentRoom = player.getCurrentRoom();
+        String message = "Success!\n";
         
         if(rollType == "onCard"){
             player.addCredits(2);
             currentRoom.removeShot();
-            System.out.println("Congrats player " + player.getName() + ", you've received 2 credits!");
-            System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " remaining!");
+            message += player.getName() + " got 2 credits!\n";
+            // System.out.println("Congrats player " + player.getName() + ", you've received 2 credits!");
         }
         else if(rollType == "offCard"){
             player.addCredits(1);
             player.addDollars(1);
             currentRoom.removeShot();
-            System.out.println("Congrats player " + player.getName() + ", you've received 1 dollar and 1 credit!");
+            message += player.getName() + " got 1 dollar and 1 credit\n";
+            // System.out.println("Congrats player " + player.getName() + ", you've received 1 dollar and 1 credit!");
             System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " shots remaining!");
         }
 
@@ -44,7 +46,6 @@ public class Bank{
             ArrayList<Player> players = currentCard.getPlayers();
 
             currentRoom.updateWrapped(true);
-            System.out.println("Looks like the scene is wrapped!");
 
             if(players.size() != 0){
                 sceneWrapBonus(players, currentRoom, currentCard);
@@ -56,8 +57,9 @@ public class Bank{
             gui.resetPositions(currentRoom);
             gui.clearCard(currentRoom.getCard());
             // controller.clearCard(currentRoom);
-
         }
+
+        gui.displayMessage(message);
     }
 
     public void displayPrices(){
@@ -126,12 +128,15 @@ public class Bank{
             }
             System.out.println("you all get a bonus too!");
         }*/
-
-        for(int x = 0; x < offCardPlayers.size(); x++){
-            Role playerRole = offCardPlayers.get(x).getCurrentRole();
-            int bonus = playerRole.getRank();
-            offCardPlayers.get(x).addDollars(bonus);
-            message += offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!\n";
+        try{
+            for(int x = 0; x < offCardPlayers.size(); x++){
+                Role playerRole = offCardPlayers.get(x).getCurrentRole();
+                int bonus = playerRole.getRank();
+                offCardPlayers.get(x).addDollars(bonus);
+                message += offCardPlayers.get(x).getName() + " just got " + bonus + " dollars!\n";
+            }
+        } catch(NullPointerException NPE){
+            System.out.println("Null Pointer Exception, unable to give bonus to off card roles");
         }
 
         gui.displayMessage( message);
