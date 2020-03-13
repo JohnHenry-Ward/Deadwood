@@ -147,13 +147,12 @@ public class BoardLayersListener extends JFrame {
      * Called at the start of the game
      */
     public int getPlayerAmount(){
-        int count = 0;
+        String count = "";
         JFrame playerPrompt = new JFrame();
-        while(count < 2 || count > 8){
-            count = Integer.parseInt(JOptionPane.showInputDialog(playerPrompt, "How Many Players? (2-8)"));
-            System.out.println(count);
-        }
-        return count;
+        String[] choices = {"2", "3", "4", "5", "6", "7", "8"};
+        count = (String) JOptionPane.showInputDialog(null, "How Many Players?", "Player Selection", JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
+        int result = Integer.parseInt(count);
+        return result;
     }
 
     /* Method displays the current player's dice in the bottom right corner of the screen
@@ -170,7 +169,6 @@ public class BoardLayersListener extends JFrame {
      * Has to find correct JLabel to move based on player's name
      */
     public void movePlayer(Player player, int xCord, int yCord){
-        System.out.println("MOVING :" + playerlabels.size());
         for(int i = 0; i < playerlabels.size(); i++){
             if(player.getName() == playerlabels.get(i).getName()){
                 playerlabels.get(i).setBounds(xCord, yCord, player.getIcon().getIconWidth(), player.getIcon().getIconHeight());
@@ -410,7 +408,6 @@ public class BoardLayersListener extends JFrame {
     public void setNewRank(Player player, int rank){
         ImageIcon icon = new ImageIcon("images/dice/" + (""+player.getName().charAt(0)).toLowerCase() + rank + ".png");
         player.setIcon(icon);
-        System.out.println("playerlabels size: " + playerlabels.size());
         for(int i = 0; i < playerlabels.size(); i++){
             if(player.getName() == playerlabels.get(i).getName()){
                 playerlabels.get(i).setIcon(icon);
@@ -504,11 +501,9 @@ public class BoardLayersListener extends JFrame {
                 Room currentRoom = player.getCurrentRoom();
                 int offset = 0;
                 if(!roomsVisible){
-                    System.out.println(player.getCurrentRoom());
                     ArrayList<Room> neighbors = board.getNeighbors(currentRoom);
                     roomButtonArr = new JButton[neighbors.size()];
                     for(int i = 0; i < neighbors.size(); i++){
-                        System.out.println(neighbors.get(i).getName());
                         roomButtonArr[i] = new JButton(neighbors.get(i).getName());
                         roomButtonArr[i].setName(neighbors.get(i).getName());
                         roomButtonArr[i].setBackground(Color.white);
@@ -604,7 +599,6 @@ public class BoardLayersListener extends JFrame {
             //End turn
             else if(e.getSource() == bEnd){
                 actionMode = "End";
-                System.out.println("End is Selected\n");
                 controller.endTurn();
                 disableUpgrades();
                 if(controller.isGameOver()){
