@@ -709,7 +709,6 @@ public class Deadwood{
                     actionMode = "";
                 }else if(playerInput.contains("upgrade")){
                     int rankChoice = 0;
-                    System.out.println(currentPlayer.getName() + " is rank " + currentPlayer.getRank());
                     String[] upgradePlayer = playerInput.split("-");
                     if(upgradePlayer.length == 1 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
                         // bank.displayPrices();
@@ -723,7 +722,6 @@ public class Deadwood{
                             break;
                         }
                         if(bank.upgrade(currentPlayer, rankChoice, upgradePlayer[1].toLowerCase().charAt(0))){
-                            System.out.println(currentPlayer.getName() + " is now rank: " + currentPlayer.getRank() + "\n");
                             break;
                         }
                     }
