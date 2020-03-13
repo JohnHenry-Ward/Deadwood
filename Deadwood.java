@@ -83,7 +83,7 @@ public class Deadwood{
         }
         currentDay++;
 
-        gui.displayMessage("It's a new day! Day " + currentDay + ". All players are back at the trailers. " + currentPlayer + ", you're up!");
+        gui.displayMessage("It's a new day! Day " + currentDay + ". All players are back at the trailers. " + currentPlayer.getName() + ", you're up!");
         gui.displayVisibleButtons(currentPlayer);
     }
 
@@ -720,7 +720,7 @@ public class Deadwood{
                     System.out.println(currentPlayer.getName() + " is rank " + currentPlayer.getRank());
                     String[] upgradePlayer = playerInput.split("-");
                     if(upgradePlayer.length == 1 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
-                        bank.displayPrices();
+                        // bank.displayPrices();
                     } else if(upgradePlayer[1].toLowerCase().equals("c") || upgradePlayer[1].equals("$") && upgradePlayer.length == 3 && currentPlayer.getCurrentRoom().getName().equals("Casting Office")){
                         try{
                             rankChoice = Integer.parseInt(upgradePlayer[2]);

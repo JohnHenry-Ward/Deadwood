@@ -30,15 +30,12 @@ public class Bank{
             player.addCredits(2);
             currentRoom.removeShot();
             message += player.getName() + " got 2 credits!\n";
-            // System.out.println("Congrats player " + player.getName() + ", you've received 2 credits!");
         }
         else if(rollType == "offCard"){
             player.addCredits(1);
             player.addDollars(1);
             currentRoom.removeShot();
             message += player.getName() + " got 1 dollar and 1 credit\n";
-            // System.out.println("Congrats player " + player.getName() + ", you've received 1 dollar and 1 credit!");
-            System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " shots remaining!");
         }
 
         gui.displayMessage(message);
@@ -54,7 +51,6 @@ public class Bank{
             }
             controller.clearPlayerRoles(currentRoom);
             controller.clearPracticeChips(player.getCurrentRoom().getPlayers(), player.getCurrentRoom().getCard().getPlayers());
-            System.out.println(currentRoom);
             gui.resetPositions(currentRoom);
             gui.clearCard(currentRoom.getCard());
         }
@@ -62,19 +58,6 @@ public class Bank{
         
     }
 
-    public void displayPrices(){
-        System.out.println("Here are the ranks and their prices:\n"
-        + "Rank | Dollars | Credits\n"
-        + "  2  |    " + rankTwoCostDollars + "    |    " + rankTwoCostCredits + "\n"
-        + "  3  |    " + rankThreeCostDollars + "   |    " + rankThreeCostCredits + "\n"
-        + "  4  |    " + rankFourCostDollars + "   |    " + rankFourCostCredits + "\n"
-        + "  5  |    " + rankFiveCostDollars + "   |    " + rankFiveCostCredits + "\n"
-        + "  6  |    " + rankSixCostDollars + "   |    " + rankSixCostCredits + "\n");
-
-        System.out.println("Syntax for buying a rank:\n"
-                        + "Buying with Dollars: upgrade-$-(rank number)\n"
-                        + "Buying with Credits: upgrade-c-(rank number)\n");
-    }
     /* Method only called when an off card actor fails to act
      * The Player recieves 1 dollar, no shot counters are removed
      */
@@ -90,12 +73,6 @@ public class Bank{
      * Off Card roles receive a dollar bonus based on the rank of the role they are working on
      */
     public static void sceneWrapBonus(ArrayList<Player> players, Room room, Card card){
-        /*System.out.print("There was at least 1 actor acting on a card in this room! So ");
-        for(int x = 0; x < players.size(); x++){
-            System.out.print(players.get(x).getName() + " ");
-        }
-        System.out.println("all get bonuses!");*/
-
         int budget = card.getBudget();
         int[] dieRolls = controller.rollDie(budget);
         Role[] roles = room.getCard().getRoles();
@@ -121,13 +98,6 @@ public class Bank{
 
         ArrayList<Player> offCardPlayers = room.getPlayers();
 
-        /*if(offCardPlayers.size() > 0){
-            System.out.print("Don't worry ");
-            for(int x = 0; x < offCardPlayers.size(); x++){
-                System.out.print(offCardPlayers.get(x).getName() + " ");
-            }
-            System.out.println("you all get a bonus too!");
-        }*/
         try{
             for(int x = 0; x < offCardPlayers.size(); x++){
                 Role playerRole = offCardPlayers.get(x).getCurrentRole();
