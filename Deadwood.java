@@ -633,10 +633,8 @@ public class Deadwood{
             maxDays = 4;
         }else{
             //players start with rank 2
-            System.out.println(playerOrder[7].getName());
             for(int i = 0; i < playerAmount; i++){
                 playerOrder[i].setRank(2);
-                System.out.println(playerAmount);
                 gui.setNewRank(playerOrder[i], 2);
             }
             maxDays = 4;
@@ -662,8 +660,6 @@ public class Deadwood{
                     try{
                         String[] inputArray = playerInput.split("-");
                         String roleName = inputArray[1];
-                        System.out.println(inputArray[1]);
-                        System.out.println(inputArray[0]);
                         if(takeARole(roleName)){
                             actionMode = "";
                             endTurn();
@@ -684,23 +680,19 @@ public class Deadwood{
                         break;
                     }
                     else{
-                        System.out.println("Sorry! You were unsuccessful");
                         actionMode = "";
                         endTurn();
                         break;
                     }
                 }else if(playerInput.equals("Rehearse")){
-                    System.out.println("in rehearse");
                     if(rehearse()){
                         actionMode = "";
                         endTurn();
                         break;
                     }
                 }else if(playerInput.contains("move")){
-                    System.out.println(playerInput);
                     String[] moveLocation = playerInput.split("-");
                     String location = moveLocation[1];
-                    System.out.println("Going to: " + location);
                     for(int x = 0; x < rooms.length; x++){
                         if(rooms[x].getName().equals(location) && !currentPlayer.getMoveFlag()){
                             movePlayer(currentPlayer, rooms[x]);
