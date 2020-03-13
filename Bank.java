@@ -209,6 +209,7 @@ public class Bank{
                     case 2: if(player.getCredits() >= rankTwoCostCredits){
                                 if(player.subtractCredits(rankTwoCostCredits)){
                                     player.setRank(2);
+                                    gui.setNewRank(player, 2);
                                 }else{
                                     return false;
                                 }
@@ -218,6 +219,7 @@ public class Bank{
                     case 3: if(player.getCredits() >= rankThreeCostCredits){
                                 if(player.subtractCredits(rankThreeCostCredits)){
                                     player.setRank(3);
+                                    gui.setNewRank(player, 3);
                                 }else{
                                     return false;
                                 }
@@ -227,6 +229,7 @@ public class Bank{
                     case 4: if(player.getCredits() >= rankFourCostCredits){
                                 if(player.subtractCredits(rankFourCostCredits)){
                                     player.setRank(4);
+                                    gui.setNewRank(player, 4);
                                 }else{
                                     return false;
                                 }
@@ -236,6 +239,7 @@ public class Bank{
                     case 5: if(player.getCredits() >= rankFiveCostCredits){
                                 if(player.subtractCredits(rankFiveCostCredits)){
                                     player.setRank(5);
+                                    gui.setNewRank(player, 5);
                                 }else{
                                     return false;
                                 }
@@ -245,6 +249,7 @@ public class Bank{
                     case 6: if(player.getCredits() >= rankSixCostCredits){
                                 if(player.subtractCredits(rankSixCostCredits)){
                                     player.setRank(6);
+                                    gui.setNewRank(player, 6);
                                 }else{
                                     return false;
                                 }
