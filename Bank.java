@@ -41,6 +41,8 @@ public class Bank{
             System.out.println(currentRoom.getName() + " now has " + currentRoom.getShots() + " shots remaining!");
         }
 
+        gui.displayMessage(message);
+
         if(currentRoom.getShots() == 0){
             Card currentCard = currentRoom.getCard();
             ArrayList<Player> players = currentCard.getPlayers();
@@ -50,16 +52,14 @@ public class Bank{
             if(players.size() != 0){
                 sceneWrapBonus(players, currentRoom, currentCard);
             }
-            //players should not be tied to roles
             controller.clearPlayerRoles(currentRoom);
             controller.clearPracticeChips(player.getCurrentRoom().getPlayers(), player.getCurrentRoom().getCard().getPlayers());
             System.out.println(currentRoom);
             gui.resetPositions(currentRoom);
             gui.clearCard(currentRoom.getCard());
-            // controller.clearCard(currentRoom);
         }
 
-        gui.displayMessage(message);
+        
     }
 
     public void displayPrices(){
@@ -247,7 +247,7 @@ public class Bank{
                     case 3: if(player.getCredits() >= rankThreeCostCredits){
                                 if(player.subtractCredits(rankThreeCostCredits)){
                                     player.setRank(3);
-                                    gui.setNewRank(player, 2);
+                                    gui.setNewRank(player, 3);
                                     gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 3");
 
                                 }else{
@@ -261,7 +261,7 @@ public class Bank{
                     case 4: if(player.getCredits() >= rankFourCostCredits){
                                 if(player.subtractCredits(rankFourCostCredits)){
                                     player.setRank(4);
-                                    gui.setNewRank(player, 2);
+                                    gui.setNewRank(player, 4);
                                     gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 4");
                                 }else{
                                     return false;
@@ -274,7 +274,7 @@ public class Bank{
                     case 5: if(player.getCredits() >= rankFiveCostCredits){
                                 if(player.subtractCredits(rankFiveCostCredits)){
                                     player.setRank(5);
-                                    gui.setNewRank(player, 2);
+                                    gui.setNewRank(player, 5);
                                     gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 5");
                                 }else{
                                     return false;
@@ -287,7 +287,7 @@ public class Bank{
                     case 6: if(player.getCredits() >= rankSixCostCredits){
                                 if(player.subtractCredits(rankSixCostCredits)){
                                     player.setRank(6);
-                                    gui.setNewRank(player, 2);
+                                    gui.setNewRank(player, 6);
                                     gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 6");
                                 }else{
                                     return false;

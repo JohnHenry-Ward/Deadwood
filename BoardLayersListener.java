@@ -575,10 +575,10 @@ public class BoardLayersListener extends JFrame {
                         roleButtonArr[i] = new JButton(roleArr[i].getName());
                         roleButtonArr[i].setName(roleArr[i].getName());
                         roleButtonArr[i].setBackground(Color.white);
-                        roleButtonArr[i].setBounds(icon.getIconWidth() + 170, 300 + offset, 150, 100);
+                        roleButtonArr[i].setBounds(icon.getIconWidth() + 170, 300 + offset, 200, 30);
                         roleButtonArr[i].addMouseListener(new boardMouseListener());
                         bPane.add(roleButtonArr[i], new Integer(2));
-                        offset += 100;
+                        offset += 50;
                         rolesVisible = true;
                         if(roleArr[i].getRank() > player.getRank()|| roleArr[i].getCurrentPlayer() != null){
                             roleButtonArr[i].setVisible(false);
