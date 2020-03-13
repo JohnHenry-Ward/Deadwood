@@ -59,9 +59,7 @@ public class Player{
 
     public boolean subtractDollars(int amount){
         if(amount <= dollars){
-            System.out.println("previous dolars: " + dollars);
             dollars -= amount;
-            System.out.println("new dollars: " + dollars);
             return true;
         } else{
             System.out.println("Insufficient Dollars");
