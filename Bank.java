@@ -52,9 +52,10 @@ public class Bank{
             //players should not be tied to roles
             controller.clearPlayerRoles(currentRoom);
             controller.clearPracticeChips(player.getCurrentRoom().getPlayers(), player.getCurrentRoom().getCard().getPlayers());
-            
+            System.out.println(currentRoom);
             gui.resetPositions(currentRoom);
             gui.clearCard(currentRoom.getCard());
+            // controller.clearCard(currentRoom);
 
         }
     }
@@ -227,7 +228,9 @@ public class Bank{
                                 if(player.subtractCredits(rankTwoCostCredits)){
                                     player.setRank(2);
                                     gui.setNewRank(player, 2);
+
                                     gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 2");
+
                                 }else{
                                     return false;
                                 }
@@ -241,6 +244,7 @@ public class Bank{
                                     player.setRank(3);
                                     gui.setNewRank(player, 2);
                                     gui.displayMessage(controller.getCurrentPlayer().getName() + " is now rank 3");
+
                                 }else{
                                     return false;
                                 }

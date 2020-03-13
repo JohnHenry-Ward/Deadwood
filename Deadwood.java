@@ -77,13 +77,22 @@ public class Deadwood{
      * current day is incremented
      */
     public static void newDay(){
+        Room unwrappedRoom;
         createRooms();
+        createPaths();
+        unwrapRooms();
         for(int x = 0; x < playerAmount; x++){
             playerOrder[x].setCurrentRoom(rooms[0]);
             rooms[0].addPlayer(playerOrder[x]);
+            playerOrder[x].setMoveFlag(false);
+            gui.resetGUI();
         }
         currentDay++;
+
         System.out.println("It's a new day! All players are back in the trailers. It's day number " + currentDay);
+        for(int i = 0; i < playerOrder.length; i++){
+            System.out.println(playerOrder[i].getName() + " at " + playerOrder[i].getCurrentRoom().getName() + " with role " + playerOrder[i].getCurrentRole());
+        }
     }
 
     /* Method called when the game is over
@@ -103,6 +112,12 @@ public class Deadwood{
         System.out.println("The winner is player: " + winner.getName());
         System.out.println("Thank you for playing :)");
         System.exit(1);
+    }
+
+    public static void unwrapRooms(){
+        for(int i = 0; i < rooms.length; i++){
+            rooms[i].updateWrapped(false);
+        }
     }
 
     //read from text file
@@ -168,6 +183,10 @@ public class Deadwood{
             System.out.println("File not found");
         }
         gui.revealCard(room, room.getCard());
+    }
+
+    public void clearCard(Room room){
+        room.setCard(null);
     }
     
     /* Method called at start of each day
@@ -324,6 +343,10 @@ public class Deadwood{
         return playerOrder;
     }
 
+    public static Room[] getRooms(){
+        return rooms;
+    }
+
     /* Returns how many roles a player can take at 1 time
      * Takes into account player and role rank,
      * if role is already taken,
@@ -332,6 +355,9 @@ public class Deadwood{
      */
     public static int getAvailableRolesCount(){
         Room room = currentPlayer.getCurrentRoom();
+        if(room.getName() == "Trailers" || room.getName() == "Casting Office"){
+            return 0;
+        }
         Role[] roomRoles = room.getRoles();
         Card card = room.getCard();
         int roleCount = 0;
@@ -471,6 +497,62 @@ public class Deadwood{
         currentPlayer = playerOrder[currentPlayerIndex];
         gui.displayCurrentPlayer(currentPlayer);
         gui.displayVisibleButtons(currentPlayer);
+
+        
+        if(unwrappedRooms().size() <= 1){
+            clearFinalRoom(unwrappedRooms().get(0));
+            newDay();
+        }
+        if(isGameOver()){
+            endGame();
+        }
+    }
+
+    public static ArrayList<Room> unwrappedRooms(){
+        ArrayList<Room> unwrappedRooms = new ArrayList<Room>();
+        int count = 0;
+        for(int i = 0; i < rooms.length; i++){
+            if(rooms[i].hasWrapped() == "unwrapped"){
+                count++;
+                unwrappedRooms.add(rooms[i]);
+            }
+        }
+        if(count <= 1){
+            return unwrappedRooms;
+        }
+        return unwrappedRooms;
+    }
+
+    public static void clearFinalRoom(Room room){
+        ArrayList<Player> offCardPlayers = room.getPlayers();
+        ArrayList<Player> onCardPlayers = room.getCard().getPlayers();
+
+        Role[] offCardRoles = room.getRoles();
+        Role[] onCardRoles = room.getCard().getRoles();
+
+        //Remove roles from players
+        if(offCardPlayers != null){
+            for(int x = 0; x < offCardPlayers.size(); x++){
+                offCardPlayers.get(x).setCurrentRole(null);
+            }
+        }
+
+        if(onCardPlayers != null){
+            for(int x = 0; x < onCardPlayers.size(); x++){
+                onCardPlayers.get(x).setCurrentRole(null);
+            }
+        }
+
+        //Remove players from roles
+        for(int x = 0; x < offCardRoles.length; x++){
+            offCardRoles[x].setPlayer(null);
+        }
+
+        for(int x = 0; x < onCardRoles.length; x++){
+            onCardRoles[x].setPlayer(null);
+        }
+
+        room.updateWrapped(true);
     }
 
     /* Player wants to move from their current room to a new room
