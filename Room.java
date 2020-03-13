@@ -17,7 +17,7 @@ public class Room {
     private int roomYCoord;
     private JLabel[] shotLabels;
     private JLabel roomLabel = new JLabel();
-    private int[] playerHolders = new int[16];
+    private int[] playerHolders = new int[16];// Format: [X1][Y1][X2][Y2]...
 
     public Room(String n, int shots, Card c, int id, int roomX, int roomY, int cardX, int cardY, int[] shotCCoord, int playerHolderX, int playerHolderY){
         name = n;

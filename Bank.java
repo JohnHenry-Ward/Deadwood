@@ -98,13 +98,13 @@ public class Bank{
         int[] dieRolls = controller.rollDie(budget);
         Role[] roles = room.getCard().getRoles();
         int loopVar = roles.length - 1;
-        String message = "";
+        String message = "Scene has wrapped!\n\n";
 
         for(int i = roles.length; i >= 0; i--){
             if(loopVar >= 0){
                 if(roles[loopVar].getPlayer() != null){
-                    roles[loopVar].getPlayer().addDollars(dieRolls[i]);
-                    message += roles[loopVar].getPlayer().getName() + " just got: " + dieRolls[i] + " Dollars!\n";
+                    roles[loopVar].getPlayer().addDollars(dieRolls[i - 1]);
+                    message += roles[loopVar].getPlayer().getName() + " just got: " + dieRolls[i - 1] + " Dollars!\n";
                 }
                 loopVar--;
             } else{

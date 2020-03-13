@@ -48,6 +48,7 @@ public class Deadwood{
         }
         currentPlayer = playerOrder[0];
        
+        gui.initPlayerPosition(playerOrder);
         specialRules();
         // board = Board.getInstance();
         createRooms();
@@ -61,7 +62,6 @@ public class Deadwood{
         }
         
         // gui.movePlayer(playerOrder[0], 10, 10);
-        gui.initPlayerPosition(playerOrder);
         gui.initUpgradeButtons();
         gui.initBlankCards(rooms);
         gui.initShotCounters(rooms);
@@ -89,7 +89,7 @@ public class Deadwood{
         }
         currentDay++;
 
-        System.out.println("It's a new day! All players are back in the trailers. It's day number " + currentDay);
+        gui.displayMessage("It's a new day! All players are back in the trailers. It's day number " + currentDay);
         for(int i = 0; i < playerOrder.length; i++){
             System.out.println(playerOrder[i].getName() + " at " + playerOrder[i].getCurrentRoom().getName() + " with role " + playerOrder[i].getCurrentRole());
         }
@@ -99,18 +99,19 @@ public class Deadwood{
      * Calculate scores and declares winner
      */
     public static void endGame(){
-        System.out.println("The game is over! Here are the scores.");
+        String message = "The game is over! Here are the scores:\n";
         Player winner = playerOrder[0];
         int topScore = 0;
         for(int x = 0; x < playerOrder.length; x++){
-            System.out.println("Player: " + playerOrder[x].getName() + " Score: " + calculateScore(playerOrder[x]));
+            message += "\nPlayer: " + playerOrder[x].getName() + " Score: " + calculateScore(playerOrder[x]);
             if(calculateScore(playerOrder[x]) > topScore){
                 winner = playerOrder[x];
                 topScore = calculateScore(playerOrder[x]);
             }
         }
-        System.out.println("The winner is player: " + winner.getName());
-        System.out.println("Thank you for playing :)");
+        message += "\nThe winner is player: " + winner.getName();
+        message += "\nThank you for playing :)";
+        gui.displayMessage(message);
         System.exit(1);
     }
 
@@ -159,9 +160,9 @@ public class Deadwood{
             else if(numRoles == 1){
                 startingX = 83;
             }
-            for(int x = 0; x <= numRoles + 1; x+=2){
-                roleName = cardLineArray[3 + x];
-                roleRank = Integer.parseInt(cardLineArray[4 + x]);
+            for(int x = 0; x < numRoles; x++){
+                roleName = cardLineArray[3 + (x*2)];
+                roleRank = Integer.parseInt(cardLineArray[4 + (x*2)]);
                 Role role = new Role(roleName, roleRank, startingX + incr, 47);
                 roles[i] = role;
                 i++;
@@ -498,7 +499,7 @@ public class Deadwood{
         gui.displayCurrentPlayer(currentPlayer);
         gui.displayVisibleButtons(currentPlayer);
 
-        
+        System.out.println("unwrapped rooms: " + unwrappedRooms().size());
         if(unwrappedRooms().size() <= 1){
             clearFinalRoom(unwrappedRooms().get(0));
             newDay();
@@ -511,7 +512,7 @@ public class Deadwood{
     public static ArrayList<Room> unwrappedRooms(){
         ArrayList<Room> unwrappedRooms = new ArrayList<Room>();
         int count = 0;
-        for(int i = 0; i < rooms.length; i++){
+        for(int i = 2; i < rooms.length; i++){
             if(rooms[i].hasWrapped() == "unwrapped"){
                 count++;
                 unwrappedRooms.add(rooms[i]);
@@ -525,33 +526,34 @@ public class Deadwood{
 
     public static void clearFinalRoom(Room room){
         ArrayList<Player> offCardPlayers = room.getPlayers();
-        ArrayList<Player> onCardPlayers = room.getCard().getPlayers();
-
         Role[] offCardRoles = room.getRoles();
-        Role[] onCardRoles = room.getCard().getRoles();
 
-        //Remove roles from players
         if(offCardPlayers != null){
             for(int x = 0; x < offCardPlayers.size(); x++){
                 offCardPlayers.get(x).setCurrentRole(null);
             }
         }
 
-        if(onCardPlayers != null){
-            for(int x = 0; x < onCardPlayers.size(); x++){
-                onCardPlayers.get(x).setCurrentRole(null);
-            }
-        }
-
-        //Remove players from roles
         for(int x = 0; x < offCardRoles.length; x++){
             offCardRoles[x].setPlayer(null);
         }
 
-        for(int x = 0; x < onCardRoles.length; x++){
-            onCardRoles[x].setPlayer(null);
-        }
+        if(room.getCard() != null){
+            ArrayList<Player> onCardPlayers = room.getCard().getPlayers();
+            Role[] onCardRoles = room.getCard().getRoles();
 
+            if(onCardPlayers != null){
+                for(int x = 0; x < onCardPlayers.size(); x++){
+                    onCardPlayers.get(x).setCurrentRole(null);
+                }
+            }
+
+            for(int x = 0; x < onCardRoles.length; x++){
+                onCardRoles[x].setPlayer(null);
+            }
+
+            gui.bPane.remove(room.getCard().getJLabel());
+        }
         room.updateWrapped(true);
     }
 
@@ -642,8 +644,10 @@ public class Deadwood{
             maxDays = 4;
         }else{
             //players start with rank 2
+            System.out.println(playerOrder[7].getName());
             for(int i = 0; i < playerAmount; i++){
                 playerOrder[i].setRank(2);
+                System.out.println(playerAmount);
                 gui.setNewRank(playerOrder[i], 2);
             }
             maxDays = 4;

@@ -27,7 +27,7 @@ public class BoardLayersListener extends JFrame {
     JLabel cardlabel;
     ArrayList<JLabel> playerlabels;
     JLabel mlabel;
-    JLabel[] blankCards;
+    static JLabel[] blankCards = new JLabel[12];
 
     // JButtons
     JButton bAct;
@@ -129,6 +129,7 @@ public class BoardLayersListener extends JFrame {
     public void displayMessage(String message){
         JFrame frame = new JFrame("message");
         JOptionPane.showMessageDialog(frame, message);
+    }
 
     public void resetGUI(){
         initBlankCards(controller.getRooms());
@@ -237,19 +238,20 @@ public class BoardLayersListener extends JFrame {
     }
 
     public void initBlankCards(Room[] rooms){
-        blankCards = new JLabel[12];
         ImageIcon cardImg;
         for(int i = 0; i < rooms.length; i++){
             if(!(rooms[i].getName().equals("Trailers")) && !(rooms[i].getName().equals("Casting Office"))){
                 System.out.println("RESETTING FOR ROOM: " + rooms[i].getName());
-                blankCards[i] = new JLabel();
-                cardImg = new ImageIcon("images/cardback.jpg");
-                Image scaledImg = cardImg.getImage();
-                scaledImg = scaledImg.getScaledInstance(205, 115, java.awt.Image.SCALE_SMOOTH);
-                cardImg = new ImageIcon(scaledImg);
-                blankCards[i].setIcon(cardImg);
-                blankCards[i].setBounds(rooms[i].getCardX(), rooms[i].getCardY(), 205, 115);
-                bPane.add(blankCards[i], new Integer(7));
+                if(blankCards[i] == null){
+                    blankCards[i] = new JLabel();
+                    cardImg = new ImageIcon("images/cardback.jpg");
+                    Image scaledImg = cardImg.getImage();
+                    scaledImg = scaledImg.getScaledInstance(205, 115, java.awt.Image.SCALE_SMOOTH);
+                    cardImg = new ImageIcon(scaledImg);
+                    blankCards[i].setIcon(cardImg);
+                    blankCards[i].setBounds(rooms[i].getCardX(), rooms[i].getCardY(), 205, 115);
+                    bPane.add(blankCards[i], new Integer(2));
+                }
                 blankCards[i].setVisible(true);
             }
         }
@@ -264,13 +266,15 @@ public class BoardLayersListener extends JFrame {
                 int x = 0;
                 int y = 1;
                 for(int j = 0; j < shotCounterCoords.size()/2; j++){
-                    shotLabels[j] = new JLabel();
-                    shotLabels[j].setIcon(shot);
-                    shotLabels[j].setBounds(shotCounterCoords.get(x), shotCounterCoords.get(y), shot.getIconWidth(), shot.getIconHeight());
-                    bPane.add(shotLabels[j], new Integer(2));
+                    if(shotLabels[j] == null){
+                        shotLabels[j] = new JLabel();
+                        shotLabels[j].setIcon(shot);
+                        shotLabels[j].setBounds(shotCounterCoords.get(x), shotCounterCoords.get(y), shot.getIconWidth(), shot.getIconHeight());
+                        bPane.add(shotLabels[j], new Integer(2));
+                        x+=2;
+                        y+=2;
+                    }
                     shotLabels[j].setVisible(true);
-                    x+=2;
-                    y+=2;
                 }
             }
         }
@@ -396,6 +400,7 @@ public class BoardLayersListener extends JFrame {
     public void setNewRank(Player player, int rank){
         ImageIcon icon = new ImageIcon("images/dice/" + (""+player.getName().charAt(0)).toLowerCase() + rank + ".png");
         player.setIcon(icon);
+        System.out.println("playerlabels size: " + playerlabels.size());
         for(int i = 0; i < playerlabels.size(); i++){
             if(player.getName() == playerlabels.get(i).getName()){
                 playerlabels.get(i).setIcon(icon);

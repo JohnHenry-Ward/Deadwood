@@ -17,15 +17,15 @@ Shakespeare in Lubbock,3,3,Falls From Tree,1,Laughing Woman,3,Man with Whistle,4
 Taffy Commercial,2,2,Curious Girl,3,Ghost of Plato,4,images/cards/14.png
 Go West You!,3,2,Ex Convict,4,Man with Onion,6,images/cards/19.png
 Gun Commercial,2,2,Surprised Bison,2,Man with Horn,4,images/cards/15.png
-The Life and Times of John Skywater,5,3,Staggering Man,3,Woman with Beer,5,Marcie,6,images/cards/png
-Gun! The Musical,6,4,Looks like Elvis,4,Singing Dead Man,5,Apothecary,6,images/cards/21.png
+The Life and Times of John Skywater,5,3,Staggering Man,3,Woman with Beer,5,Marcie,6,images/cards/20.png
+Gun! The Musical,6,3,Looks like Elvis,4,Singing Dead Man,5,Apothecary,6,images/cards/21.png
 One False Step for Mankind,6,3,Flustered Man,1,Space Monkey,2,Cowbot Dan,5,images/cards/26.png
 Humor at the Expense of Others,5,3,Jailer,2,Mephistopheles,4,Breaks a Window,5,images/cards/22.png
 Thirteen the Hard Way,5,3,Man in Poncho,1,Ecstatic Housewife,3,Isaac,5,images/cards/27.png
 The Search for Maggie White,6,2,Film Critic,5,Hobo with Bat,6,images/cards/23.png
 How They Get Milk,4,3,Cow,2,St. Clement of Alexandria,3,Josie,4,images/cards/28.png
 Picante Sauce Commercial,2,2,Bewhisker'd Cowpoke,3,Dog,5,images/cards/24.png
-My Years on the Prairie,5,Willard,2,Leprechaun,3,Startled Ox,5,images/cards/29.png
+My Years on the Prairie,5,3,Willard,2,Leprechaun,3,Startled Ox,5,images/cards/29.png
 Jesse James: Man of Action,5,3,Shot in Head,1,Leaps Out of Cake,4,Shot Three Times,6,images/cards/25.png
 Davy Crockett: A Drunkard's Tale,4,3,Voice of God,2,Hands of God,3,Jack Kemp,4,images/cards/30.png
 Czechs in the Sonora,4,2,Monkey,5,Man with Gun,6,images/cards/31.png
